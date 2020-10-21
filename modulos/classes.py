@@ -28,7 +28,6 @@ class Fundo():
 
 		self.automatico()
 
-
 	def porcentagem_pos(self):
 		largura = tela_largura[tela_resolucao]
 		altura = tela_altura[tela_resolucao]
@@ -209,6 +208,19 @@ class Escrever(Fundo):
 
 			elif tela_resolucao == 3:
 				self.tamanho = 47
+		
+		if self.tipo == 'item':
+			if tela_resolucao == 0:
+				self.tamanho = 10
+
+			elif tela_resolucao == 1:
+				self.tamanho = 15
+
+			elif tela_resolucao == 2:
+				self.tamanho = 22
+
+			elif tela_resolucao == 3:
+				self.tamanho = 34
 
 	def mudando_cor(self):
 		if self.cor == 'preto':
@@ -330,7 +342,7 @@ class JanelaLanding(Fundo):
 			self.largura = 972
 			self.altura = 333
 
-class FramePersonagem(Fundo):
+class Frames(Fundo):
 
 	def __init__(self, pos_x, pos_y, parte):
 		super().__init__(pos_x, pos_y)
@@ -354,3 +366,48 @@ class FramePersonagem(Fundo):
 			self.imagem = pygame.image.load('modulos/setores/c_inicio/landing_page/frame_sombra.png')
 			self.largura = 165
 			self.altura = 94
+
+		elif self.parte == 'frame_item':
+			self.imagem = pygame.image.load('modulos/setores/c_inicio/landing_page/frame_item.png')
+			self.largura = 210
+			self.altura = 240
+
+class ImagemItem(Fundo):
+
+	def __init__(self, pos_x, pos_y, item_ID, tamanho, escala_de_tamanho = 1):
+		super().__init__(pos_x, pos_y)
+		self.item_ID = item_ID
+		self.tamanho = tamanho
+
+		self.escala_de_tamanho = escala_de_tamanho
+
+		self.imagem = 0
+
+		self.lagura = 0
+		self.altura = 0
+
+		self.definir_parte()
+		
+		self.porcentagem_pos()
+		self.transformando_resolucao()
+		self.escalando_imagem()
+
+	def definir_parte(self):
+		caminho = ('modulos/pack_img/' + str(self.item_ID) + '_' + str(self.tamanho) + '.png')
+		self.imagem = pygame.image.load(caminho)
+
+		if self.tamanho == 0:
+			self.largura = 24
+			self.altura = 24
+
+		elif self.tamanho == 1:
+			self.largura = 75
+			self.altura = 100
+
+	def escalando_imagem(self):
+		largura_transformada = self.largura * self.escala_de_tamanho
+		largura_transformada = round(largura_transformada)
+		altura_transformada = self.altura * self.escala_de_tamanho
+		altura_transformada = round(altura_transformada)
+		
+		self.transformado = pygame.transform.smoothscale(self.imagem, (largura_transformada, altura_transformada))

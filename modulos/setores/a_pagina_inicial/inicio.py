@@ -1,7 +1,7 @@
 import pygame
 import sys
 
-sys.path.append('C:/Users/Pri e Vini/Desktop/Projetos/004 - RDC')
+sys.path.append('D:/Vini/Projetos/004 - RDC')
 
 from modulos.segmentacao import *
 from modulos.classes import *
