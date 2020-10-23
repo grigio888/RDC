@@ -37,8 +37,8 @@ class Fundo():
 
 	def transformando_resolucao(self):
 
-		largura_ratio = tela_largura[tela_resolucao] / 1080
-		altura_ratio = tela_altura[tela_resolucao] / 2160
+		largura_ratio = tela_largura[tela_resolucao] / tela_largura[2]
+		altura_ratio = tela_altura[tela_resolucao] / tela_altura[2]
 
 		self.largura_transformada = self.largura * largura_ratio
 		self.largura_transformada = round(self.largura_transformada)
@@ -407,7 +407,26 @@ class ImagemItem(Fundo):
 	def escalando_imagem(self):
 		largura_transformada = self.largura * self.escala_de_tamanho
 		largura_transformada = round(largura_transformada)
+
 		altura_transformada = self.altura * self.escala_de_tamanho
 		altura_transformada = round(altura_transformada)
 		
+		if tela_resolucao == 1:
+			largura_transformada = self.largura * 1.5
+			largura_transformada = round(largura_transformada)
+			altura_transformada = self.altura * 1.5
+			altura_transformada = round(altura_transformada)
+
+		if tela_resolucao == 2:
+			largura_transformada = self.largura * 2.25
+			largura_transformada = round(largura_transformada)
+			altura_transformada = self.altura * 2.25
+			altura_transformada = round(altura_transformada)
+
+		if tela_resolucao == 3:
+			largura_transformada = self.largura * 3
+			largura_transformada = round(largura_transformada)
+			altura_transformada = self.altura * 3
+			altura_transformada = round(altura_transformada)
+
 		self.transformado = pygame.transform.smoothscale(self.imagem, (largura_transformada, altura_transformada))

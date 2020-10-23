@@ -12,18 +12,18 @@ pygame.mixer.init()
 
 # variaveis:
 fundo = Fundo(0, 0)
-logo = Logo(7, 13)
+logo = Logo(7, 11.5)
 
-janela_inicio = JanelaInicio(5, 64.7)
-texto_inicio = Escrever(7, 65.6, 'titulo', 'Inicio', 'preto')
+janela_inicio = JanelaInicio(5, 67.5)
+texto_inicio = Escrever(7, 68.2, 'titulo', 'Inicio', 'preto')
 
-botao_entrar = Botao(30.1, 69.3, 'largo')
-texto_entrar = Escrever(50, 70.8, 'botao', 'Entrar', 'preto', 'centro')
+botao_entrar = Botao(30.1, 72.3, 'largo')
+texto_entrar = Escrever(50, 73.8, 'botao', 'Entrar', 'preto', 'centro')
 
-botao_sair = Botao(30.1, 74, 'largo')
-texto_sair = Escrever(50, 75.5, 'botao', 'Sair', 'preto', 'centro')
+botao_sair = Botao(30.1, 77.4, 'largo')
+texto_sair = Escrever(50, 78.9, 'botao', 'Sair', 'preto', 'centro')
 
-botao_opcoes = Botao(86.7, 79.8, 'opcoes')
+botao_opcoes = Botao(86.7, 83.6, 'opcoes')
 
 som_clique = pygame.mixer.Sound('modulos/som/sfx/mouse/click.ogg')
 

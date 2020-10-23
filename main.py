@@ -26,7 +26,7 @@ while game_rodando:
                         if pygame.mouse.get_pos()[1] >= botao_entrar.porcentagem_pos_y:
                             if pygame.mouse.get_pos()[0] <= botao_entrar.porcentagem_pos_x + botao_entrar.largura_transformada:
                                 if pygame.mouse.get_pos()[1] <= botao_entrar.porcentagem_pos_y + botao_entrar.altura_transformada:
-                                    game_rodando = True
+                                    from modulos.setores.b_loading.loading import *
                                     setor = 'loading'
                                     subsetor = 'saida'
                                     som_clique.play()
@@ -44,6 +44,7 @@ while game_rodando:
                         if pygame.mouse.get_pos()[1] >= botao_opcoes.porcentagem_pos_y:
                             if pygame.mouse.get_pos()[0] <= botao_opcoes.porcentagem_pos_x + botao_opcoes.largura_transformada:
                                 if pygame.mouse.get_pos()[1] <= botao_opcoes.porcentagem_pos_y + botao_opcoes.altura_transformada:
+                                    from modulos.setores.a_pagina_inicial.opcoes import *
                                     subsetor = 'opcoes'
                                     som_clique.play()
 
@@ -151,30 +152,65 @@ while game_rodando:
 
     while setor == 'loading':
 
-            # definindo evento de saida
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    game_rodando = False
-                    setor = 'saida'
-                    subsetor = 'saida'
+        loading = '000'
+
+        while loading == '000':
+            loading_display = '000'
+            fundo = FundoInicio(0, 0)
+            loading_display = '010'
+            desenho_pagina_loading()
+            pygame.display.update()
+            relogio_de_atualizacao.tick(ponteiro)
+            loading = loading_display
                     
-                if event.type == pygame.MOUSEBUTTONDOWN:
-                    if pygame.mouse.get_pos()[0] >= janela_inicio.porcentagem_pos_x:
-                        if pygame.mouse.get_pos()[1] >= janela_inicio.porcentagem_pos_y:
-                            if pygame.mouse.get_pos()[0] <= janela_inicio.porcentagem_pos_x + janela_inicio.largura_transformada:
-                                if pygame.mouse.get_pos()[1] <= janela_inicio.porcentagem_pos_y + janela_inicio.altura_transformada:
-                                    game_rodando = True
-                                    setor = 'inicio'
-                                    subsetor = 'landing'
-                                    som_clique.play()
+
+        while loading == '010':
+            from modulos.setores.c_inicio.landing_page_conta import *
+            loading_display = '033'
+            desenho_pagina_loading()
+            pygame.display.update()
+            relogio_de_atualizacao.tick(ponteiro)
+            loading = loading_display
+
+        while loading == '033':
+            from modulos.setores.c_inicio.landing_page_personagem import *
+            loading_display = '082'
+            desenho_pagina_loading()
+            pygame.display.update()
+            relogio_de_atualizacao.tick(ponteiro)
+            loading = loading_display
+
+        while loading == '082':
+            from modulos.setores.c_inicio.landing_page_diversos import *
+            loading_display = '100'
+            desenho_pagina_loading()
+            pygame.display.update()
+            relogio_de_atualizacao.tick(ponteiro)
+            loading = loading_display
+
+        if loading == '100':
+            from modulos.setores.c_inicio.landing_page import *
+            setor = 'inicio'
+            subsetor = 'landing'
+            #som_clique.play()
+
+                #if event.type == pygame.MOUSEBUTTONDOWN:
+                    #if pygame.mouse.get_pos()[0] >= janela_inicio.porcentagem_pos_x:
+                        #if pygame.mouse.get_pos()[1] >= janela_inicio.porcentagem_pos_y:
+                            #if pygame.mouse.get_pos()[0] <= janela_inicio.porcentagem_pos_x + janela_inicio.largura_transformada:
+                                #if pygame.mouse.get_pos()[1] <= janela_inicio.porcentagem_pos_y + janela_inicio.altura_transformada:
+                                    #from modulos.setores.c_inicio.landing_page import *
+                                    #setor = 'inicio'
+                                    #subsetor = 'landing'
+                                    #som_clique.play()
 
             # desenhando elementos na tela
             #transicao(tela_largura, tela_altura, 0)
-            desenho_pagina_loading()
+        desenho_pagina_loading()
 
-            # atualizacao da tela
-            pygame.display.update()
-            relogio_de_atualizacao.tick(ponteiro)
+        # atualizacao da tela
+        pygame.display.update()
+        relogio_de_atualizacao.tick(ponteiro)
 
     while setor == 'inicio':
 
