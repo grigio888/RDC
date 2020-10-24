@@ -10,29 +10,19 @@ pygame.init()
 
 # variaveis:
 
-#if loading == '000'
-fundo = FundoInicio(0, 0)
-    #loading = '010'
-
-#if loading == '010':
-    #from modulos.setores.c_inicio.landing_page_conta import *
-    #loading = '033'
-
-#if loading == '033':
-    #from modulos.setores.c_inicio.landing_page_personagem import *
-    #loading = '082'
-
-#if loading == '082':
-    #from modulos.setores.c_inicio.landing_page_diversos import *
-    #loading == '100'
-
+fundo_inicio = FundoInicio(0, 0)
+from modulos.setores.c_inicio.landing_page_conta import *
+from modulos.setores.c_inicio.landing_page_personagem import *
+from modulos.setores.c_inicio.landing_page_diversos import *
 
 def desenho_landing_page():
-    fundo.desenho()
+    fundo_inicio.desenho()
+
 
 
     janela_conta.desenho()
     texto_conta.desenho()
+
 
 
     nome_da_conta.desenho()

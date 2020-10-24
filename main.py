@@ -152,65 +152,33 @@ while game_rodando:
 
     while setor == 'loading':
 
-        loading = '000'
+        for loading in range (0, 101, 5):
 
-        while loading == '000':
-            loading_display = '000'
-            fundo = FundoInicio(0, 0)
-            loading_display = '010'
+            if loading <= 0:
+                fundo_inicio = FundoInicio(0, 0)
+
+            if loading >= 10:
+                from modulos.setores.c_inicio.landing_page_conta import *
+                
+            if loading >= 25:
+                from modulos.setores.c_inicio.landing_page_personagem import *
+
+            if loading >= 50:
+                from modulos.setores.c_inicio.landing_page_diversos import *
+
+            if loading >= 75:
+                from modulos.setores.c_inicio.landing_page import *
+
+            if loading >= 95:
+                setor = 'inicio'
+                subsetor = 'landing'
+
+            loading_display = str(loading)
             desenho_pagina_loading()
+            texto_carregamento = Escrever(50, 78.6, 'titulo', loading_display + '%', 'preto', 'centro')
+            texto_carregamento.desenho()
             pygame.display.update()
             relogio_de_atualizacao.tick(ponteiro)
-            loading = loading_display
-                    
-
-        while loading == '010':
-            from modulos.setores.c_inicio.landing_page_conta import *
-            loading_display = '033'
-            desenho_pagina_loading()
-            pygame.display.update()
-            relogio_de_atualizacao.tick(ponteiro)
-            loading = loading_display
-
-        while loading == '033':
-            from modulos.setores.c_inicio.landing_page_personagem import *
-            loading_display = '082'
-            desenho_pagina_loading()
-            pygame.display.update()
-            relogio_de_atualizacao.tick(ponteiro)
-            loading = loading_display
-
-        while loading == '082':
-            from modulos.setores.c_inicio.landing_page_diversos import *
-            loading_display = '100'
-            desenho_pagina_loading()
-            pygame.display.update()
-            relogio_de_atualizacao.tick(ponteiro)
-            loading = loading_display
-
-        if loading == '100':
-            from modulos.setores.c_inicio.landing_page import *
-            setor = 'inicio'
-            subsetor = 'landing'
-            #som_clique.play()
-
-                #if event.type == pygame.MOUSEBUTTONDOWN:
-                    #if pygame.mouse.get_pos()[0] >= janela_inicio.porcentagem_pos_x:
-                        #if pygame.mouse.get_pos()[1] >= janela_inicio.porcentagem_pos_y:
-                            #if pygame.mouse.get_pos()[0] <= janela_inicio.porcentagem_pos_x + janela_inicio.largura_transformada:
-                                #if pygame.mouse.get_pos()[1] <= janela_inicio.porcentagem_pos_y + janela_inicio.altura_transformada:
-                                    #from modulos.setores.c_inicio.landing_page import *
-                                    #setor = 'inicio'
-                                    #subsetor = 'landing'
-                                    #som_clique.play()
-
-            # desenhando elementos na tela
-            #transicao(tela_largura, tela_altura, 0)
-        desenho_pagina_loading()
-
-        # atualizacao da tela
-        pygame.display.update()
-        relogio_de_atualizacao.tick(ponteiro)
 
     while setor == 'inicio':
 

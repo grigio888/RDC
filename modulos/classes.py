@@ -65,7 +65,7 @@ class Logo(Fundo):
 
 	def __init__(self, pos_x, pos_y):
 		super().__init__(pos_x, pos_y)
-		self.imagem = pygame.image.load('modulos/setores/a_pagina_inicial/inicio/logo.png')
+		self.imagem = pygame.image.load('modulos/setores/a_pagina_inicial/inicio/logo.png').convert_alpha()
 
 		self.largura = 950
 		self.altura = 600
@@ -76,7 +76,7 @@ class JanelaInicio(Fundo):
 
 	def __init__(self, pos_x, pos_y):
 		super().__init__(pos_x, pos_y)
-		self.imagem = pygame.image.load('modulos/setores/a_pagina_inicial/inicio/janela_inicio.png')
+		self.imagem = pygame.image.load('modulos/setores/a_pagina_inicial/inicio/janela_inicio.png').convert_alpha()
 
 		self.largura = 972
 		self.altura = 414
@@ -89,7 +89,7 @@ class Botao(Fundo):
 		super().__init__(pos_x, pos_y)
 		self.botao = botao
 
-		self.imagem = pygame.image.load('modulos/setores/a_pagina_inicial/inicio/botao_largo.png')
+		self.imagem = pygame.image.load('modulos/setores/a_pagina_inicial/inicio/botao_largo.png').convert_alpha()
 
 		self.largura = 431
 		self.altura = 69
@@ -99,17 +99,17 @@ class Botao(Fundo):
 
 	def definir_botao(self):
 		if self.botao == 'largo':
-			self.imagem = pygame.image.load('modulos/setores/a_pagina_inicial/inicio/botao_largo.png')
+			self.imagem = pygame.image.load('modulos/setores/a_pagina_inicial/inicio/botao_largo.png').convert_alpha()
 			self.largura = 431
 			self.altura = 69
 
 		elif self.botao == 'opcoes':
-			self.imagem = pygame.image.load('modulos/setores/a_pagina_inicial/inicio/botao_opcoes.png')
+			self.imagem = pygame.image.load('modulos/setores/a_pagina_inicial/inicio/botao_opcoes.png').convert_alpha()
 			self.largura = 69
 			self.altura = 69
 
 		elif self.botao == 'curto':
-			self.imagem = pygame.image.load('modulos/setores/a_pagina_inicial/opcoes/botao_curto.png')
+			self.imagem = pygame.image.load('modulos/setores/a_pagina_inicial/opcoes/botao_curto.png').convert_alpha()
 			self.largura = 106
 			self.altura = 69
 
@@ -119,7 +119,7 @@ class JanelaOpcoes(Fundo):
 
 	def __init__(self, pos_x, pos_y):
 		super().__init__(pos_x, pos_y)
-		self.imagem = pygame.image.load('modulos/setores/a_pagina_inicial/opcoes/janela_opcoes.png')
+		self.imagem = pygame.image.load('modulos/setores/a_pagina_inicial/opcoes/janela_opcoes.png').convert_alpha()
 
 		self.largura = 920
 		self.altura = 539
@@ -130,7 +130,7 @@ class CaixaConfirmadora(Fundo):
 
 	def __init__(self, pos_x, pos_y):
 		super().__init__(pos_x, pos_y)
-		self.imagem = pygame.image.load('modulos/setores/a_pagina_inicial/opcoes/caixa_marcada.png')
+		self.imagem = pygame.image.load('modulos/setores/a_pagina_inicial/opcoes/caixa_marcada.png').convert_alpha()
 
 		self.marcado = True
 
@@ -142,10 +142,10 @@ class CaixaConfirmadora(Fundo):
 	def mudanca_de_estado(self, valor):
 		if valor == 1:
 			if self.marcado:
-				self.imagem = pygame.image.load('modulos/setores/a_pagina_inicial/opcoes/caixa_nao_marcada.png')
+				self.imagem = pygame.image.load('modulos/setores/a_pagina_inicial/opcoes/caixa_nao_marcada.png').convert_alpha()
 				self.marcado = not self.marcado
 			else:
-				self.imagem = pygame.image.load('modulos/setores/a_pagina_inicial/opcoes/caixa_marcada.png')
+				self.imagem = pygame.image.load('modulos/setores/a_pagina_inicial/opcoes/caixa_marcada.png').convert_alpha()
 				self.marcado = not self.marcado
 
 class Escrever(Fundo):
@@ -248,7 +248,7 @@ class BDIEsteira(Fundo):
 
 	def __init__(self, pos_x, pos_y):
 		super().__init__(pos_x, pos_y)
-		self.imagem = pygame.image.load('modulos/setores/a_pagina_inicial/opcoes/barra_intensidade_esteira.png')
+		self.imagem = pygame.image.load('modulos/setores/a_pagina_inicial/opcoes/barra_intensidade_esteira.png').convert_alpha()
 
 		self.largura = 542
 		self.altura = 32
@@ -260,8 +260,8 @@ class BDISetas(Fundo):
 	def __init__(self, pos_x, pos_y, estado):
 		super().__init__(pos_x, pos_y)
 		self.imagem = 0
-		self.menor = pygame.image.load('modulos/setores/a_pagina_inicial/opcoes/barra_intensidade_menor.png')
-		self.maior = pygame.image.load('modulos/setores/a_pagina_inicial/opcoes/barra_intensidade_maior.png')
+		self.menor = pygame.image.load('modulos/setores/a_pagina_inicial/opcoes/barra_intensidade_menor.png').convert_alpha()
+		self.maior = pygame.image.load('modulos/setores/a_pagina_inicial/opcoes/barra_intensidade_maior.png').convert_alpha()
 
 		self.largura = 35
 		self.altura = 46
@@ -281,7 +281,7 @@ class EsferaMarcadora(Fundo):
 
 	def __init__(self, pos_x, pos_y):
 		super().__init__(pos_x, pos_y)
-		self.imagem = pygame.image.load('modulos/setores/a_pagina_inicial/opcoes/esfera_marcadora.png')
+		self.imagem = pygame.image.load('modulos/setores/a_pagina_inicial/opcoes/esfera_marcadora.png').convert_alpha()
 
 		self.largura = 27
 		self.altura = 32
@@ -289,6 +289,17 @@ class EsferaMarcadora(Fundo):
 		self.automatico()
 
 # SETOR Loading:
+
+class JanelaLoading(Fundo):
+
+	def __init__(self, pos_x, pos_y):
+		super().__init__(pos_x, pos_y)
+		self.imagem = pygame.image.load('modulos/setores/b_loading/loading/janela_loading.png').convert_alpha()
+
+		self.largura = 483
+		self.altura = 216
+
+		self.automatico()
 
 def transicao(tela_largura, tela_altura, velocidade): 
     transicao = pygame.Surface((tela_largura, tela_altura))
@@ -308,7 +319,7 @@ class FundoInicio(Fundo):
 
 	def __init__(self, pos_x, pos_y):
 		super().__init__(pos_x, pos_y)
-		self.imagem = pygame.image.load('modulos/setores/c_inicio/landing_page/fundo.png')
+		self.imagem = pygame.image.load('modulos/setores/c_inicio/landing_page/fundo.png').convert()
 
 		self.automatico()
 
@@ -328,17 +339,17 @@ class JanelaLanding(Fundo):
 
 	def definir_janela(self):
 		if self.janela == 'cima':
-			self.imagem = pygame.image.load('modulos/setores/c_inicio/landing_page/janela_cima.png')
+			self.imagem = pygame.image.load('modulos/setores/c_inicio/landing_page/janela_cima.png').convert_alpha()
 			self.largura = 972
 			self.altura = 333
 
 		elif self.janela == 'meio':
-			self.imagem = pygame.image.load('modulos/setores/c_inicio/landing_page/janela_meio.png')
+			self.imagem = pygame.image.load('modulos/setores/c_inicio/landing_page/janela_meio.png').convert_alpha()
 			self.largura = 972
 			self.altura = 1244
 
 		elif self.janela == 'baixo':
-			self.imagem = pygame.image.load('modulos/setores/c_inicio/landing_page/janela_baixo.png')
+			self.imagem = pygame.image.load('modulos/setores/c_inicio/landing_page/janela_baixo.png').convert_alpha()
 			self.largura = 972
 			self.altura = 333
 
@@ -358,17 +369,17 @@ class Frames(Fundo):
 
 	def definir_parte(self):
 		if self.parte == 'frame':
-			self.imagem = pygame.image.load('modulos/setores/c_inicio/landing_page/frame_personagem.png')
+			self.imagem = pygame.image.load('modulos/setores/c_inicio/landing_page/frame_personagem.png').convert_alpha()
 			self.largura = 404
 			self.altura = 517
 
 		elif self.parte == 'sombra':
-			self.imagem = pygame.image.load('modulos/setores/c_inicio/landing_page/frame_sombra.png')
+			self.imagem = pygame.image.load('modulos/setores/c_inicio/landing_page/frame_sombra.png').convert_alpha()
 			self.largura = 165
 			self.altura = 94
 
 		elif self.parte == 'frame_item':
-			self.imagem = pygame.image.load('modulos/setores/c_inicio/landing_page/frame_item.png')
+			self.imagem = pygame.image.load('modulos/setores/c_inicio/landing_page/frame_item.png').convert_alpha()
 			self.largura = 210
 			self.altura = 240
 
@@ -394,7 +405,7 @@ class ImagemItem(Fundo):
 
 	def definir_parte(self):
 		caminho = ('modulos/pack_img/' + str(self.item_ID) + '_' + str(self.tamanho) + '.png')
-		self.imagem = pygame.image.load(caminho)
+		self.imagem = pygame.image.load(caminho).convert_alpha()
 
 		if self.tamanho == 0:
 			self.largura = 24
