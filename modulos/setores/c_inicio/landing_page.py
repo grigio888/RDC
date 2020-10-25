@@ -4,7 +4,7 @@ import sys
 sys.path.append('D:/Vini/Projetos/004 - RDC')
 
 from modulos.segmentacao import *
-from modulos.classes import *
+from modulos.setores.c_inicio.landing_page_classes import *
 
 pygame.init()
 

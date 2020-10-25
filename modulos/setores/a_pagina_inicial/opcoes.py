@@ -4,36 +4,15 @@ import sys
 sys.path.append('D:/Vini/Projetos/004 - RDC')
 
 from modulos.segmentacao import *
-from modulos.classes import *
 from modulos.setores.a_pagina_inicial.inicio import *
-from modulos.setores.a_pagina_inicial.opcoes import *
+from modulos.setores.a_pagina_inicial.opcoes_ext.opcoes_classes import *
 
 pygame.init()
 pygame.mixer.init()
 
 # variaveis:
-janela_opcoes = JanelaOpcoes(7.4, 66.6)
-texto_opcoes = Escrever(9.4, 67.6, 'titulo', 'Opcoes', 'preto')
-
-caixa_confirmadora_bgm = CaixaConfirmadora(11.3, 71.6)
-texto_bgm = Escrever(20, 71.6, 'corpo', 'BGM', 'preto')
-barra_intensidade_seta_menor_bgm = BDISetas(32, 71.3, 'menor')
-barra_intensidade_esteira_bgm = BDIEsteira(35.3, 71.6)
-barra_intensidade_seta_maior_bgm = BDISetas(85.5, 71.3, 'maior')
-esfera_marcadora_bgm = EsferaMarcadora(50, 71.7)
-
-caixa_confirmadora_sfx = CaixaConfirmadora(11.3, 75.9)
-texto_sfx = Escrever(20, 75.9, 'corpo', 'SFX', 'preto')
-barra_intensidade_seta_menor_sfx = BDISetas(32, 75.6, 'menor')
-barra_intensidade_esteira_sfx = BDIEsteira(35.3, 75.9)
-barra_intensidade_seta_maior_sfx = BDISetas(85.5, 75.6, 'maior')
-esfera_marcadora_sfx = EsferaMarcadora(50, 75.6)
-
-caixa_confirmadora_efeitos = CaixaConfirmadora(11.3, 81.8)
-texto_efeitos = Escrever(20, 81.8, 'corpo', 'Efeitos', 'preto')
-
-botao_ok = Botao(80.5, 88.6, 'curto')
-texto_ok = Escrever(83.4, 89.5, 'corpo', 'OK', 'preto')
+from modulos.setores.a_pagina_inicial.opcoes_ext.opcoes_parte_1 import *
+from modulos.setores.a_pagina_inicial.opcoes_ext.opcoes_parte_2 import *
 
 # funcoes:
 def desenho_pagina_opcoes():

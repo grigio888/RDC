@@ -1,18 +1,16 @@
 import pygame
 import sys
 
-sys.path.append('C:/Users/Pri e Vini/Desktop/Projetos/004 - RDC')
+sys.path.append('D:/Vini/Projetos/004 - RDC')
 
 from modulos.segmentacao import tela_largura, tela_altura, tela_resolucao, tela
 
-# classes
+#Esqueletos
 
-# SETOR Pagina Inicial
-# subsetor inicio:
-class Fundo():
+class ExibicaoImagemEstatica():
 
 	def __init__(self, pos_x, pos_y):
-		self.imagem = pygame.image.load('modulos/setores/a_pagina_inicial/inicio/fundo.png').convert()
+		self.imagem = pygame.image.load('modulos/setores/a_pagina_inicial/inicio_ext/fundo.png').convert()
 		self.pos_x = pos_x
 		self.pos_y = pos_y
 		
@@ -20,7 +18,7 @@ class Fundo():
 		self.porcentagem_pos_y = 0
 
 		self.largura = 1080
-		self.altura = 2160
+		self.altura = 2020
 
 		self.largura_transformada = 0
 		self.altura_transformada = 0
@@ -61,94 +59,7 @@ class Fundo():
 		else:
 			tela.blit(self.transformado, (self.porcentagem_pos_x, self.porcentagem_pos_y))
 
-class Logo(Fundo):
-
-	def __init__(self, pos_x, pos_y):
-		super().__init__(pos_x, pos_y)
-		self.imagem = pygame.image.load('modulos/setores/a_pagina_inicial/inicio/logo.png').convert_alpha()
-
-		self.largura = 950
-		self.altura = 600
-
-		self.automatico()
-
-class JanelaInicio(Fundo):
-
-	def __init__(self, pos_x, pos_y):
-		super().__init__(pos_x, pos_y)
-		self.imagem = pygame.image.load('modulos/setores/a_pagina_inicial/inicio/janela_inicio.png').convert_alpha()
-
-		self.largura = 972
-		self.altura = 414
-
-		self.automatico()
-
-class Botao(Fundo):
-
-	def __init__(self, pos_x, pos_y, botao):
-		super().__init__(pos_x, pos_y)
-		self.botao = botao
-
-		self.imagem = pygame.image.load('modulos/setores/a_pagina_inicial/inicio/botao_largo.png').convert_alpha()
-
-		self.largura = 431
-		self.altura = 69
-
-		self.definir_botao()
-		self.automatico()
-
-	def definir_botao(self):
-		if self.botao == 'largo':
-			self.imagem = pygame.image.load('modulos/setores/a_pagina_inicial/inicio/botao_largo.png').convert_alpha()
-			self.largura = 431
-			self.altura = 69
-
-		elif self.botao == 'opcoes':
-			self.imagem = pygame.image.load('modulos/setores/a_pagina_inicial/inicio/botao_opcoes.png').convert_alpha()
-			self.largura = 69
-			self.altura = 69
-
-		elif self.botao == 'curto':
-			self.imagem = pygame.image.load('modulos/setores/a_pagina_inicial/opcoes/botao_curto.png').convert_alpha()
-			self.largura = 106
-			self.altura = 69
-
-# subsetor opcoes:
-
-class JanelaOpcoes(Fundo):
-
-	def __init__(self, pos_x, pos_y):
-		super().__init__(pos_x, pos_y)
-		self.imagem = pygame.image.load('modulos/setores/a_pagina_inicial/opcoes/janela_opcoes.png').convert_alpha()
-
-		self.largura = 920
-		self.altura = 539
-
-		self.automatico()
-
-class CaixaConfirmadora(Fundo):
-
-	def __init__(self, pos_x, pos_y):
-		super().__init__(pos_x, pos_y)
-		self.imagem = pygame.image.load('modulos/setores/a_pagina_inicial/opcoes/caixa_marcada.png').convert_alpha()
-
-		self.marcado = True
-
-		self.largura = 35
-		self.altura = 35
-
-		self.automatico()
-
-	def mudanca_de_estado(self, valor):
-		if valor == 1:
-			if self.marcado:
-				self.imagem = pygame.image.load('modulos/setores/a_pagina_inicial/opcoes/caixa_nao_marcada.png').convert_alpha()
-				self.marcado = not self.marcado
-			else:
-				self.imagem = pygame.image.load('modulos/setores/a_pagina_inicial/opcoes/caixa_marcada.png').convert_alpha()
-				self.marcado = not self.marcado
-
-class Escrever(Fundo):
+class Escrever(ExibicaoImagemEstatica):
 
 	def __init__(self, pos_x, pos_y, tipo, frase, cor, alinhamento = 'esquerda'):
 		super().__init__(pos_x, pos_y)
@@ -243,63 +154,31 @@ class Escrever(Fundo):
 		if self.alinhamento == 'direita':
 			espaco_do_texto.topright = (self.porcentagem_pos_x, self.porcentagem_pos_y)
 		tela.blit(self.texto, espaco_do_texto)
-		
-class BDIEsteira(Fundo):
 
-	def __init__(self, pos_x, pos_y):
-		super().__init__(pos_x, pos_y)
-		self.imagem = pygame.image.load('modulos/setores/a_pagina_inicial/opcoes/barra_intensidade_esteira.png').convert_alpha()
+class Loading(ExibicaoImagemEstatica):
 
-		self.largura = 542
-		self.altura = 32
-
-		self.automatico()
-
-class BDISetas(Fundo):
-
-	def __init__(self, pos_x, pos_y, estado):
-		super().__init__(pos_x, pos_y)
-		self.imagem = 0
-		self.menor = pygame.image.load('modulos/setores/a_pagina_inicial/opcoes/barra_intensidade_menor.png').convert_alpha()
-		self.maior = pygame.image.load('modulos/setores/a_pagina_inicial/opcoes/barra_intensidade_maior.png').convert_alpha()
-
-		self.largura = 35
-		self.altura = 46
-
-		self.estado = estado
-		self.mudanca_de_estado()
-
-		self.automatico()
-
-	def mudanca_de_estado(self):
-		if self.estado == 'menor':
-			self.imagem = self.menor
-		if self.estado == 'maior':
-			self.imagem = self.maior
-
-class EsferaMarcadora(Fundo):
-
-	def __init__(self, pos_x, pos_y):
-		super().__init__(pos_x, pos_y)
-		self.imagem = pygame.image.load('modulos/setores/a_pagina_inicial/opcoes/esfera_marcadora.png').convert_alpha()
-
-		self.largura = 27
-		self.altura = 32
-
-		self.automatico()
-
-# SETOR Loading:
-
-class JanelaLoading(Fundo):
-
-	def __init__(self, pos_x, pos_y):
+	def __init__(self, pos_x, pos_y, porcentagem_de_carregamento):
 		super().__init__(pos_x, pos_y)
 		self.imagem = pygame.image.load('modulos/setores/b_loading/loading/janela_loading.png').convert_alpha()
 
 		self.largura = 483
 		self.altura = 216
 
+		self.porcentagem_de_carregamento = porcentagem_de_carregamento
+
+		self.texto_loading = Escrever(self.pos_x + 2, self.pos_y + 1, 'titulo', 'Loading', 'preto')
+		self.texto_carregando = Escrever(self.pos_x + 22.3, self.pos_y + 5.5, 'titulo', 'Carregando', 'preto', 'centro')
+		self.texto_carregamento = Escrever(self.pos_x + 22.3, self.pos_y + 7.5, 'titulo', self.porcentagem_de_carregamento + '%', 'preto', 'centro')
+
 		self.automatico()
+
+	def desenho(self):
+
+		tela.blit(self.transformado, (self.porcentagem_pos_x, self.porcentagem_pos_y))
+		self.texto_loading.desenho()
+		self.texto_carregando.desenho()
+		self.texto_carregamento = Escrever(self.pos_x + 22.3, self.pos_y + 8.1, 'titulo', self.porcentagem_de_carregamento + '%', 'preto', 'centro')
+		self.texto_carregamento.desenho()
 
 def transicao(tela_largura, tela_altura, velocidade): 
     transicao = pygame.Surface((tela_largura, tela_altura))
@@ -310,134 +189,3 @@ def transicao(tela_largura, tela_altura, velocidade):
         tela.blit(transicao, (0,0))
         pygame.display.update()
         pygame.time.delay(velocidade)
-
-
-# SETOR Inicio:
-# subsetor Landing Page:
-
-class FundoInicio(Fundo):
-
-	def __init__(self, pos_x, pos_y):
-		super().__init__(pos_x, pos_y)
-		self.imagem = pygame.image.load('modulos/setores/c_inicio/landing_page/fundo.png').convert()
-
-		self.automatico()
-
-class JanelaLanding(Fundo):
-
-	def __init__(self, pos_x, pos_y, janela):
-		super().__init__(pos_x, pos_y)
-		self.janela = janela
-
-		self.imagem = 0
-
-		self.lagura = 0
-		self.altura = 0
-
-		self.definir_janela()
-		self.automatico()
-
-	def definir_janela(self):
-		if self.janela == 'cima':
-			self.imagem = pygame.image.load('modulos/setores/c_inicio/landing_page/janela_cima.png').convert_alpha()
-			self.largura = 972
-			self.altura = 333
-
-		elif self.janela == 'meio':
-			self.imagem = pygame.image.load('modulos/setores/c_inicio/landing_page/janela_meio.png').convert_alpha()
-			self.largura = 972
-			self.altura = 1244
-
-		elif self.janela == 'baixo':
-			self.imagem = pygame.image.load('modulos/setores/c_inicio/landing_page/janela_baixo.png').convert_alpha()
-			self.largura = 972
-			self.altura = 333
-
-class Frames(Fundo):
-
-	def __init__(self, pos_x, pos_y, parte):
-		super().__init__(pos_x, pos_y)
-		self.parte = parte
-
-		self.imagem = 0
-
-		self.lagura = 0
-		self.altura = 0
-
-		self.definir_parte()
-		self.automatico()
-
-	def definir_parte(self):
-		if self.parte == 'frame':
-			self.imagem = pygame.image.load('modulos/setores/c_inicio/landing_page/frame_personagem.png').convert_alpha()
-			self.largura = 404
-			self.altura = 517
-
-		elif self.parte == 'sombra':
-			self.imagem = pygame.image.load('modulos/setores/c_inicio/landing_page/frame_sombra.png').convert_alpha()
-			self.largura = 165
-			self.altura = 94
-
-		elif self.parte == 'frame_item':
-			self.imagem = pygame.image.load('modulos/setores/c_inicio/landing_page/frame_item.png').convert_alpha()
-			self.largura = 210
-			self.altura = 240
-
-class ImagemItem(Fundo):
-
-	def __init__(self, pos_x, pos_y, item_ID, tamanho, escala_de_tamanho = 1):
-		super().__init__(pos_x, pos_y)
-		self.item_ID = item_ID
-		self.tamanho = tamanho
-
-		self.escala_de_tamanho = escala_de_tamanho
-
-		self.imagem = 0
-
-		self.lagura = 0
-		self.altura = 0
-
-		self.definir_parte()
-		
-		self.porcentagem_pos()
-		self.transformando_resolucao()
-		self.escalando_imagem()
-
-	def definir_parte(self):
-		caminho = ('modulos/pack_img/' + str(self.item_ID) + '_' + str(self.tamanho) + '.png')
-		self.imagem = pygame.image.load(caminho).convert_alpha()
-
-		if self.tamanho == 0:
-			self.largura = 24
-			self.altura = 24
-
-		elif self.tamanho == 1:
-			self.largura = 75
-			self.altura = 100
-
-	def escalando_imagem(self):
-		largura_transformada = self.largura * self.escala_de_tamanho
-		largura_transformada = round(largura_transformada)
-
-		altura_transformada = self.altura * self.escala_de_tamanho
-		altura_transformada = round(altura_transformada)
-		
-		if tela_resolucao == 1:
-			largura_transformada = self.largura * 1.5
-			largura_transformada = round(largura_transformada)
-			altura_transformada = self.altura * 1.5
-			altura_transformada = round(altura_transformada)
-
-		if tela_resolucao == 2:
-			largura_transformada = self.largura * 2.25
-			largura_transformada = round(largura_transformada)
-			altura_transformada = self.altura * 2.25
-			altura_transformada = round(altura_transformada)
-
-		if tela_resolucao == 3:
-			largura_transformada = self.largura * 3
-			largura_transformada = round(largura_transformada)
-			altura_transformada = self.altura * 3
-			altura_transformada = round(altura_transformada)
-
-		self.transformado = pygame.transform.smoothscale(self.imagem, (largura_transformada, altura_transformada))

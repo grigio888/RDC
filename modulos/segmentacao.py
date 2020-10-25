@@ -24,3 +24,5 @@ def capturar_posicao_mouse():
     return [porcentagem_pos_x, porcentagem_pos_y]
 
 from modulos.setores.a_pagina_inicial.inicio import *
+from modulos.setores.b_loading.loading import *
+from modulos.classes import *
