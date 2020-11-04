@@ -1,50 +1,43 @@
-import pygame
-import sys
+import pygame, sys
 
-sys.path.append('D:/Vini/Projetos/004 - RDC')
+sys.path.append('/storage/emulated/0/RDC')
 
 from modulos.segmentacao import tela_largura, tela_altura, tela_resolucao, tela
 
 #Esqueletos
 
-class ExibicaoImagemEstatica():
+class ExibirImagem():
 
-	def __init__(self, pos_x, pos_y):
-		self.imagem = pygame.image.load('modulos/setores/a_pagina_inicial/inicio_ext/fundo.png').convert()
+	def __init__(self, caminho, largura, altura, pos_x, pos_y):
+		self.caminho = caminho
+		self.imagem = pygame.image.load(self.caminho)
 		self.pos_x = pos_x
 		self.pos_y = pos_y
-		
 		self.porcentagem_pos_x = 0
 		self.porcentagem_pos_y = 0
-
-		self.largura = 1080
-		self.altura = 2020
-
+		self.largura = largura
+		self.altura = altura
 		self.largura_transformada = 0
 		self.altura_transformada = 0
 		self.transformado = 0
-
 		self.automatico()
 
 	def porcentagem_pos(self):
 		largura = tela_largura[tela_resolucao]
 		altura = tela_altura[tela_resolucao]
-
 		self.porcentagem_pos_x = largura / 100 * self.pos_x
 		self.porcentagem_pos_y = altura / 100 * self.pos_y
 
 	def transformando_resolucao(self):
-
 		largura_ratio = tela_largura[tela_resolucao] / tela_largura[2]
 		altura_ratio = tela_altura[tela_resolucao] / tela_altura[2]
-
 		self.largura_transformada = self.largura * largura_ratio
 		self.largura_transformada = round(self.largura_transformada)
 		self.altura_transformada = self.altura * altura_ratio
 		self.altura_transformada = round(self.altura_transformada)
 
 	def transformando_imagem(self):
-		self.transformado = pygame.transform.smoothscale(self.imagem, (self.largura_transformada, self.altura_transformada))
+		self.transformado = pygame.transform.smoothscale(self.imagem.convert_alpha(), (self.largura_transformada, self.altura_transformada))
 
 	def automatico(self):
 		self.porcentagem_pos()
@@ -52,17 +45,91 @@ class ExibicaoImagemEstatica():
 		self.transformando_imagem()
 
 	def desenho(self):
+		tela.blit(self.transformado, (self.porcentagem_pos_x, self.porcentagem_pos_y))
 
-		if self.pos_x == 0 and self.pos_y == 0:
-			tela.blit(self.transformado, (self.pos_x, self.pos_y))
+class ExibirImagemInterativa(ExibirImagem):
+    
+    def __init__(self, caminho, caminho2, largura, altura, pos_x, pos_y):
+        super().__init__(caminho, largura, altura, pos_x, pos_y)
+        self.caminho2 = caminho2
+        self.estado = True
+            
+    def mudanca_de_estado(self, valor):
+        if valor == 1:
+            if self.estado:
+                self.imagem = pygame.image.load(self.caminho2)
+                self.estado = not self.estado
+            else:
+                self.imagem = pygame.image.load(self.caminho)
+                self.estado = not self.estado
 
-		else:
-			tela.blit(self.transformado, (self.porcentagem_pos_x, self.porcentagem_pos_y))
+class ExibirItem(ExibirImagem):
 
-class Escrever(ExibicaoImagemEstatica):
+	def __init__(self, pos_x, pos_y, item_ID, tamanho, escala_de_tamanho = 1):
+		self.pos_x = pos_x
+		self.pos_y = pos_y
+		self.item_ID = item_ID
+		self.tamanho = tamanho
+
+		self.escala_de_tamanho = escala_de_tamanho
+
+		self.imagem = 0
+
+		self.lagura = 0
+		self.altura = 0
+
+		self.definir_parte()
+		
+		self.porcentagem_pos()
+		self.transformando_resolucao()
+		self.escalando_imagem()
+
+	def definir_parte(self):
+		caminho = ('modulos/pack_img/' + str(self.item_ID) + '_' + str(self.tamanho) + '.png')
+		self.imagem = pygame.image.load(caminho).convert_alpha()
+
+		if self.tamanho == 0:
+			self.largura = 24
+			self.altura = 24
+
+		elif self.tamanho == 1:
+			self.largura = 75
+			self.altura = 100
+
+	def escalando_imagem(self):
+		largura_transformada = self.largura * self.escala_de_tamanho
+		largura_transformada = round(largura_transformada)
+
+		altura_transformada = self.altura * self.escala_de_tamanho
+		altura_transformada = round(altura_transformada)
+		
+		if tela_resolucao == 1:
+			largura_transformada = self.largura * 1.5
+			largura_transformada = round(largura_transformada)
+			altura_transformada = self.altura * 1.5
+			altura_transformada = round(altura_transformada)
+
+		if tela_resolucao == 2:
+			largura_transformada = self.largura * 2.25
+			largura_transformada = round(largura_transformada)
+			altura_transformada = self.altura * 2.25
+			altura_transformada = round(altura_transformada)
+
+		if tela_resolucao == 3:
+			largura_transformada = self.largura * 3
+			largura_transformada = round(largura_transformada)
+			altura_transformada = self.altura * 3
+			altura_transformada = round(altura_transformada)
+
+		self.transformado = pygame.transform.smoothscale(self.imagem, (largura_transformada, altura_transformada))
+
+
+class Escrever():
 
 	def __init__(self, pos_x, pos_y, tipo, frase, cor, alinhamento = 'esquerda'):
-		super().__init__(pos_x, pos_y)
+		self.pos_x = pos_x
+		self.pos_y = pos_y
+		
 		self.tipo = tipo
 		self.frase = frase
 		self.cor = cor
@@ -71,6 +138,9 @@ class Escrever(ExibicaoImagemEstatica):
 
 		self.largura = 40
 		self.altura = 60
+		
+		self.porcentagem_pos_x = 0
+		self.porcentagem_pos_y = 0
 
 		self.porcentagem_pos()
 		self.mudando_tamanho()
@@ -79,6 +149,13 @@ class Escrever(ExibicaoImagemEstatica):
 		self.fonte = pygame.font.Font('modulos/pixelmix.ttf', self.tamanho)
 
 		self.texto = self.fonte.render(self.frase, True, self.cor)
+	
+	def porcentagem_pos(self):
+		largura = tela_largura[tela_resolucao]
+		altura = tela_altura[tela_resolucao]
+
+		self.porcentagem_pos_x = largura / 100 * self.pos_x
+		self.porcentagem_pos_y = altura / 100 * self.pos_y
 	
 	def mudando_tamanho(self):
 		if self.tipo == 'titulo':
@@ -155,11 +232,11 @@ class Escrever(ExibicaoImagemEstatica):
 			espaco_do_texto.topright = (self.porcentagem_pos_x, self.porcentagem_pos_y)
 		tela.blit(self.texto, espaco_do_texto)
 
-class Loading(ExibicaoImagemEstatica):
+class Loading(ExibirImagem):
 
 	def __init__(self, pos_x, pos_y, porcentagem_de_carregamento):
 		super().__init__(pos_x, pos_y)
-		self.imagem = pygame.image.load('modulos/setores/b_loading/loading/janela_loading.png').convert_alpha()
+		self.imagem = pygame.image.load('modulos/setores/loading/janela_loading.png').convert_alpha()
 
 		self.largura = 483
 		self.altura = 216

@@ -1,28 +1,28 @@
 import pygame
 import sys
 
-sys.path.append('D:/Vini/Projetos/004 - RDC')
+sys.path.append('/storage/emulated/0/RDC')
 
 from modulos.segmentacao import *
-from modulos.setores.a_pagina_inicial.inicio_ext.inicio_classes import *
+from modulos.classes import ExibirImagem, Escrever
 
 pygame.init()
 pygame.mixer.init()
 
 # variaveis:
-fundo = Fundo(0, 0)
-logo = Logo(7, 11.5)
+fundo = ExibirImagem('modulos/setores/a_pagina_inicial/inicio_ext/fundo.png', 1080, 2020, 0, 0)
+logo = ExibirImagem('modulos/setores/a_pagina_inicial/inicio_ext/logo.png', 950, 600, 7, 11.5)
 
-janela_inicio = JanelaInicio(5, 67.5)
+janela_inicio = ExibirImagem('modulos/setores/a_pagina_inicial/inicio_ext/janela_inicio.png', 972, 414, 5, 67.5)
 texto_inicio = Escrever(7, 68.2, 'titulo', 'Inicio', 'preto')
 
-botao_entrar = Botao(30.1, 72.3, 'largo')
+botao_entrar = ExibirImagem('modulos/setores/a_pagina_inicial/inicio_ext/botao_largo.png', 431, 69, 30.1, 72.3)
 texto_entrar = Escrever(50, 73.8, 'botao', 'Entrar', 'preto', 'centro')
 
-botao_sair = Botao(30.1, 77.4, 'largo')
+botao_sair = ExibirImagem('modulos/setores/a_pagina_inicial/inicio_ext/botao_largo.png', 431, 69, 30.1, 77.4)
 texto_sair = Escrever(50, 78.9, 'botao', 'Sair', 'preto', 'centro')
 
-botao_opcoes = Botao(86.7, 83.6, 'opcoes')
+botao_opcoes = ExibirImagem('modulos/setores/a_pagina_inicial/inicio_ext/botao_opcoes.png', 69, 69, 86.7, 83.6)
 
 som_clique = pygame.mixer.Sound('modulos/som/sfx/mouse/click.ogg')
 
@@ -31,18 +31,23 @@ def musica_menu_inicio():
     if not pygame.mixer.get_busy():
         pygame.mixer.music.load('modulos/som/bgm/login.ogg')
         pygame.mixer.music.play(-1)
+        
     elif pygame.mixer.get_busy() == True:
         pass
 
 def desenho_pagina_inicial():
     fundo.desenho()
     logo.desenho()
+    
     janela_inicio.desenho()
     texto_inicio.desenho()
+    
     botao_entrar.desenho()
     texto_entrar.desenho()
+    
     botao_sair.desenho()
     texto_sair.desenho()
+    
     botao_opcoes.desenho()
 
 
