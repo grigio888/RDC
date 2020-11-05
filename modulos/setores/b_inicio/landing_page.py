@@ -1,8 +1,8 @@
 import pygame, sys
-
-sys.path.append('D:/Vini/Projetos/004 - RDC')
-
 from modulos.segmentacao import *
+from modulos.setores.a_pagina_inicial.opcoes import *
+
+sys.path.append(caminho_raiz_pc)
 
 pygame.init()
 
@@ -30,22 +30,26 @@ janela_personagem = ExibirImagem('modulos/setores/b_inicio/landing_page/janela_m
 texto_personagem = Escrever(7, 20, 'titulo', 'Personagem', 'preto')
 
 personagem_0_frame = ExibirImagem('modulos/setores/b_inicio/landing_page/frame_personagem.png', 404, 517, 10.6, 23.7)
-#aqui entra o personagem#
+personagem_0 = None
+personagem_0_adicionar = ExibirImagem('modulos/setores/b_inicio/landing_page/adicionar.png', 60, 60, 26.6, 35)
 personagem_0_sombra = ExibirImagem('modulos/setores/b_inicio/landing_page/frame_sombra.png', 165, 94, 21.8, 43.3)
 personagem_0_nome = Escrever(29.4, 50.1, 'item', 'Nome_Char', 'preto', 'centro')
 
 personagem_1_frame = ExibirImagem('modulos/setores/b_inicio/landing_page/frame_personagem.png', 404, 517, 51.7, 23.7)
-#aqui entra o personagem#
+personagem_1 = None
+personagem_1_adicionar = ExibirImagem('modulos/setores/b_inicio/landing_page/adicionar.png', 60, 60, 67.7, 35)
 personagem_1_sombra = ExibirImagem('modulos/setores/b_inicio/landing_page/frame_sombra.png', 165, 94, 62.8, 43.3)
 personagem_1_nome = Escrever(70.5, 50.1, 'item', 'Nome_Char', 'preto', 'centro')
 
 personagem_2_frame = ExibirImagem('modulos/setores/b_inicio/landing_page/frame_personagem.png', 404, 517, 10.6, 52)
-#aqui entra o personagem#
+personagem_2 = None
+personagem_2_adicionar = ExibirImagem('modulos/setores/b_inicio/landing_page/adicionar.png', 60, 60, 26.6, 63.4)
 personagem_2_sombra = ExibirImagem('modulos/setores/b_inicio/landing_page/frame_sombra.png', 165, 94, 21.8, 71.6)
 personagem_2_nome = Escrever(29.4, 78.4, 'item', 'Nome_Char', 'preto', 'centro')
 
 personagem_3_frame = ExibirImagem('modulos/setores/b_inicio/landing_page/frame_personagem.png', 404, 517, 51.7, 52)
-#aqui entra o personagem#
+personagem_3 = None
+personagem_3_adicionar = ExibirImagem('modulos/setores/b_inicio/landing_page/adicionar.png', 60, 60, 67.7, 63.4)
 personagem_3_sombra = ExibirImagem('modulos/setores/b_inicio/landing_page/frame_sombra.png', 165, 94, 62.8, 71.6)
 personagem_3_nome = Escrever(70.5, 78.4, 'item', 'Nome_Char', 'preto', 'centro')
 
@@ -54,20 +58,42 @@ janela_diversos = ExibirImagem('modulos/setores/b_inicio/landing_page/janela_bai
 texto_diversos = Escrever(7, 82.4, 'titulo', 'Diversos', 'preto')
 
 frame_mochila = ExibirImagem('modulos/setores/b_inicio/landing_page/frame_item.png', 210, 240, 8.5, 85.2)
-opcao_mochila = ExibirItem(11.3, 85, 2641, 1)
-texto_mochila = Escrever(17.75, 95, 'item', 'Mochila', 'preto', 'centro')
+opcao_mochila = ExibirItem(11.3, 85, 2641, 1, 2.2)
+texto_mochila = Escrever(17.75, 95.5, 'item', 'Mochila', 'preto', 'centro')
 
-frame_2 = ExibirImagem('modulos/setores/b_inicio/landing_page/frame_item.png', 210, 240, 30, 85.2)
-opcao_2 = ExibirItem(34.4, 86, 7026, 1, 0.75)
-texto_2 = Escrever(39.5, 95, 'item', 'Chave', 'preto', 'centro')
+frame_chave = ExibirImagem('modulos/setores/b_inicio/landing_page/frame_item.png', 210, 240, 30, 85.2)
+opcao_chave = ExibirItem(34.4, 86, 7026, 1, 1.9)
+texto_chave = Escrever(39.5, 95.5, 'item', 'Chave', 'preto', 'centro')
 
-frame_3 = ExibirImagem('modulos/setores/b_inicio/landing_page/frame_item.png', 210, 240, 51.6, 85.2)
-opcao_3 = ExibirItem(52.5, 84.5, 7811, 1, 1)
-texto_3 = Escrever(60.85, 95, 'item', 'Forja', 'preto', 'centro')
+frame_forja = ExibirImagem('modulos/setores/b_inicio/landing_page/frame_item.png', 210, 240, 51.6, 85.2)
+opcao_forja = ExibirItem(52.5, 84.5, 7811, 1, 2.4)
+texto_forja = Escrever(60.85, 95.5, 'item', 'Forja', 'preto', 'centro')
 
-frame_4 = ExibirImagem('modulos/setores/b_inicio/landing_page/frame_item.png', 210, 240, 71.3, 85.2)
-opcao_4 = ExibirItem(75.7, 84.5, 7703, 1, 0.95)
-texto_4 = Escrever(82.35, 95, 'item', 'Opcoes', 'preto', 'centro')
+frame_opcoes = ExibirImagem('modulos/setores/b_inicio/landing_page/frame_item.png', 210, 240, 73.1, 85.2)
+opcao_opcoes = ExibirItem(75.5, 85, 7703, 1, 2.1)
+texto_opcoes = Escrever(82.35, 95.5, 'item', 'Opcoes', 'preto', 'centro')
+
+def interacao_landingpage_mouse_colisao():
+    if pygame.mouse.get_pos()[0] >= personagem_0_frame.porcentagem_pos_x:
+        if pygame.mouse.get_pos()[1] >= personagem_0_frame.porcentagem_pos_y:
+            if pygame.mouse.get_pos()[0] <= personagem_0_frame.porcentagem_pos_x + personagem_0_frame.largura_transformada:
+                if pygame.mouse.get_pos()[1] <= personagem_0_frame.porcentagem_pos_y + personagem_0_frame.altura_transformada:
+                    personagem_0_adicionar.desenho()
+    if pygame.mouse.get_pos()[0] >= personagem_1_frame.porcentagem_pos_x:
+        if pygame.mouse.get_pos()[1] >= personagem_1_frame.porcentagem_pos_y:
+            if pygame.mouse.get_pos()[0] <= personagem_1_frame.porcentagem_pos_x + personagem_1_frame.largura_transformada:
+                if pygame.mouse.get_pos()[1] <= personagem_1_frame.porcentagem_pos_y + personagem_1_frame.altura_transformada:
+                    personagem_1_adicionar.desenho()
+    if pygame.mouse.get_pos()[0] >= personagem_2_frame.porcentagem_pos_x:
+        if pygame.mouse.get_pos()[1] >= personagem_2_frame.porcentagem_pos_y:
+            if pygame.mouse.get_pos()[0] <= personagem_2_frame.porcentagem_pos_x + personagem_2_frame.largura_transformada:
+                if pygame.mouse.get_pos()[1] <= personagem_2_frame.porcentagem_pos_y + personagem_2_frame.altura_transformada:
+                    personagem_2_adicionar.desenho()
+    if pygame.mouse.get_pos()[0] >= personagem_3_frame.porcentagem_pos_x:
+        if pygame.mouse.get_pos()[1] >= personagem_3_frame.porcentagem_pos_y:
+            if pygame.mouse.get_pos()[0] <= personagem_3_frame.porcentagem_pos_x + personagem_3_frame.largura_transformada:
+                if pygame.mouse.get_pos()[1] <= personagem_3_frame.porcentagem_pos_y + personagem_3_frame.altura_transformada:
+                    personagem_3_adicionar.desenho()
 
 def desenho_landing_page():
     fundo_inicio.desenho()
@@ -116,17 +142,17 @@ def desenho_landing_page():
     opcao_mochila.desenho()
     texto_mochila.desenho()
 
-    frame_2.desenho()
-    opcao_2.desenho()
-    texto_2.desenho()
+    frame_chave.desenho()
+    opcao_chave.desenho()
+    texto_chave.desenho()
 
-    frame_3.desenho()
-    opcao_3.desenho()
-    texto_3.desenho()
+    frame_forja.desenho()
+    opcao_forja.desenho()
+    texto_forja.desenho()
 
-    frame_4.desenho()
-    opcao_4.desenho()
-    texto_4.desenho()
+    frame_opcoes.desenho()
+    opcao_opcoes.desenho()
+    texto_opcoes.desenho()
 
 
 if __name__ == "__main__":

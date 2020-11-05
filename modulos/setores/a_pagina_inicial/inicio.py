@@ -1,10 +1,8 @@
-import pygame
-import sys
-
-sys.path.append('/storage/emulated/0/RDC')
-
+import pygame, sys
 from modulos.segmentacao import *
-from modulos.classes import ExibirImagem, Escrever
+from modulos.classes import *
+
+sys.path.append(caminho_raiz_pc)
 
 pygame.init()
 pygame.mixer.init()
@@ -23,8 +21,6 @@ botao_sair = ExibirImagem('modulos/setores/a_pagina_inicial/inicio_ext/botao_lar
 texto_sair = Escrever(50, 78.9, 'botao', 'Sair', 'preto', 'centro')
 
 botao_opcoes = ExibirImagem('modulos/setores/a_pagina_inicial/inicio_ext/botao_opcoes.png', 69, 69, 86.7, 83.6)
-
-som_clique = pygame.mixer.Sound('modulos/som/sfx/mouse/click.ogg')
 
 # funcoes:
 def musica_menu_inicio():
@@ -49,7 +45,6 @@ def desenho_pagina_inicial():
     texto_sair.desenho()
     
     botao_opcoes.desenho()
-
 
 if __name__ == '__main__':
     from modulos.segmentacao import tela_largura, tela_altura, tela_resolucao, tela, game_rodando

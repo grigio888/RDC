@@ -1,8 +1,8 @@
 import pygame, sys
-
-sys.path.append('/storage/emulated/0/RDC')
-
 from modulos.classes import *
+from modulos.segmentacao import som_clique
+
+sys.path.append(caminho_raiz_pc)
 
 # variaveis:
 janela_opcoes = ExibirImagem('modulos/setores/a_pagina_inicial/opcoes_ext/janela_opcoes.png', 920, 539, 7.4, 66.6)
@@ -30,23 +30,96 @@ botao_ok = ExibirImagem('modulos/setores/a_pagina_inicial/opcoes_ext/botao_curto
 texto_ok = Escrever(83.4, 89.5, 'corpo', 'OK', 'preto')
 
 # funcoes:
+def interacao_mouse_opcoes_pMOUSEBUTTON():
+    if pygame.mouse.get_pos()[0] >= caixa_confirmadora_bgm.porcentagem_pos_x:
+        if pygame.mouse.get_pos()[1] >= caixa_confirmadora_bgm.porcentagem_pos_y:
+            if pygame.mouse.get_pos()[0] <= caixa_confirmadora_bgm.porcentagem_pos_x + caixa_confirmadora_bgm.largura_transformada:
+                if pygame.mouse.get_pos()[1] <= caixa_confirmadora_bgm.porcentagem_pos_y + caixa_confirmadora_bgm.altura_transformada:
+                    caixa_confirmadora_bgm.mudanca_de_estado(1)
+                    caixa_confirmadora_bgm.automatico()
+    if pygame.mouse.get_pos()[0] >= caixa_confirmadora_sfx.porcentagem_pos_x:
+        if pygame.mouse.get_pos()[1] >= caixa_confirmadora_sfx.porcentagem_pos_y:
+            if pygame.mouse.get_pos()[0] <= caixa_confirmadora_sfx.porcentagem_pos_x + caixa_confirmadora_sfx.largura_transformada:
+                if pygame.mouse.get_pos()[1] <= caixa_confirmadora_sfx.porcentagem_pos_y + caixa_confirmadora_sfx.altura_transformada:
+                    caixa_confirmadora_sfx.mudanca_de_estado(1)
+                    caixa_confirmadora_sfx.automatico()
+    if pygame.mouse.get_pos()[0] >= caixa_confirmadora_efeitos.porcentagem_pos_x:
+        if pygame.mouse.get_pos()[1] >= caixa_confirmadora_efeitos.porcentagem_pos_y:
+            if pygame.mouse.get_pos()[0] <= caixa_confirmadora_efeitos.porcentagem_pos_x + caixa_confirmadora_efeitos.largura_transformada:
+                if pygame.mouse.get_pos()[1] <= caixa_confirmadora_efeitos.porcentagem_pos_y + caixa_confirmadora_efeitos.altura_transformada:
+                    caixa_confirmadora_efeitos.mudanca_de_estado(1)
+                    caixa_confirmadora_efeitos.automatico()
+    if pygame.mouse.get_pos()[0] >= botao_ok.porcentagem_pos_x:
+        if pygame.mouse.get_pos()[1] >= botao_ok.porcentagem_pos_y:
+            if pygame.mouse.get_pos()[0] <= botao_ok.porcentagem_pos_x + botao_ok.largura_transformada:
+                if pygame.mouse.get_pos()[1] <= botao_ok.porcentagem_pos_y + botao_ok.altura_transformada:
+                    som_clique.play()
+                    return 'caiu'
+    return 'opcoes'
+
+def interacao_mouse_opcoes_pGETPRESSED():
+    if pygame.mouse.get_pos()[0] >= barra_intensidade_seta_menor_bgm.porcentagem_pos_x:
+        if pygame.mouse.get_pos()[1] >= barra_intensidade_seta_menor_bgm.porcentagem_pos_y:
+            if pygame.mouse.get_pos()[0] <= barra_intensidade_seta_menor_bgm.porcentagem_pos_x + barra_intensidade_seta_menor_bgm.largura_transformada:
+                if pygame.mouse.get_pos()[1] <= barra_intensidade_seta_menor_bgm.porcentagem_pos_y + barra_intensidade_seta_menor_bgm.altura_transformada:
+                    if esfera_marcadora_bgm.porcentagem_pos_x >= barra_intensidade_esteira_bgm.porcentagem_pos_x + 10:
+                        esfera_marcadora_bgm.pos_x -= 0.5
+                        esfera_marcadora_bgm.automatico()
+    if pygame.mouse.get_pos()[0] >= barra_intensidade_esteira_bgm.porcentagem_pos_x:
+        if pygame.mouse.get_pos()[1] >= barra_intensidade_esteira_bgm.porcentagem_pos_y:
+            if pygame.mouse.get_pos()[0] <= barra_intensidade_esteira_bgm.porcentagem_pos_x + barra_intensidade_esteira_bgm.largura_transformada - barra_intensidade_seta_maior_bgm.largura_transformada:
+                if pygame.mouse.get_pos()[1] <= barra_intensidade_esteira_bgm.porcentagem_pos_y + barra_intensidade_esteira_bgm.altura_transformada:
+                    lugar_mouse = capturar_posicao_mouse()
+                    esfera_marcadora_bgm.pos_x = lugar_mouse[0]
+                    esfera_marcadora_bgm.automatico()
+    if pygame.mouse.get_pos()[0] >= barra_intensidade_seta_maior_bgm.porcentagem_pos_x:
+        if pygame.mouse.get_pos()[1] >= barra_intensidade_seta_maior_bgm.porcentagem_pos_y:
+            if pygame.mouse.get_pos()[0] <= barra_intensidade_seta_maior_bgm.porcentagem_pos_x + barra_intensidade_seta_maior_bgm.largura_transformada:
+                if pygame.mouse.get_pos()[1] <= barra_intensidade_seta_maior_bgm.porcentagem_pos_y + barra_intensidade_seta_maior_bgm.altura_transformada:
+                    if esfera_marcadora_bgm.porcentagem_pos_x <= barra_intensidade_esteira_bgm.porcentagem_pos_x + barra_intensidade_esteira_bgm.largura_transformada - barra_intensidade_seta_maior_bgm.largura_transformada:
+                        esfera_marcadora_bgm.pos_x += 0.5
+                        esfera_marcadora_bgm.automatico()
+
+
+    if pygame.mouse.get_pos()[0] >= barra_intensidade_seta_menor_sfx.porcentagem_pos_x:
+        if pygame.mouse.get_pos()[1] >= barra_intensidade_seta_menor_sfx.porcentagem_pos_y:
+            if pygame.mouse.get_pos()[0] <= barra_intensidade_seta_menor_sfx.porcentagem_pos_x + barra_intensidade_seta_menor_sfx.largura_transformada:
+                if pygame.mouse.get_pos()[1] <= barra_intensidade_seta_menor_sfx.porcentagem_pos_y + barra_intensidade_seta_menor_sfx.altura_transformada:
+                    if esfera_marcadora_sfx.porcentagem_pos_x >= barra_intensidade_esteira_sfx.porcentagem_pos_x:
+                        esfera_marcadora_sfx.pos_x -= 0.5
+                        esfera_marcadora_sfx.automatico()
+    if pygame.mouse.get_pos()[0] >= barra_intensidade_esteira_sfx.porcentagem_pos_x:
+        if pygame.mouse.get_pos()[1] >= barra_intensidade_esteira_sfx.porcentagem_pos_y:
+            if pygame.mouse.get_pos()[0] <= barra_intensidade_esteira_sfx.porcentagem_pos_x + barra_intensidade_esteira_sfx.largura_transformada - barra_intensidade_seta_maior_sfx.largura_transformada:
+                if pygame.mouse.get_pos()[1] <= barra_intensidade_esteira_sfx.porcentagem_pos_y + barra_intensidade_esteira_sfx.altura_transformada:
+                    lugar_mouse = capturar_posicao_mouse()
+                    esfera_marcadora_sfx.pos_x = lugar_mouse[0]
+                    esfera_marcadora_sfx.automatico()
+    if pygame.mouse.get_pos()[0] >= barra_intensidade_seta_maior_sfx.porcentagem_pos_x:
+        if pygame.mouse.get_pos()[1] >= barra_intensidade_seta_maior_sfx.porcentagem_pos_y:
+            if pygame.mouse.get_pos()[0] <= barra_intensidade_seta_maior_sfx.porcentagem_pos_x + barra_intensidade_seta_maior_sfx.largura_transformada:
+                if pygame.mouse.get_pos()[1] <= barra_intensidade_seta_maior_sfx.porcentagem_pos_y + barra_intensidade_seta_maior_sfx.altura_transformada:
+                    if esfera_marcadora_sfx.porcentagem_pos_x <= barra_intensidade_esteira_sfx.porcentagem_pos_x + barra_intensidade_esteira_sfx.largura_transformada - barra_intensidade_seta_maior_sfx.largura_transformada:
+                        esfera_marcadora_sfx.pos_x += 0.5
+                        esfera_marcadora_sfx.automatico()
+
 def desenho_pagina_opcoes():
     janela_opcoes.desenho()
     texto_opcoes.desenho()
 
     caixa_confirmadora_bgm.desenho()
     texto_bgm.desenho()
-    barra_intensidade_seta_menor_bgm.desenho()
     barra_intensidade_esteira_bgm.desenho()
-    barra_intensidade_seta_maior_bgm.desenho()
     esfera_marcadora_bgm.desenho()
+    barra_intensidade_seta_menor_bgm.desenho()
+    barra_intensidade_seta_maior_bgm.desenho()
 
     caixa_confirmadora_sfx.desenho()
     texto_sfx.desenho()
-    barra_intensidade_seta_menor_sfx.desenho()
     barra_intensidade_esteira_sfx.desenho()
-    barra_intensidade_seta_maior_sfx.desenho()
     esfera_marcadora_sfx.desenho()
+    barra_intensidade_seta_menor_sfx.desenho()
+    barra_intensidade_seta_maior_sfx.desenho()
 
     caixa_confirmadora_efeitos.desenho()
     texto_efeitos.desenho()

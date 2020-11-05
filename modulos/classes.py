@@ -1,8 +1,7 @@
 import pygame, sys
+from modulos.segmentacao import *
 
-sys.path.append('/storage/emulated/0/RDC')
-
-from modulos.segmentacao import tela_largura, tela_altura, tela_resolucao, tela
+sys.path.append(caminho_raiz_pc)
 
 #Esqueletos
 
@@ -83,6 +82,8 @@ class ExibirItem(ExibirImagem):
 		self.porcentagem_pos()
 		self.transformando_resolucao()
 		self.escalando_imagem()
+		self.transformando_imagem()
+		
 
 	def definir_parte(self):
 		caminho = ('modulos/pack_img/' + str(self.item_ID) + '_' + str(self.tamanho) + '.png')
@@ -97,31 +98,13 @@ class ExibirItem(ExibirImagem):
 			self.altura = 100
 
 	def escalando_imagem(self):
-		largura_transformada = self.largura * self.escala_de_tamanho
-		largura_transformada = round(largura_transformada)
+		self.largura_transformada = self.largura_transformada * self.escala_de_tamanho
+		self.largura_transformada = round(self.largura_transformada)
 
-		altura_transformada = self.altura * self.escala_de_tamanho
-		altura_transformada = round(altura_transformada)
+		self.altura_transformada = self.altura_transformada * self.escala_de_tamanho
+		self.altura_transformada = round(self.altura_transformada)
 		
-		if tela_resolucao == 1:
-			largura_transformada = self.largura * 1.5
-			largura_transformada = round(largura_transformada)
-			altura_transformada = self.altura * 1.5
-			altura_transformada = round(altura_transformada)
-
-		if tela_resolucao == 2:
-			largura_transformada = self.largura * 2.25
-			largura_transformada = round(largura_transformada)
-			altura_transformada = self.altura * 2.25
-			altura_transformada = round(altura_transformada)
-
-		if tela_resolucao == 3:
-			largura_transformada = self.largura * 3
-			largura_transformada = round(largura_transformada)
-			altura_transformada = self.altura * 3
-			altura_transformada = round(altura_transformada)
-
-		self.transformado = pygame.transform.smoothscale(self.imagem, (largura_transformada, altura_transformada))
+		self.transformado = pygame.transform.smoothscale(self.imagem, (self.largura_transformada, self.altura_transformada))
 
 
 class Escrever():
@@ -256,6 +239,13 @@ class Loading(ExibirImagem):
 		self.texto_carregando.desenho()
 		self.texto_carregamento = Escrever(self.pos_x + 22.3, self.pos_y + 8.1, 'titulo', self.porcentagem_de_carregamento + '%', 'preto', 'centro')
 		self.texto_carregamento.desenho()
+
+def capturar_posicao_mouse():
+    largura = tela_largura[tela_resolucao]
+    altura = tela_altura[tela_resolucao]
+    porcentagem_pos_x = pygame.mouse.get_pos()[0] / largura * 100
+    porcentagem_pos_y = pygame.mouse.get_pos()[1] / altura * 100
+    return [porcentagem_pos_x, porcentagem_pos_y]
 
 def transicao(tela_largura, tela_altura, velocidade): 
     transicao = pygame.Surface((tela_largura, tela_altura))
