@@ -69,11 +69,11 @@ while game_rodando:
 
                 # interacao com o mouse
                 if event.type == pygame.MOUSEBUTTONDOWN:
-                    interacao_mouse_opcoes_pMOUSEBUTTON()
-                    subsetor = interacao_mouse_opcoes_pMOUSEBUTTON()              
+                    interacao_opcoes_mouse_pMOUSEBUTTON()
+                    subsetor = interacao_opcoes_mouse_pMOUSEBUTTON()              
                 
             if pygame.mouse.get_pressed()[0]:
-                interacao_mouse_opcoes_pGETPRESSED()
+                interacao_opcoes_mouse_pGETPRESSED()
 
             # desenhando elementos na tela
             desenho_pagina_inicial()
@@ -105,6 +105,13 @@ while game_rodando:
                                 if pygame.mouse.get_pos()[1] <= frame_opcoes.porcentagem_pos_y + frame_opcoes.altura_transformada:
                                     subsetor = 'opcoes'
                                     som_clique.play()
+                    if pygame.mouse.get_pos()[0] >= personagem_0_frame.porcentagem_pos_x:
+                        if pygame.mouse.get_pos()[1] >= personagem_0_frame.porcentagem_pos_y:
+                            if pygame.mouse.get_pos()[0] <= personagem_0_frame.porcentagem_pos_x + personagem_0_frame.largura_transformada:
+                                if pygame.mouse.get_pos()[1] <= personagem_0_frame.porcentagem_pos_y + personagem_0_frame.altura_transformada:
+                                    from modulos.setores.b_inicio.landing_page_criar_personagem import *
+                                    subsetor = 'criacao'
+                                    som_clique.play()
 
             # desenhando elementos na tela
             desenho_landing_page()
@@ -120,23 +127,47 @@ while game_rodando:
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
-                    game_rodando = False
-                    setor = 'saida'
-                    subsetor = 'saida'
+                    setor = 'landing'
+                    subsetor = 'caiu'
 
                 # interacao com o mouse
                 if event.type == pygame.MOUSEBUTTONDOWN:
-                    interacao_mouse_opcoes_pMOUSEBUTTON()
-                    subsetor = interacao_mouse_opcoes_pMOUSEBUTTON()               
+                    interacao_opcoes_mouse_pMOUSEBUTTON()
+                    subsetor = interacao_opcoes_mouse_pMOUSEBUTTON()               
                 
             if pygame.mouse.get_pressed()[0]:
-                interacao_mouse_opcoes_pGETPRESSED()
+                interacao_opcoes_mouse_pGETPRESSED()
 
             
 
             # desenhando elementos na tela
             desenho_landing_page()
             desenho_pagina_opcoes()
+
+            # atualizacao da tela
+            pygame.display.update()
+            relogio_de_atualizacao.tick(ponteiro)
+        
+        while subsetor == 'criacao':
+
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    setor = 'landing'
+                    subsetor = 'caiu'
+
+                # interacao com o mouse
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    if pygame.mouse.get_pos()[0] >= botao_ok_janela_personagem.porcentagem_pos_x:
+                        if pygame.mouse.get_pos()[1] >= botao_ok_janela_personagem.porcentagem_pos_y:
+                            if pygame.mouse.get_pos()[0] <= botao_ok_janela_personagem.porcentagem_pos_x + botao_ok_janela_personagem.largura_transformada:
+                                if pygame.mouse.get_pos()[1] <= botao_ok_janela_personagem.porcentagem_pos_y + botao_ok_janela_personagem.altura_transformada:
+                                    setor = 'landing'
+                                    subsetor = 'caiu'
+                                    som_clique.play()
+            
+            # desenhando elementos na tela
+            desenho_landing_page()
+            desenho_landing_page_criar_personagem()
 
             # atualizacao da tela
             pygame.display.update()

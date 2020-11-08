@@ -15,7 +15,7 @@ icone = pygame.image.load('modulos/icon.png')
 pygame.display.set_icon(icone)
 pygame.display.set_caption("Ragnarok Dugeon Crawler")
 relogio_de_atualizacao = pygame.time.Clock()
-ponteiro = 60
+ponteiro = 30
 
 game_rodando = True
 setor = 'pagina inicial'

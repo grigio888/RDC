@@ -1,8 +1,9 @@
 import pygame, sys
+
+sys.path.append('D:/Vini/Projetos/004 - RDC')
+
 from modulos.segmentacao import *
 from modulos.classes import *
-
-sys.path.append(caminho_raiz_pc)
 
 pygame.init()
 pygame.mixer.init()
@@ -15,10 +16,10 @@ janela_inicio = ExibirImagem('modulos/setores/a_pagina_inicial/inicio_ext/janela
 texto_inicio = Escrever(7, 68.2, 'titulo', 'Inicio', 'preto')
 
 botao_entrar = ExibirImagem('modulos/setores/a_pagina_inicial/inicio_ext/botao_largo.png', 431, 69, 30.1, 72.3)
-texto_entrar = Escrever(50, 73.8, 'botao', 'Entrar', 'preto', 'centro')
+texto_entrar = Escrever(50, 73.1, 'botao', 'Entrar', 'preto', 'centro')
 
 botao_sair = ExibirImagem('modulos/setores/a_pagina_inicial/inicio_ext/botao_largo.png', 431, 69, 30.1, 77.4)
-texto_sair = Escrever(50, 78.9, 'botao', 'Sair', 'preto', 'centro')
+texto_sair = Escrever(50, 78.2, 'botao', 'Sair', 'preto', 'centro')
 
 botao_opcoes = ExibirImagem('modulos/setores/a_pagina_inicial/inicio_ext/botao_opcoes.png', 69, 69, 86.7, 83.6)
 

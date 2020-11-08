@@ -22,18 +22,12 @@ class ExibirImagem():
 		self.automatico()
 
 	def porcentagem_pos(self):
-		largura = tela_largura[tela_resolucao]
-		altura = tela_altura[tela_resolucao]
-		self.porcentagem_pos_x = largura / 100 * self.pos_x
-		self.porcentagem_pos_y = altura / 100 * self.pos_y
+		self.porcentagem_pos_x = tela_largura[tela_resolucao] / 100 * self.pos_x
+		self.porcentagem_pos_y = tela_altura[tela_resolucao] / 100 * self.pos_y
 
 	def transformando_resolucao(self):
-		largura_ratio = tela_largura[tela_resolucao] / tela_largura[2]
-		altura_ratio = tela_altura[tela_resolucao] / tela_altura[2]
-		self.largura_transformada = self.largura * largura_ratio
-		self.largura_transformada = round(self.largura_transformada)
-		self.altura_transformada = self.altura * altura_ratio
-		self.altura_transformada = round(self.altura_transformada)
+		self.largura_transformada = round(self.largura * (tela_largura[tela_resolucao] / tela_largura[2]))
+		self.altura_transformada = round(self.altura * (tela_altura[tela_resolucao] / tela_altura[2]))
 
 	def transformando_imagem(self):
 		self.transformado = pygame.transform.smoothscale(self.imagem.convert_alpha(), (self.largura_transformada, self.altura_transformada))
@@ -98,11 +92,8 @@ class ExibirItem(ExibirImagem):
 			self.altura = 100
 
 	def escalando_imagem(self):
-		self.largura_transformada = self.largura_transformada * self.escala_de_tamanho
-		self.largura_transformada = round(self.largura_transformada)
-
-		self.altura_transformada = self.altura_transformada * self.escala_de_tamanho
-		self.altura_transformada = round(self.altura_transformada)
+		self.largura_transformada = round(self.largura_transformada * self.escala_de_tamanho)
+		self.altura_transformada = round(self.altura_transformada * self.escala_de_tamanho)
 		
 		self.transformado = pygame.transform.smoothscale(self.imagem, (self.largura_transformada, self.altura_transformada))
 
@@ -134,65 +125,30 @@ class Escrever():
 		self.texto = self.fonte.render(self.frase, True, self.cor)
 	
 	def porcentagem_pos(self):
-		largura = tela_largura[tela_resolucao]
-		altura = tela_altura[tela_resolucao]
-
-		self.porcentagem_pos_x = largura / 100 * self.pos_x
-		self.porcentagem_pos_y = altura / 100 * self.pos_y
+		self.porcentagem_pos_x = tela_largura[tela_resolucao] / 100 * self.pos_x
+		self.porcentagem_pos_y = tela_altura[tela_resolucao] / 100 * self.pos_y
 	
 	def mudando_tamanho(self):
 		if self.tipo == 'titulo':
-			if tela_resolucao == 0:
-				self.tamanho = 12
-
-			elif tela_resolucao == 1:
-				self.tamanho = 18
-
-			elif tela_resolucao == 2:
-				self.tamanho = 27
-
-			elif tela_resolucao == 3:
-				self.tamanho = 41
+			tamanhos = [12, 18, 27, 41]
+			self.tamanho = tamanhos[tela_resolucao]
 
 		if self.tipo == 'botao':
-			if tela_resolucao == 0:
-				self.tamanho = 16
-
-			elif tela_resolucao == 1:
-				self.tamanho = 24
-
-			elif tela_resolucao == 2:
-				self.tamanho = 38
-
-			elif tela_resolucao == 3:
-				self.tamanho = 58
+			tamanhos = [16, 24, 38, 58]
+			self.tamanho = tamanhos[tela_resolucao]
 
 		if self.tipo == 'corpo':
-			if tela_resolucao == 0:
-				self.tamanho = 14
-
-			elif tela_resolucao == 1:
-				self.tamanho = 21
-
-			elif tela_resolucao == 2:
-				self.tamanho = 32
-
-			elif tela_resolucao == 3:
-				self.tamanho = 47
+			tamanhos = [14, 21, 32, 47]
+			self.tamanho = tamanhos[tela_resolucao]
 		
 		if self.tipo == 'item':
-			if tela_resolucao == 0:
-				self.tamanho = 10
+			tamanhos = [10, 15, 22, 34]
+			self.tamanho = tamanhos[tela_resolucao]
 
-			elif tela_resolucao == 1:
-				self.tamanho = 15
-
-			elif tela_resolucao == 2:
-				self.tamanho = 22
-
-			elif tela_resolucao == 3:
-				self.tamanho = 34
-
+		if self.tipo == 'atributo':
+			tamanhos = [13, 19, 30, 46]
+			self.tamanho = tamanhos[tela_resolucao]
+		
 	def mudando_cor(self):
 		if self.cor == 'preto':
 			self.cor = (0, 0, 0)
@@ -201,7 +157,7 @@ class Escrever():
 		elif self.cor == 'verde':
 			self.cor = (0, 150, 0)
 		elif self.cor == 'azul':
-			self.cor = (0, 0, 150)
+			self.cor = (54, 69, 111)
 		else:
 			pass
 
@@ -210,7 +166,7 @@ class Escrever():
 		if self.alinhamento == 'esquerda':
 			espaco_do_texto.topleft = (self.porcentagem_pos_x, self.porcentagem_pos_y)
 		if self.alinhamento == 'centro':
-			espaco_do_texto.center = (self.porcentagem_pos_x, self.porcentagem_pos_y)
+			espaco_do_texto.midtop = (self.porcentagem_pos_x, self.porcentagem_pos_y)
 		if self.alinhamento == 'direita':
 			espaco_do_texto.topright = (self.porcentagem_pos_x, self.porcentagem_pos_y)
 		tela.blit(self.texto, espaco_do_texto)

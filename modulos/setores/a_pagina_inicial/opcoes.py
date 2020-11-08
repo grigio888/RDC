@@ -1,8 +1,9 @@
 import pygame, sys
+
+sys.path.append('D:/Vini/Projetos/004 - RDC')
+
 from modulos.classes import *
 from modulos.segmentacao import som_clique
-
-sys.path.append(caminho_raiz_pc)
 
 # variaveis:
 janela_opcoes = ExibirImagem('modulos/setores/a_pagina_inicial/opcoes_ext/janela_opcoes.png', 920, 539, 7.4, 66.6)
@@ -30,7 +31,7 @@ botao_ok = ExibirImagem('modulos/setores/a_pagina_inicial/opcoes_ext/botao_curto
 texto_ok = Escrever(83.4, 89.5, 'corpo', 'OK', 'preto')
 
 # funcoes:
-def interacao_mouse_opcoes_pMOUSEBUTTON():
+def interacao_opcoes_mouse_pMOUSEBUTTON():
     if pygame.mouse.get_pos()[0] >= caixa_confirmadora_bgm.porcentagem_pos_x:
         if pygame.mouse.get_pos()[1] >= caixa_confirmadora_bgm.porcentagem_pos_y:
             if pygame.mouse.get_pos()[0] <= caixa_confirmadora_bgm.porcentagem_pos_x + caixa_confirmadora_bgm.largura_transformada:
@@ -57,7 +58,7 @@ def interacao_mouse_opcoes_pMOUSEBUTTON():
                     return 'caiu'
     return 'opcoes'
 
-def interacao_mouse_opcoes_pGETPRESSED():
+def interacao_opcoes_mouse_pGETPRESSED():
     if pygame.mouse.get_pos()[0] >= barra_intensidade_seta_menor_bgm.porcentagem_pos_x:
         if pygame.mouse.get_pos()[1] >= barra_intensidade_seta_menor_bgm.porcentagem_pos_y:
             if pygame.mouse.get_pos()[0] <= barra_intensidade_seta_menor_bgm.porcentagem_pos_x + barra_intensidade_seta_menor_bgm.largura_transformada:
@@ -128,4 +129,15 @@ def desenho_pagina_opcoes():
     texto_ok.desenho()
 
 if __name__ == '__main__':
-    pass
+    while True:
+        for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    game_rodando = False
+                    setor = 'saida'
+                    subsetor = 'saida'
+
+        desenho_pagina_inicial()
+        desenho_pagina_opcoes()
+
+        pygame.display.update()
+        relogio_de_atualizacao.tick(ponteiro)
