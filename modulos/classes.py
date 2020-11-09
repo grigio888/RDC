@@ -41,20 +41,19 @@ class ExibirImagem():
 		tela.blit(self.transformado, (self.porcentagem_pos_x, self.porcentagem_pos_y))
 
 class ExibirImagemInterativa(ExibirImagem):
-    
-    def __init__(self, caminho, caminho2, largura, altura, pos_x, pos_y):
-        super().__init__(caminho, largura, altura, pos_x, pos_y)
-        self.caminho2 = caminho2
-        self.estado = True
-            
-    def mudanca_de_estado(self, valor):
-        if valor == 1:
-            if self.estado:
-                self.imagem = pygame.image.load(self.caminho2)
-                self.estado = not self.estado
-            else:
-                self.imagem = pygame.image.load(self.caminho)
-                self.estado = not self.estado
+
+	def __init__(self, caminho, caminho2, largura, altura, pos_x, pos_y):
+		super().__init__(caminho, largura, altura, pos_x, pos_y)
+		self.caminho2 = caminho2
+		self.estado = True
+
+	def mudanca_de_estado(self):
+		if self.estado:
+			self.imagem = pygame.image.load(self.caminho2)
+			self.estado = not self.estado
+		else:
+			self.imagem = pygame.image.load(self.caminho)
+			self.estado = not self.estado
 
 class ExibirItem(ExibirImagem):
 
@@ -121,8 +120,6 @@ class Escrever():
 		self.mudando_cor()
 
 		self.fonte = pygame.font.Font('modulos/pixelmix.ttf', self.tamanho)
-
-		self.texto = self.fonte.render(self.frase, True, self.cor)
 	
 	def porcentagem_pos(self):
 		self.porcentagem_pos_x = tela_largura[tela_resolucao] / 100 * self.pos_x
@@ -160,8 +157,9 @@ class Escrever():
 			self.cor = (54, 69, 111)
 		else:
 			pass
-
+			
 	def desenho(self):
+		self.texto = self.fonte.render(self.frase, True, self.cor)
 		espaco_do_texto = self.texto.get_rect()
 		if self.alinhamento == 'esquerda':
 			espaco_do_texto.topleft = (self.porcentagem_pos_x, self.porcentagem_pos_y)

@@ -68,12 +68,12 @@ while game_rodando:
                     subsetor = 'saida'
 
                 # interacao com o mouse
-                if event.type == pygame.MOUSEBUTTONDOWN:
-                    interacao_opcoes_mouse_pMOUSEBUTTON()
-                    subsetor = interacao_opcoes_mouse_pMOUSEBUTTON()              
-                
-            if pygame.mouse.get_pressed()[0]:
-                interacao_opcoes_mouse_pGETPRESSED()
+                interacao_opcoes_mouse_evento(event)
+                interacao_opcoes_mouse_saida(event)
+                if interacao_opcoes_mouse_saida(event) == 'caiu':
+                    subsetor = 'caiu'
+
+            interacao_opcoes_mouse()
 
             # desenhando elementos na tela
             desenho_pagina_inicial()
@@ -116,7 +116,6 @@ while game_rodando:
             # desenhando elementos na tela
             desenho_landing_page()
 
-
             interacao_landingpage_mouse_colisao()
 
             # atualizacao da tela
@@ -131,14 +130,12 @@ while game_rodando:
                     subsetor = 'caiu'
 
                 # interacao com o mouse
-                if event.type == pygame.MOUSEBUTTONDOWN:
-                    interacao_opcoes_mouse_pMOUSEBUTTON()
-                    subsetor = interacao_opcoes_mouse_pMOUSEBUTTON()               
-                
-            if pygame.mouse.get_pressed()[0]:
-                interacao_opcoes_mouse_pGETPRESSED()
+                interacao_opcoes_mouse_evento(event)
+                interacao_opcoes_mouse_saida(event)
+                if interacao_opcoes_mouse_saida(event) == 'caiu':
+                    subsetor = 'caiu'
 
-            
+            interacao_opcoes_mouse()
 
             # desenhando elementos na tela
             desenho_landing_page()
@@ -154,20 +151,22 @@ while game_rodando:
                 if event.type == pygame.QUIT:
                     setor = 'landing'
                     subsetor = 'caiu'
+                    
+                aumento_de_atributo(event)
 
                 # interacao com o mouse
-                if event.type == pygame.MOUSEBUTTONDOWN:
-                    if pygame.mouse.get_pos()[0] >= botao_ok_janela_personagem.porcentagem_pos_x:
-                        if pygame.mouse.get_pos()[1] >= botao_ok_janela_personagem.porcentagem_pos_y:
-                            if pygame.mouse.get_pos()[0] <= botao_ok_janela_personagem.porcentagem_pos_x + botao_ok_janela_personagem.largura_transformada:
-                                if pygame.mouse.get_pos()[1] <= botao_ok_janela_personagem.porcentagem_pos_y + botao_ok_janela_personagem.altura_transformada:
-                                    setor = 'landing'
-                                    subsetor = 'caiu'
-                                    som_clique.play()
+                #interacao_criar_personagem_caixas_confirm(event)
+                interacao_opcoes_mouse_saida(event)
+                if interacao_opcoes_mouse_saida(event) == 'caiu':
+                    setor = 'landing'
+                    subsetor = 'caiu'
             
             # desenhando elementos na tela
             desenho_landing_page()
             desenho_landing_page_criar_personagem()
+            
+            desenho_aumento_de_atributo()
+            calculos()
 
             # atualizacao da tela
             pygame.display.update()
