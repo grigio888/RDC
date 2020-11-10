@@ -18,6 +18,8 @@ seta_virar_direita = ExibirImagem('modulos/setores/a_pagina_inicial/opcoes_ext/b
 
 frame_nome = ExibirImagem('modulos/setores/b_inicio/criar_personagem/frame_nome.png', 606, 85, 21.9, 55)
 texto_nome = Escrever(50, 56.4, 'corpo', 'Nome de Teste', 'preto', 'centro')
+texto_nome_escrevendo = False
+texto_nome_entrada = ''
 
 level_base = 1
 texto_introducao = Escrever(50, 63.3, 'corpo', 'Aprendiz, Level Base: ' + str(level_base), 'preto', 'centro')
@@ -264,6 +266,30 @@ def interacao_opcoes_mouse_saida(evento):
                         som_clique.play()
                         return 'caiu'
 
+def escrever_nome(event):
+    
+    global texto_nome_escrevendo, texto_nome_entrada
+    
+    if event.type == pygame.MOUSEBUTTONDOWN:
+        if pygame.mouse.get_pos()[0] >= frame_nome.porcentagem_pos_x:
+            if pygame.mouse.get_pos()[1] >= frame_nome.porcentagem_pos_y:
+                if pygame.mouse.get_pos()[0] <= frame_nome.porcentagem_pos_x + frame_nome.largura_transformada:
+                    if pygame.mouse.get_pos()[1] <= frame_nome.porcentagem_pos_y + frame_nome.altura_transformada:
+                        texto_nome_escrevendo = not texto_nome_escrevendo
+                        
+        else:
+            texto_nome_escrevendo = False
+              
+    if event.type == pygame.KEYDOWN:
+        if texto_nome_escrevendo:
+            if event.key == pygame.K_RETURN:
+                print(texto_nome.frase)
+                texto_nome.frase = ''
+            elif event.key == pygame.K_BACKSPACE:
+                texto_nome.frase = texto_nome.frase[:-1]
+        else:
+            texto_nome.frase += event.unicode
+
 atributo_custo = [atributo_custo_for, atributo_custo_agi, atributo_custo_vit, atributo_custo_int, atributo_custo_des, atributo_custo_sor]
 atributo_passivo = [atributo_passivo_for, atributo_passivo_agi, atributo_passivo_vit, atributo_passivo_int, atributo_passivo_des, atributo_passivo_sor]
 atributo = [atributo_for, atributo_agi, atributo_vit, atributo_int, atributo_des, atributo_sor]
@@ -311,7 +337,6 @@ def aumento_de_atributo(event):
                                     atributo_sor.frase = str(atributo_passivo_sor)
                                     texto_pts_atributos_calculo.frase = str(pontos_de_atributos)
                                 
-
 def desenho_aumento_de_atributo():
     
     global pontos_de_atributos, atributos_custo, aumentar_atributo
@@ -333,12 +358,10 @@ def calculos():
     texto_precisao_calculo.frase = str(precisao_passiva)
     esquiva_passiva = (100 +  level_base + atributo_passivo_agi + (atributo_passivo_sor // 5))
     esquiva_perfeita = (1 + (atributo_passivo_sor // 10))
-    texto_esquiva_calculo.frase = str(precisao_passiva) + ' + ' + str(esquiva_perfeita)
+    texto_esquiva_calculo.frase = str(esquiva_passiva) + ' + ' + str(esquiva_perfeita)
     critico_passivo = ((atributo_passivo_sor // 3) + critico_item)
     texto_critico_calculo.frase = str(critico_passivo)
     
-    
-      
 if __name__ == '__main__':
 
     game_rodando = True
@@ -348,23 +371,15 @@ if __name__ == '__main__':
             if event.type == pygame.QUIT:
                 game_rodando = False
 
-            if pontos_de_atributos >= atributo_custo_for:
-                if event.type == pygame.MOUSEBUTTONDOWN:
-                    if pygame.mouse.get_pos()[0] >= aumentar_for.porcentagem_pos_x:
-                        if pygame.mouse.get_pos()[1] >= aumentar_for.porcentagem_pos_y:
-                            if pygame.mouse.get_pos()[0] <= aumentar_for.porcentagem_pos_x + aumentar_for.largura_transformada:
-                                if pygame.mouse.get_pos()[1] <= aumentar_for.porcentagem_pos_y + aumentar_for.altura_transformada:
-                                    atributo_passivo_for += 1
-                                    pontos_de_atributos -= atributo_custo_for
-                                    atributo_for.frase = str(atributo_passivo_for)
-                                    texto_pts_atributos_calculo.frase = str(pontos_de_atributos)
+            escrever_nome(event)
+            aumento_de_atributo(event)
 
         desenho_landing_page()
         desenho_landing_page_criar_personagem()
         #distribuicao_de_pontos_atributos()
 
-        if pontos_de_atributos >= atributo_custo_for:
-            aumentar_for.desenho()
+        desenho_aumento_de_atributo()
+        calculos()
 
         pygame.display.update()
         relogio_de_atualizacao.tick(ponteiro)

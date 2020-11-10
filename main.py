@@ -151,7 +151,8 @@ while game_rodando:
                 if event.type == pygame.QUIT:
                     setor = 'landing'
                     subsetor = 'caiu'
-                    
+                
+                escrever_nome(event)
                 aumento_de_atributo(event)
 
                 # interacao com o mouse
