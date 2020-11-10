@@ -9,6 +9,7 @@ Change Logs:
 09/11/20:
 - Adicionado interações (For, Agi, Vit, Int, Des e Sor) nos menus, se atentando ao gasto de atributos.
 - As tabelas de caracteriscas se atualizam conforme adicionado pontos na distribuição de atributos.
+- Adicionado função de Escrever Nome.
 
 
 
