@@ -1,10 +1,25 @@
 import pygame, sys
+import mysql.connector as conectante
 from modulos.segmentacao import *
-from modulos.setores.a_pagina_inicial.opcoes import *
+from modulos.setores.b_inicio.opcoes import *
 
 sys.path.append(caminho_raiz_pc)
 
 pygame.init()
+
+# conectando ao banco de dados:
+login = conectante.connect(user='root', password='kiju1475',
+                         host='localhost',
+                         database='rdc')
+
+cursor = login.cursor()
+
+comando = ('select noChar, score, zeny from login join informacoes_da_conta on infos_FK where login = %s and senha = %s')
+cursor.execute(comando, (texto_campo_login.frase, texto_campo_senha_real.frase))
+
+dados_landing_page = cursor.fetchall()
+
+login.close()
 
 # variaveis:
 
@@ -12,66 +27,66 @@ fundo_inicio = ExibirImagem('modulos/setores/b_inicio/landing_page/fundo.png', 1
 
 # Conta
 janela_conta = ExibirImagem('modulos/setores/b_inicio/landing_page/janela_cima.png', 972, 333, 5, 1.5)
-texto_conta = Escrever(7, 2.2, 'titulo', 'Conta', 'preto')
+texto_conta = Escrever(janela_conta.pos_x + 2, janela_conta.pos_y + 0.9, 'titulo', 'Conta', 'preto')
 
-nome_da_conta = Escrever(8.3, 5.7, 'corpo', 'Nome_Da_Conta', 'preto')
+nome_da_conta = Escrever(janela_conta.pos_x + 3.3, janela_conta.pos_y + 4.2, 'corpo', texto_campo_login.frase, 'preto')
 
-num_de_personagens_0 = Escrever(10.1, 9.3, 'corpo', 'No. de Personagens:', 'preto')
-num_de_personagens_1 = Escrever(90, 9.3, 'corpo', '0 / 4 pngs', 'preto', 'direita')
+num_de_personagens_0 = Escrever(janela_conta.pos_x + 5.1, janela_conta.pos_y + 7.8, 'corpo', 'No. de Personagens:', 'preto')
+num_de_personagens_1 = Escrever(janela_conta.pos_x + 85, janela_conta.pos_y + 7.8, 'corpo', str(dados_landing_page[0][0]) + ' / 4 pngs', 'preto', 'direita')
 
-score_0 = Escrever(10.1, 12, 'corpo', 'Score Maximo:', 'preto')
-score_1 = Escrever(90, 12, 'corpo', '000000000 pts.', 'preto', 'direita')
+score_0 = Escrever(janela_conta.pos_x + 5.1, janela_conta.pos_y + 10.5, 'corpo', 'Score Maximo:', 'preto')
+score_1 = Escrever(janela_conta.pos_x + 85, janela_conta.pos_y + 10.5, 'corpo', str(dados_landing_page[0][1]) + ' pts.', 'preto', 'direita')
 
-dinheiro_0 = Escrever(50, 15.5, 'titulo', 'Zenys:', 'preto')
-dinheiro_1 = Escrever(93, 15.5, 'titulo', '000000000 z', 'preto', 'direita')
+dinheiro_0 = Escrever(janela_conta.pos_x + 45, janela_conta.pos_y + 14, 'titulo', 'Zenys:', 'preto')
+dinheiro_1 = Escrever(janela_conta.pos_x + 88, janela_conta.pos_y + 14, 'titulo', str(dados_landing_page[0][2]) + ' z', 'preto', 'direita')
 
 #Personagens
 janela_personagem = ExibirImagem('modulos/setores/b_inicio/landing_page/janela_meio.png', 972, 1244, 5, 19)
-texto_personagem = Escrever(7, 20, 'titulo', 'Personagem', 'preto')
+texto_personagem = Escrever(janela_personagem.pos_x + 2, janela_personagem.pos_y + 0.9, 'titulo', 'Personagem', 'preto')
 
-personagem_0_frame = ExibirImagem('modulos/setores/b_inicio/landing_page/frame_personagem.png', 404, 517, 10.6, 23.7)
+personagem_0_frame = ExibirImagem('modulos/setores/b_inicio/landing_page/frame_personagem.png', 404, 517, janela_personagem.pos_x + 5.6, janela_personagem.pos_y + 4.7)
 personagem_0 = None
-personagem_0_adicionar = ExibirImagem('modulos/setores/b_inicio/landing_page/adicionar.png', 60, 60, 26.6, 35)
-personagem_0_sombra = ExibirImagem('modulos/setores/b_inicio/landing_page/frame_sombra.png', 165, 94, 21.8, 43.3)
-personagem_0_nome = Escrever(29.4, 50.1, 'item', 'Nome_Char', 'preto', 'centro')
+personagem_0_adicionar = ExibirImagem('modulos/setores/b_inicio/landing_page/adicionar.png', 60, 60, janela_personagem.pos_x + 21.6, janela_personagem.pos_y + 16)
+personagem_0_sombra = ExibirImagem('modulos/setores/b_inicio/landing_page/frame_sombra.png', 165, 94, janela_personagem.pos_x + 16.8, janela_personagem.pos_y + 24.3)
+personagem_0_nome = Escrever(janela_personagem.pos_x + 24.4, janela_personagem.pos_y + 31.1, 'item', 'Nome_Char', 'preto', 'centro')
 
-personagem_1_frame = ExibirImagem('modulos/setores/b_inicio/landing_page/frame_personagem.png', 404, 517, 51.7, 23.7)
+personagem_1_frame = ExibirImagem('modulos/setores/b_inicio/landing_page/frame_personagem.png', 404, 517, janela_personagem.pos_x + 46.7, janela_personagem.pos_y + 4.7)
 personagem_1 = None
-personagem_1_adicionar = ExibirImagem('modulos/setores/b_inicio/landing_page/adicionar.png', 60, 60, 67.7, 35)
-personagem_1_sombra = ExibirImagem('modulos/setores/b_inicio/landing_page/frame_sombra.png', 165, 94, 62.8, 43.3)
-personagem_1_nome = Escrever(70.5, 50.1, 'item', 'Nome_Char', 'preto', 'centro')
+personagem_1_adicionar = ExibirImagem('modulos/setores/b_inicio/landing_page/adicionar.png', 60, 60, janela_personagem.pos_x + 62.7, janela_personagem.pos_y + 16)
+personagem_1_sombra = ExibirImagem('modulos/setores/b_inicio/landing_page/frame_sombra.png', 165, 94, janela_personagem.pos_x + 57.8, janela_personagem.pos_y + 24.3)
+personagem_1_nome = Escrever(janela_personagem.pos_x + 65.5, janela_personagem.pos_y + 31.1, 'item', 'Nome_Char', 'preto', 'centro')
 
-personagem_2_frame = ExibirImagem('modulos/setores/b_inicio/landing_page/frame_personagem.png', 404, 517, 10.6, 52)
+personagem_2_frame = ExibirImagem('modulos/setores/b_inicio/landing_page/frame_personagem.png', 404, 517, janela_personagem.pos_x + 5.6, janela_personagem.pos_y + 33)
 personagem_2 = None
-personagem_2_adicionar = ExibirImagem('modulos/setores/b_inicio/landing_page/adicionar.png', 60, 60, 26.6, 63.4)
-personagem_2_sombra = ExibirImagem('modulos/setores/b_inicio/landing_page/frame_sombra.png', 165, 94, 21.8, 71.6)
-personagem_2_nome = Escrever(29.4, 78.4, 'item', 'Nome_Char', 'preto', 'centro')
+personagem_2_adicionar = ExibirImagem('modulos/setores/b_inicio/landing_page/adicionar.png', 60, 60, janela_personagem.pos_x + 21.6, janela_personagem.pos_y + 44.4)
+personagem_2_sombra = ExibirImagem('modulos/setores/b_inicio/landing_page/frame_sombra.png', 165, 94, janela_personagem.pos_x + 16.8, janela_personagem.pos_y + 52.6)
+personagem_2_nome = Escrever(janela_personagem.pos_x + 24.4, janela_personagem.pos_y + 59.4, 'item', 'Nome_Char', 'preto', 'centro')
 
-personagem_3_frame = ExibirImagem('modulos/setores/b_inicio/landing_page/frame_personagem.png', 404, 517, 51.7, 52)
+personagem_3_frame = ExibirImagem('modulos/setores/b_inicio/landing_page/frame_personagem.png', 404, 517, janela_personagem.pos_x + 46.7, janela_personagem.pos_y + 33)
 personagem_3 = None
-personagem_3_adicionar = ExibirImagem('modulos/setores/b_inicio/landing_page/adicionar.png', 60, 60, 67.7, 63.4)
-personagem_3_sombra = ExibirImagem('modulos/setores/b_inicio/landing_page/frame_sombra.png', 165, 94, 62.8, 71.6)
-personagem_3_nome = Escrever(70.5, 78.4, 'item', 'Nome_Char', 'preto', 'centro')
+personagem_3_adicionar = ExibirImagem('modulos/setores/b_inicio/landing_page/adicionar.png', 60, 60, janela_personagem.pos_x + 62.7, janela_personagem.pos_y + 44.4)
+personagem_3_sombra = ExibirImagem('modulos/setores/b_inicio/landing_page/frame_sombra.png', 165, 94, janela_personagem.pos_x + 57.8, janela_personagem.pos_y + 52.6)
+personagem_3_nome = Escrever(janela_personagem.pos_x + 65.5, janela_personagem.pos_y + 59.4, 'item', 'Nome_Char', 'preto', 'centro')
 
 #Diversos
 janela_diversos = ExibirImagem('modulos/setores/b_inicio/landing_page/janela_baixo.png', 972, 333, 5, 81.5)
-texto_diversos = Escrever(7, 82.4, 'titulo', 'Diversos', 'preto')
+texto_diversos = Escrever(janela_diversos.pos_x + 2, janela_diversos.pos_y + 0.9, 'titulo', 'Diversos', 'preto')
 
-frame_mochila = ExibirImagem('modulos/setores/b_inicio/landing_page/frame_item.png', 210, 240, 8.5, 85.2)
-opcao_mochila = ExibirItem(11.3, 85, 2641, 1, 2.2)
-texto_mochila = Escrever(17.75, 95.5, 'item', 'Mochila', 'preto', 'centro')
+frame_mochila = ExibirImagem('modulos/setores/b_inicio/landing_page/frame_item.png', 210, 240, janela_diversos.pos_x + 3.5, janela_diversos.pos_y + 3.7)
+opcao_mochila = ExibirItem(janela_diversos.pos_x + 6.3, janela_diversos.pos_y + 3.5, 2641, 1, 2.2)
+texto_mochila = Escrever(janela_diversos.pos_x + 12.75, janela_diversos.pos_y + 14, 'item', 'Mochila', 'preto', 'centro')
 
-frame_chave = ExibirImagem('modulos/setores/b_inicio/landing_page/frame_item.png', 210, 240, 30, 85.2)
-opcao_chave = ExibirItem(34.4, 86, 7026, 1, 1.9)
-texto_chave = Escrever(39.5, 95.5, 'item', 'Chave', 'preto', 'centro')
+frame_chave = ExibirImagem('modulos/setores/b_inicio/landing_page/frame_item.png', 210, 240, janela_diversos.pos_x + 25, janela_diversos.pos_y + 3.7)
+opcao_chave = ExibirItem(janela_diversos.pos_x + 29.4, janela_diversos.pos_y + 4.5, 7026, 1, 1.9)
+texto_chave = Escrever(janela_diversos.pos_x + 34.5, janela_diversos.pos_y + 14, 'item', 'Chave', 'preto', 'centro')
 
-frame_forja = ExibirImagem('modulos/setores/b_inicio/landing_page/frame_item.png', 210, 240, 51.6, 85.2)
-opcao_forja = ExibirItem(52.5, 84.5, 7811, 1, 2.4)
-texto_forja = Escrever(60.85, 95.5, 'item', 'Forja', 'preto', 'centro')
+frame_forja = ExibirImagem('modulos/setores/b_inicio/landing_page/frame_item.png', 210, 240, janela_diversos.pos_x + 46.6, janela_diversos.pos_y + 3.7)
+opcao_forja = ExibirItem(janela_diversos.pos_x + 47.5, janela_diversos.pos_y + 3, 7811, 1, 2.4)
+texto_forja = Escrever(janela_diversos.pos_x + 55.85, janela_diversos.pos_y + 14, 'item', 'Forja', 'preto', 'centro')
 
-frame_opcoes = ExibirImagem('modulos/setores/b_inicio/landing_page/frame_item.png', 210, 240, 73.1, 85.2)
-opcao_opcoes = ExibirItem(75.5, 85, 7703, 1, 2.1)
-texto_opcoes = Escrever(82.35, 95.5, 'item', 'Opcoes', 'preto', 'centro')
+frame_opcoes = ExibirImagem('modulos/setores/b_inicio/landing_page/frame_item.png', 210, 240, janela_diversos.pos_x + 68.1, janela_diversos.pos_y + 3.7)
+opcao_opcoes = ExibirItem(janela_diversos.pos_x + 70.5, janela_diversos.pos_y + 3.5, 7703, 1, 2.1)
+texto_opcoes = Escrever(janela_diversos.pos_x + 77.35, janela_diversos.pos_y + 14, 'item', 'Opcoes', 'preto', 'centro')
 
 def interacao_landingpage_mouse_colisao():
     if pygame.mouse.get_pos()[0] >= personagem_0_frame.porcentagem_pos_x:

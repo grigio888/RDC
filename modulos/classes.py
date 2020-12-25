@@ -3,6 +3,8 @@ from modulos.segmentacao import *
 
 sys.path.append(caminho_raiz_pc)
 
+tela_tamanho = pygame.display.get_window_size()
+
 #Esqueletos
 
 class ExibirImagem():
@@ -22,12 +24,16 @@ class ExibirImagem():
 		self.automatico()
 
 	def porcentagem_pos(self):
-		self.porcentagem_pos_x = tela_largura[tela_resolucao] / 100 * self.pos_x
-		self.porcentagem_pos_y = tela_altura[tela_resolucao] / 100 * self.pos_y
+		self.porcentagem_pos_x = tela_tamanho[0] / 100 * self.pos_x
+		self.porcentagem_pos_y = tela_tamanho[1] / 100 * self.pos_y
 
 	def transformando_resolucao(self):
-		self.largura_transformada = round(self.largura * (tela_largura[tela_resolucao] / tela_largura[2]))
-		self.altura_transformada = round(self.altura * (tela_altura[tela_resolucao] / tela_altura[2]))
+		if tela_cheia:
+			self.largura_transformada = round(self.largura * (tela_tamanho[1] / 1080))
+			self.altura_transformada = round(self.altura * ((tela_tamanho[1] / 1080) * 1.87))
+		if not tela_cheia:
+			self.largura_transformada = round(self.largura * (tela_tamanho[0] / 1080))
+			self.altura_transformada = round(self.altura * (tela_tamanho[1] / 2020))
 
 	def transformando_imagem(self):
 		self.transformado = pygame.transform.smoothscale(self.imagem.convert_alpha(), (self.largura_transformada, self.altura_transformada))
@@ -51,9 +57,11 @@ class ExibirImagemInterativa(ExibirImagem):
 		if self.estado:
 			self.imagem = pygame.image.load(self.caminho2)
 			self.estado = not self.estado
+			self.desenho()
 		else:
 			self.imagem = pygame.image.load(self.caminho)
 			self.estado = not self.estado
+			self.desenho()
 
 class ExibirItem(ExibirImagem):
 
@@ -122,29 +130,29 @@ class Escrever():
 		self.fonte = pygame.font.Font('modulos/pixelmix.ttf', self.tamanho)
 	
 	def porcentagem_pos(self):
-		self.porcentagem_pos_x = tela_largura[tela_resolucao] / 100 * self.pos_x
-		self.porcentagem_pos_y = tela_altura[tela_resolucao] / 100 * self.pos_y
+		self.porcentagem_pos_x = tela_tamanho[0] / 100 * self.pos_x
+		self.porcentagem_pos_y = tela_tamanho[1] / 100 * self.pos_y
 	
 	def mudando_tamanho(self):
 		if self.tipo == 'titulo':
-			tamanhos = [12, 18, 27, 41]
-			self.tamanho = tamanhos[tela_resolucao]
+			tamanho_padrao = 27
+			self.tamanho = round((tamanho_padrao * tela_tamanho[0]) / 1080)
 
 		if self.tipo == 'botao':
-			tamanhos = [16, 24, 38, 58]
-			self.tamanho = tamanhos[tela_resolucao]
+			tamanho_padrao = 36
+			self.tamanho = round((tamanho_padrao * tela_tamanho[0]) / 1080)
 
 		if self.tipo == 'corpo':
-			tamanhos = [14, 21, 32, 47]
-			self.tamanho = tamanhos[tela_resolucao]
+			tamanho_padrao = 32
+			self.tamanho = round((tamanho_padrao * tela_tamanho[0]) / 1080)
 		
 		if self.tipo == 'item':
-			tamanhos = [10, 15, 22, 34]
-			self.tamanho = tamanhos[tela_resolucao]
+			tamanho_padrao = 22
+			self.tamanho = round((tamanho_padrao * tela_tamanho[0]) / 1080)
 
 		if self.tipo == 'atributo':
-			tamanhos = [13, 19, 30, 46]
-			self.tamanho = tamanhos[tela_resolucao]
+			tamanho_padrao = 30
+			self.tamanho = round((tamanho_padrao * tela_tamanho[0]) / 1080)
 		
 	def mudando_cor(self):
 		if self.cor == 'preto':

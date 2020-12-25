@@ -24,16 +24,23 @@ while game_rodando:
                     setor = 'saida'
                     subsetor = 'saida'
                 
+                escrever_login_senha(event)
+
                 # interacao com o mouse
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if pygame.mouse.get_pos()[0] >= botao_entrar.porcentagem_pos_x:
                         if pygame.mouse.get_pos()[1] >= botao_entrar.porcentagem_pos_y:
                             if pygame.mouse.get_pos()[0] <= botao_entrar.porcentagem_pos_x + botao_entrar.largura_transformada:
                                 if pygame.mouse.get_pos()[1] <= botao_entrar.porcentagem_pos_y + botao_entrar.altura_transformada:
-                                    from modulos.setores.b_inicio.landing_page import *
-                                    setor = 'landing'
-                                    subsetor = 'caiu'
-                                    som_clique.play()
+                                    testando = lendo_login()
+                                    if testando:
+                                        from modulos.setores.b_inicio.landing_page import *
+                                        setor = 'landing'
+                                        subsetor = 'caiu'
+                                        som_clique.play()
+                                    if not testando:
+                                        subsetor = 'autenticacao falha'
+                                        som_clique.play()
 
                     if pygame.mouse.get_pos()[0] >= botao_sair.porcentagem_pos_x:
                         if pygame.mouse.get_pos()[1] >= botao_sair.porcentagem_pos_y:
@@ -44,44 +51,42 @@ while game_rodando:
                                     subsetor = 'saida'
                                     som_clique.play()
 
-                    if pygame.mouse.get_pos()[0] >= botao_opcoes.porcentagem_pos_x:
-                        if pygame.mouse.get_pos()[1] >= botao_opcoes.porcentagem_pos_y:
-                            if pygame.mouse.get_pos()[0] <= botao_opcoes.porcentagem_pos_x + botao_opcoes.largura_transformada:
-                                if pygame.mouse.get_pos()[1] <= botao_opcoes.porcentagem_pos_y + botao_opcoes.altura_transformada:
-                                    from modulos.setores.a_pagina_inicial.opcoes import *
-                                    subsetor = 'opcoes'
-                                    som_clique.play()
-
             # desenhando elementos na tela
             desenho_pagina_inicial()
 
             # atualizacao da tela
             pygame.display.update()
             relogio_de_atualizacao.tick(ponteiro)
+            tela_tamanho = pygame.display.get_window_size()
     
-        while subsetor == 'opcoes':
-            
+        while subsetor == 'autenticacao falha':
+
+            # definindo evento de saida
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     game_rodando = False
                     setor = 'saida'
                     subsetor = 'saida'
+                
+                escrever_login_senha(event)
 
                 # interacao com o mouse
-                interacao_opcoes_mouse_evento(event)
-                interacao_opcoes_mouse_saida(event)
-                if interacao_opcoes_mouse_saida(event) == 'caiu':
-                    subsetor = 'caiu'
-
-            interacao_opcoes_mouse()
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    if pygame.mouse.get_pos()[0] >= botao_ok_aviso.porcentagem_pos_x:
+                        if pygame.mouse.get_pos()[1] >= botao_ok_aviso.porcentagem_pos_y:
+                            if pygame.mouse.get_pos()[0] <= botao_ok_aviso.porcentagem_pos_x + botao_ok_aviso.largura_transformada:
+                                if pygame.mouse.get_pos()[1] <= botao_ok_aviso.porcentagem_pos_y + botao_ok_aviso.altura_transformada:
+                                    subsetor = 'inicio'
+                                    som_clique.play()
 
             # desenhando elementos na tela
             desenho_pagina_inicial()
-            desenho_pagina_opcoes()
+            desenho_pagina_aviso()
 
             # atualizacao da tela
             pygame.display.update()
             relogio_de_atualizacao.tick(ponteiro)
+            tela_tamanho = pygame.display.get_window_size()
 
     while setor == 'landing':
 
@@ -121,6 +126,7 @@ while game_rodando:
             # atualizacao da tela
             pygame.display.update()
             relogio_de_atualizacao.tick(ponteiro)
+            tela_tamanho = pygame.display.get_window_size()
 
         while subsetor == 'opcoes':
 
@@ -144,6 +150,7 @@ while game_rodando:
             # atualizacao da tela
             pygame.display.update()
             relogio_de_atualizacao.tick(ponteiro)
+            tela_tamanho = pygame.display.get_window_size()
         
         while subsetor == 'criacao':
 
@@ -172,3 +179,4 @@ while game_rodando:
             # atualizacao da tela
             pygame.display.update()
             relogio_de_atualizacao.tick(ponteiro)
+            tela_tamanho = pygame.display.get_window_size()

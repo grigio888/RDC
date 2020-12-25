@@ -1,4 +1,5 @@
 import pygame, sys
+from time import gmtime, strftime
 
 sys.path.append('D:/Vini/Projetos/004 - RDC')
 
@@ -20,6 +21,7 @@ frame_nome = ExibirImagem('modulos/setores/b_inicio/criar_personagem/frame_nome.
 texto_nome = Escrever(50, 56.4, 'corpo', 'Nome de Teste', 'preto', 'centro')
 texto_nome_escrevendo = False
 texto_nome_entrada = ''
+tempo = int(strftime("%S", gmtime()))
 
 level_base = 1
 texto_introducao = Escrever(50, 63.3, 'corpo', 'Aprendiz, Level Base: ' + str(level_base), 'preto', 'centro')
@@ -268,27 +270,35 @@ def interacao_opcoes_mouse_saida(evento):
 
 def escrever_nome(event):
     
-    global texto_nome_escrevendo, texto_nome_entrada
+    global texto_nome_escrevendo, texto_nome_entrada, tempo
     
     if event.type == pygame.MOUSEBUTTONDOWN:
         if pygame.mouse.get_pos()[0] >= frame_nome.porcentagem_pos_x:
             if pygame.mouse.get_pos()[1] >= frame_nome.porcentagem_pos_y:
                 if pygame.mouse.get_pos()[0] <= frame_nome.porcentagem_pos_x + frame_nome.largura_transformada:
                     if pygame.mouse.get_pos()[1] <= frame_nome.porcentagem_pos_y + frame_nome.altura_transformada:
-                        texto_nome_escrevendo = not texto_nome_escrevendo
+                        texto_nome_escrevendo = True
                         
         else:
             texto_nome_escrevendo = False
-              
+
+    #if texto_nome_escrevendo == True:
+    #    if tempo % 2 == 0:
+    #        if texto_nome.frase[:-1] != 'I':
+    #            texto_nome.frase += 'I'
+    #    else:
+    #        if texto_nome.frase[:-1] == 'I':
+    #            texto_nome.frase = texto_nome.frase[:-1]
+            
+
     if event.type == pygame.KEYDOWN:
         if texto_nome_escrevendo:
             if event.key == pygame.K_RETURN:
-                print(texto_nome.frase)
-                texto_nome.frase = ''
+                texto_nome_escrevendo = False
             elif event.key == pygame.K_BACKSPACE:
                 texto_nome.frase = texto_nome.frase[:-1]
-        else:
-            texto_nome.frase += event.unicode
+            else:
+                texto_nome.frase += event.unicode
 
 atributo_custo = [atributo_custo_for, atributo_custo_agi, atributo_custo_vit, atributo_custo_int, atributo_custo_des, atributo_custo_sor]
 atributo_passivo = [atributo_passivo_for, atributo_passivo_agi, atributo_passivo_vit, atributo_passivo_int, atributo_passivo_des, atributo_passivo_sor]

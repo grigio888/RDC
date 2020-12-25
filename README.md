@@ -6,6 +6,20 @@ Segundo projeto que estou usando para escalabilidade de codigos em um programa d
 
 Change Logs:
 
+25/12/20:
+- Adicionada (parcial) integração com banco de dados MySQL.
+- Adicionado tela de login com autenticadores.
+- Adicionado funcionalidade 'Full Screen', mas apenas experimental (ocasiona má renderização de basicamente tudo.).
+
+- Melhorado o modo como as posições das janelas são renderizadas.
+- Melhorado o modo como a reescala das imagens são feitas, sendo menos dependes de ajuste manual de renderização.
+
+- Removido opcoes da tela inicial (LogOn) para ser adicionado um menu de extras (com opções de registro).
+
+Obs.: A demora entre o commit anterior e esse é por estar aprendendo sql.
+
+
+
 09/11/20:
 - Adicionado interações (For, Agi, Vit, Int, Des e Sor) nos menus, se atentando ao gasto de atributos.
 - As tabelas de caracteriscas se atualizam conforme adicionado pontos na distribuição de atributos.
