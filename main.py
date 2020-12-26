@@ -32,13 +32,13 @@ while game_rodando:
                         if pygame.mouse.get_pos()[1] >= botao_entrar.porcentagem_pos_y:
                             if pygame.mouse.get_pos()[0] <= botao_entrar.porcentagem_pos_x + botao_entrar.largura_transformada:
                                 if pygame.mouse.get_pos()[1] <= botao_entrar.porcentagem_pos_y + botao_entrar.altura_transformada:
-                                    testando = lendo_login()
-                                    if testando:
+                                    autenticacao = lendo_login()
+                                    if autenticacao:
                                         from modulos.setores.b_inicio.landing_page import *
                                         setor = 'landing'
                                         subsetor = 'caiu'
                                         som_clique.play()
-                                    if not testando:
+                                    if not autenticacao:
                                         subsetor = 'autenticacao falha'
                                         som_clique.play()
 
@@ -51,6 +51,14 @@ while game_rodando:
                                     subsetor = 'saida'
                                     som_clique.play()
 
+                    if pygame.mouse.get_pos()[0] >= botao_extras.porcentagem_pos_x:
+                        if pygame.mouse.get_pos()[1] >= botao_extras.porcentagem_pos_y:
+                            if pygame.mouse.get_pos()[0] <= botao_extras.porcentagem_pos_x + botao_extras.largura_transformada:
+                                if pygame.mouse.get_pos()[1] <= botao_extras.porcentagem_pos_y + botao_extras.altura_transformada:
+                                    from modulos.setores.a_pagina_inicial.extras import *
+                                    subsetor = 'extras'
+                                    som_clique.play()
+
             # desenhando elementos na tela
             desenho_pagina_inicial()
 
@@ -59,6 +67,77 @@ while game_rodando:
             relogio_de_atualizacao.tick(ponteiro)
             tela_tamanho = pygame.display.get_window_size()
     
+        while subsetor == 'extras':
+
+            # definindo evento de saida
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    game_rodando = False
+                    setor = 'saida'
+                    subsetor = 'saida'
+
+                # interacao com o mouse
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    if pygame.mouse.get_pos()[0] >= botao_criar_conta.porcentagem_pos_x:
+                        if pygame.mouse.get_pos()[1] >= botao_criar_conta.porcentagem_pos_y:
+                            if pygame.mouse.get_pos()[0] <= botao_criar_conta.porcentagem_pos_x + botao_criar_conta.largura_transformada:
+                                if pygame.mouse.get_pos()[1] <= botao_criar_conta.porcentagem_pos_y + botao_criar_conta.altura_transformada:
+                                    som_clique.play()
+                                    entrando_criar_conta()
+                                    subsetor = 'criar conta'
+
+                    if pygame.mouse.get_pos()[0] >= botao_ok_extras.porcentagem_pos_x:
+                        if pygame.mouse.get_pos()[1] >= botao_ok_extras.porcentagem_pos_y:
+                            if pygame.mouse.get_pos()[0] <= botao_ok_extras.porcentagem_pos_x + botao_ok_extras.largura_transformada:
+                                if pygame.mouse.get_pos()[1] <= botao_ok_extras.porcentagem_pos_y + botao_ok_extras.altura_transformada:
+                                    som_clique.play()
+                                    subsetor = 'caiu'
+
+            # desenhando elementos na tela
+            desenho_pagina_inicial()
+            desenho_pagina_extras()
+
+            # atualizacao da tela
+            pygame.display.update()
+            relogio_de_atualizacao.tick(ponteiro)
+            tela_tamanho = pygame.display.get_window_size()
+
+        while subsetor == 'criar conta':
+
+            # definindo evento de saida
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    game_rodando = False
+                    setor = 'saida'
+                    subsetor = 'saida'
+
+                escrever_login_email_senha_extras(event)
+
+                # interacao com o mouse
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    if pygame.mouse.get_pos()[0] >= botao_cancelar_extras.porcentagem_pos_x:
+                        if pygame.mouse.get_pos()[1] >= botao_cancelar_extras.porcentagem_pos_y:
+                            if pygame.mouse.get_pos()[0] <= botao_cancelar_extras.porcentagem_pos_x + botao_cancelar_extras.largura_transformada:
+                                if pygame.mouse.get_pos()[1] <= botao_cancelar_extras.porcentagem_pos_y + botao_cancelar_extras.altura_transformada:
+                                    som_clique.play()
+                                    subsetor = 'extras'
+
+                    if pygame.mouse.get_pos()[0] >= botao_confirmar_extras.porcentagem_pos_x:
+                        if pygame.mouse.get_pos()[1] >= botao_confirmar_extras.porcentagem_pos_y:
+                            if pygame.mouse.get_pos()[0] <= botao_confirmar_extras.porcentagem_pos_x + botao_confirmar_extras.largura_transformada:
+                                if pygame.mouse.get_pos()[1] <= botao_confirmar_extras.porcentagem_pos_y + botao_confirmar_extras.altura_transformada:
+                                    som_clique.play()
+                                    subsetor = 'extras'
+
+            # desenhando elementos na tela
+            desenho_pagina_inicial()
+            desenho_pagina_criar_conta()
+
+            # atualizacao da tela
+            pygame.display.update()
+            relogio_de_atualizacao.tick(ponteiro)
+            tela_tamanho = pygame.display.get_window_size()
+
         while subsetor == 'autenticacao falha':
 
             # definindo evento de saida

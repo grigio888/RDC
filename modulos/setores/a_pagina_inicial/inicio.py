@@ -35,15 +35,15 @@ texto_entrar = Escrever(botao_entrar.pos_x + 10.2, botao_entrar.pos_y + 0.8, 'bo
 botao_sair = ExibirImagem('modulos/setores/a_pagina_inicial/inicio_ext/botao_pagina_inicial.png', 219, 69, janela_inicio.pos_x + 48.3, janela_inicio.pos_y + 16.2)
 texto_sair = Escrever(botao_sair.pos_x + 10.2, botao_sair.pos_y + 0.8, 'botao', 'Sair', 'preto', 'centro')
 
-#botao_opcoes = ExibirImagem('modulos/setores/a_pagina_inicial/inicio_ext/botao_opcoes.png', 69, 69, janela_inicio.pos_x + 81.7, janela_inicio.pos_y + 16.2)
+botao_extras = ExibirImagem('modulos/setores/a_pagina_inicial/inicio_ext/botao_extras.png', 69, 69, janela_inicio.pos_x + 81.7, janela_inicio.pos_y + 16.2)
 
 
 
 janela_aviso = ExibirImagem('modulos/setores/a_pagina_inicial/inicio_ext/janela_aviso.png', 483, 278, 27.7, 70.5)
 texto_aviso = Escrever(janela_aviso.pos_x + 2, janela_aviso.pos_y + 0.9, 'titulo', 'Aviso', 'preto')
 
-texto_do_aviso_1 = Escrever(janela_aviso.pos_x + 22.3, janela_aviso.pos_y + 4.5, 'corpo', 'Login e/ou senha', 'preto', 'centro')
-texto_do_aviso_2 = Escrever(janela_aviso.pos_x + 22.3, janela_aviso.pos_y + 6.5, 'corpo', 'estao incorretos.', 'preto', 'centro')
+texto_do_aviso_1 = Escrever(janela_aviso.pos_x + 22.3, janela_aviso.pos_y + 4.5, 'atributo', 'Login e/ou senha', 'preto', 'centro')
+texto_do_aviso_2 = Escrever(janela_aviso.pos_x + 22.3, janela_aviso.pos_y + 6.5, 'atributo', 'estao incorretos.', 'preto', 'centro')
 
 botao_ok_aviso = ExibirImagem('modulos/setores/a_pagina_inicial/inicio_ext/botao_curto.png', 106, 69, janela_aviso.pos_x + 17.5, janela_aviso.pos_y + 9.5)
 texto_ok_aviso = Escrever(botao_ok_aviso.pos_x + 5, botao_ok_aviso.pos_y + 0.9, 'corpo', 'OK', 'preto', 'centro')
@@ -79,7 +79,7 @@ def desenho_pagina_inicial():
     botao_sair.desenho()
     texto_sair.desenho()
     
-    #botao_opcoes.desenho()
+    botao_extras.desenho()
 
 def desenho_pagina_aviso():
     janela_aviso.desenho()

@@ -163,6 +163,8 @@ class Escrever():
 			self.cor = (0, 150, 0)
 		elif self.cor == 'azul':
 			self.cor = (54, 69, 111)
+		elif self.cor == 'cinza':
+			self.cor = (178, 178, 178)
 		else:
 			pass
 			

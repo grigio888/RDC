@@ -6,6 +6,14 @@ Segundo projeto que estou usando para escalabilidade de codigos em um programa d
 
 Change Logs:
 
+26/12/20:
+- Adicionado janela Extras.
+- Adicionado esqueleto para a função de registro de contas.
+
+- Tela de opções acessada somente após o login.
+
+
+
 25/12/20:
 - Adicionada (parcial) integração com banco de dados MySQL.
 - Adicionado tela de login com autenticadores.
