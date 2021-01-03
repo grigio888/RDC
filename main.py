@@ -162,7 +162,7 @@ while game_rodando:
 
                     if verificador == 'cadastro concluido':
                         if pressionar_botao(botao_ok_aviso_login_extras):
-                            subsetor == 'inicio'
+                            subsetor = 'caiu'
 
             # desenhando elementos na tela
             desenho_pagina_inicial()
@@ -190,19 +190,12 @@ while game_rodando:
                     subsetor = 'saida'
 
                 if event.type == pygame.MOUSEBUTTONDOWN:
-                    if pygame.mouse.get_pos()[0] >= frame_opcoes.porcentagem_pos_x:
-                        if pygame.mouse.get_pos()[1] >= frame_opcoes.porcentagem_pos_y:
-                            if pygame.mouse.get_pos()[0] <= frame_opcoes.porcentagem_pos_x + frame_opcoes.largura_transformada:
-                                if pygame.mouse.get_pos()[1] <= frame_opcoes.porcentagem_pos_y + frame_opcoes.altura_transformada:
-                                    subsetor = 'opcoes'
-                                    som_clique.play()
-                    if pygame.mouse.get_pos()[0] >= personagem_0_frame.porcentagem_pos_x:
-                        if pygame.mouse.get_pos()[1] >= personagem_0_frame.porcentagem_pos_y:
-                            if pygame.mouse.get_pos()[0] <= personagem_0_frame.porcentagem_pos_x + personagem_0_frame.largura_transformada:
-                                if pygame.mouse.get_pos()[1] <= personagem_0_frame.porcentagem_pos_y + personagem_0_frame.altura_transformada:
-                                    from modulos.setores.b_inicio.landing_page_criar_personagem import *
-                                    subsetor = 'criacao'
-                                    som_clique.play()
+                    if pressionar_botao(frame_opcoes):
+                        subsetor = 'opcoes'
+
+                    if pressionar_botao(personagem_0_frame):
+                        from modulos.setores.b_inicio.landing_page_criar_personagem import *
+                        subsetor = 'criacao'
 
             # desenhando elementos na tela
             desenho_landing_page()

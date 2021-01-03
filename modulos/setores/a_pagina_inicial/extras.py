@@ -303,15 +303,17 @@ def adicionando_cadastro():
     comando = ('select * from login')
     cursor.execute(comando)
     variavel = cursor.fetchall()
-    index_a_ser_adicionado = len(variavel) + 1
+    index_a_ser_adicionado = variavel[len(variavel) - 1][0] + 1
 
+    comando = ("insert into opcoes values ('" + str(index_a_ser_adicionado) + "', '1', '20', '1', '20', '1')")
+    cursor.execute(comando)
+    comando = ("insert into informacoes_da_conta values (%s, '0', '0', '0', %s, %s, %s, %s)")
+    cursor.execute(comando, (index_a_ser_adicionado, index_a_ser_adicionado, index_a_ser_adicionado, index_a_ser_adicionado, index_a_ser_adicionado))
     comando = ("insert into login values (default, %s, %s, %s, %s)")
     cursor.execute(comando, (texto_campo_login_extras.frase, texto_campo_senha_extras_real.frase, texto_campo_email_extras.frase, index_a_ser_adicionado))
-    comando = ("insert into informacoes_da_conta values (default, '0', '0', '0', %s, %s, %s, %s)")
-    cursor.execute(comando, (index_a_ser_adicionado, index_a_ser_adicionado, index_a_ser_adicionado, index_a_ser_adicionado))
-    comando = ("insert into opcoes values (default, '1', '20', '1', '20', '1')")
-    cursor.execute(comando)
-
+    
+    
+    login.commit()
     login.close()
 
 if __name__ == '__main__':

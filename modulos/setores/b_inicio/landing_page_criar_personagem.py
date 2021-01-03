@@ -12,10 +12,10 @@ janela_personagem = ExibirImagem('modulos/setores/b_inicio/criar_personagem/jane
 texto_personagem = Escrever(7, 9.5, 'titulo', 'Personagem', 'preto')
 
 frame_personagem = ExibirImagem('modulos/setores/b_inicio/criar_personagem/frame.png', 606, 775, 21.9, 14.6)
-seta_virar_esquerda = ExibirImagem('modulos/setores/a_pagina_inicial/opcoes_ext/barra_intensidade_menor.png', 35, 46, 25.2, 32.8)
+seta_virar_esquerda = ExibirImagem('modulos/setores/b_inicio/opcoes_ext/barra_intensidade_menor.png', 35, 46, 25.2, 32.8)
 personagem_de_demonstracao = ExibirImagem('modulos/setores/b_inicio/criar_personagem/personagem_teste.png', 216, 564, 40.0, 19.8)
 personagem_sombra = ExibirImagem('modulos/setores/b_inicio/criar_personagem/sombra.png', 330, 188, 34.7, 40.8)
-seta_virar_direita = ExibirImagem('modulos/setores/a_pagina_inicial/opcoes_ext/barra_intensidade_maior.png', 35, 46, 71.9, 32.8)
+seta_virar_direita = ExibirImagem('modulos/setores/b_inicio/opcoes_ext/barra_intensidade_maior.png', 35, 46, 71.9, 32.8)
 
 frame_nome = ExibirImagem('modulos/setores/b_inicio/criar_personagem/frame_nome.png', 606, 85, 21.9, 55)
 texto_nome = Escrever(50, 56.4, 'corpo', 'Nome de Teste', 'preto', 'centro')
@@ -41,7 +41,7 @@ atributo_custo_for = 2
 texto_for = Escrever(11.5, 71, 'corpo', 'Str', 'azul')
 caixa_for = ExibirImagem('modulos/setores/b_inicio/criar_personagem/grade_atributo.png', 164, 32, 19, 71.1)
 atributo_for = Escrever(19.5, 71.2, 'item', str(atributo_passivo_for), 'preto')
-aumentar_for = ExibirImagem('modulos/setores/a_pagina_inicial/opcoes_ext/barra_intensidade_maior.png', 17, 23, 28.6, 71.3)
+aumentar_for = ExibirImagem('modulos/setores/b_inicio/opcoes_ext/barra_intensidade_maior.png', 17, 23, 28.6, 71.3)
 custo_for = Escrever(34, 71.2, 'item', str(atributo_custo_for), 'preto', 'direita')
 
 atributo_passivo_agi = 1
@@ -49,7 +49,7 @@ atributo_custo_agi = 2
 texto_agi = Escrever(11.5, 73.5, 'corpo', 'Agi', 'azul')
 caixa_agi = ExibirImagem('modulos/setores/b_inicio/criar_personagem/grade_atributo.png', 164, 32, 19, 73.6)
 atributo_agi = Escrever(19.5, 73.7, 'item', str(atributo_passivo_agi), 'preto')
-aumentar_agi = ExibirImagem('modulos/setores/a_pagina_inicial/opcoes_ext/barra_intensidade_maior.png', 17, 23, 28.6, 73.85)
+aumentar_agi = ExibirImagem('modulos/setores/b_inicio/opcoes_ext/barra_intensidade_maior.png', 17, 23, 28.6, 73.85)
 custo_agi = Escrever(34, 73.7, 'item', str(atributo_custo_agi), 'preto', 'direita')
 
 atributo_passivo_vit = 1
@@ -57,7 +57,7 @@ atributo_custo_vit = 2
 texto_vit = Escrever(11.5, 76, 'corpo', 'Vit', 'azul')
 caixa_vit = ExibirImagem('modulos/setores/b_inicio/criar_personagem/grade_atributo.png', 164, 32, 19, 76.1)
 atributo_vit = Escrever(19.5, 76.2, 'item', str(atributo_passivo_vit), 'preto')
-aumentar_vit = ExibirImagem('modulos/setores/a_pagina_inicial/opcoes_ext/barra_intensidade_maior.png', 17, 23, 28.6, 76.3)
+aumentar_vit = ExibirImagem('modulos/setores/b_inicio/opcoes_ext/barra_intensidade_maior.png', 17, 23, 28.6, 76.3)
 custo_vit = Escrever(34, 76.2, 'item', str(atributo_custo_vit), 'preto', 'direita')
 
 atributo_passivo_int = 1
@@ -65,7 +65,7 @@ atributo_custo_int = 2
 texto_int = Escrever(11.5, 78.5, 'corpo', 'Int', 'azul')
 caixa_int = ExibirImagem('modulos/setores/b_inicio/criar_personagem/grade_atributo.png', 164, 32, 19, 78.6)
 atributo_int = Escrever(19.5, 78.75, 'item', str(atributo_passivo_int), 'preto')
-aumentar_int = ExibirImagem('modulos/setores/a_pagina_inicial/opcoes_ext/barra_intensidade_maior.png', 17, 23, 28.6, 78.85)
+aumentar_int = ExibirImagem('modulos/setores/b_inicio/opcoes_ext/barra_intensidade_maior.png', 17, 23, 28.6, 78.85)
 custo_int = Escrever(34, 78.75, 'item', str(atributo_custo_int), 'preto', 'direita')
 
 atributo_passivo_des = 1
@@ -73,7 +73,7 @@ atributo_custo_des = 2
 texto_des = Escrever(11.5, 81, 'corpo', 'Des', 'azul')
 caixa_des = ExibirImagem('modulos/setores/b_inicio/criar_personagem/grade_atributo.png', 164, 32, 19, 81.1)
 atributo_des = Escrever(19.5, 81.2, 'item', str(atributo_passivo_des), 'preto')
-aumentar_des = ExibirImagem('modulos/setores/a_pagina_inicial/opcoes_ext/barra_intensidade_maior.png', 17, 23, 28.6, 81.3)
+aumentar_des = ExibirImagem('modulos/setores/b_inicio/opcoes_ext/barra_intensidade_maior.png', 17, 23, 28.6, 81.3)
 custo_des = Escrever(34, 81.2, 'item', str(atributo_custo_des), 'preto', 'direita')
 
 atributo_passivo_sor = 1
@@ -81,7 +81,7 @@ atributo_custo_sor = 2
 texto_sor = Escrever(11.5, 83.5, 'corpo', 'Sor', 'azul')
 caixa_sor = ExibirImagem('modulos/setores/b_inicio/criar_personagem/grade_atributo.png', 164, 32, 19, 83.6)
 atributo_sor = Escrever(19.5, 83.7, 'item', str(atributo_passivo_sor), 'preto')
-aumentar_sor = ExibirImagem('modulos/setores/a_pagina_inicial/opcoes_ext/barra_intensidade_maior.png', 17, 23, 28.6, 83.8)
+aumentar_sor = ExibirImagem('modulos/setores/b_inicio/opcoes_ext/barra_intensidade_maior.png', 17, 23, 28.6, 83.8)
 custo_sor = Escrever(34, 83.7, 'item', str(atributo_custo_sor), 'preto', 'direita')
 
 ataque_fisico_passivo = 7
@@ -136,7 +136,7 @@ texto_pts_atributos = Escrever(37.5, 83.5, 'corpo', 'Pontos de Atributos', 'azul
 texto_pts_atributos_calculo = Escrever(88.2, 83.5, 'corpo', str(pontos_de_atributos), 'preto', 'direita')
 divisoria_pts_atributos = ExibirImagem('modulos/setores/b_inicio/criar_personagem/divisoria_status.png', 554, 2, 37.2, 85.1)
 
-botao_ok_janela_personagem = ExibirImagem('modulos/setores/a_pagina_inicial/opcoes_ext/botao_curto.png', 106, 69, 83, 86.5)
+botao_ok_janela_personagem = ExibirImagem('modulos/setores/b_inicio/opcoes_ext/botao_curto.png', 106, 69, 83, 86.5)
 texto_ok_janela_personagem = Escrever(85.9, 87.4, 'corpo', 'OK', 'preto')
 
 def desenho_landing_page_criar_personagem():
@@ -261,12 +261,8 @@ def desenho_landing_page_criar_personagem():
 
 def interacao_opcoes_mouse_saida(evento):
     if evento.type == pygame.MOUSEBUTTONDOWN:
-       if pygame.mouse.get_pos()[0] >= botao_ok_janela_personagem.porcentagem_pos_x:
-            if pygame.mouse.get_pos()[1] >= botao_ok_janela_personagem.porcentagem_pos_y:
-                if pygame.mouse.get_pos()[0] <= botao_ok_janela_personagem.porcentagem_pos_x + botao_ok_janela_personagem.largura_transformada:
-                    if pygame.mouse.get_pos()[1] <= botao_ok_janela_personagem.porcentagem_pos_y + botao_ok_janela_personagem.altura_transformada:
-                        som_clique.play()
-                        return 'caiu'
+       if pressionar_botao(botao_ok_janela_personagem):
+            return 'caiu'
 
 def escrever_nome(event):
     

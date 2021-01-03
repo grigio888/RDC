@@ -7,7 +7,7 @@ Segundo projeto que estou usando para escalabilidade de codigos em um programa d
 Change Logs:
 
 03/01/21:
-- Terminando a implementação de criação de contas.
+- Implementado o sistema de criação de contas.
 
 
 
