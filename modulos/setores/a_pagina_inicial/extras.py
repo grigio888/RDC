@@ -1,10 +1,12 @@
 import pygame, sys
-import mysql.connector as conectante
+import mysql.connector as conector
 
 sys.path.append('D:/Vini/Projetos/004 - RDC')
 
+from modulos.segmentacao import *
 from modulos.classes import *
-from modulos.segmentacao import som_clique
+
+pygame.init
 
 # variaveis:
 janela_extras = ExibirImagem('modulos/setores/a_pagina_inicial/extras_ext/janela_extras.png', 920, 539, 7.4, 64.7)
@@ -41,11 +43,39 @@ texto_campo_senha_extras_real = Escrever(campo_senha_extras.pos_x + 1, campo_sen
 texto_campo_senha_extras_escrevendo = False
 texto_campo_senha_extras_entrada = ''
 
-botao_cancelar_extras = ExibirImagem('modulos/setores/a_pagina_inicial/extras_ext/botao_medio.png', 314, 69, janela_extras.pos_x + 15.5, janela_extras.pos_y + 22.3)
-texto_cancelar_extras = Escrever(botao_cancelar_extras.pos_x + 14.3, botao_cancelar_extras.pos_y + 0.9, 'corpo', 'Cancelar', 'preto', 'centro')
+botao_cancelar_extras = ExibirImagem('modulos/setores/a_pagina_inicial/extras_ext/botao_medio.png', 229, 69, janela_extras.pos_x + 15.5, janela_extras.pos_y + 22.3)
+texto_cancelar_extras = Escrever(botao_cancelar_extras.pos_x + 10.5, botao_cancelar_extras.pos_y + 0.9, 'corpo', 'Cancelar', 'preto', 'centro')
 
-botao_confirmar_extras = ExibirImagem('modulos/setores/a_pagina_inicial/extras_ext/botao_medio.png', 314, 69, janela_extras.pos_x + 48.5, janela_extras.pos_y + 22.3)
-texto_confirmar_extras = Escrever(botao_confirmar_extras.pos_x + 14.3, botao_confirmar_extras.pos_y + 0.9, 'corpo', 'Confirma', 'preto', 'centro')
+botao_confirmar_extras = ExibirImagem('modulos/setores/a_pagina_inicial/extras_ext/botao_medio.png', 229, 69, janela_extras.pos_x + 48.5, janela_extras.pos_y + 22.3)
+texto_confirmar_extras = Escrever(botao_confirmar_extras.pos_x + 10.5, botao_confirmar_extras.pos_y + 0.9, 'corpo', 'Confirma', 'preto', 'centro')
+
+
+
+janela_aviso_extras = ExibirImagem('modulos/setores/a_pagina_inicial/extras_ext/janela_aviso_extras.png', 605, 327, 22.1, 70)
+texto_aviso_extras = Escrever(janela_aviso_extras.pos_x + 2, janela_aviso_extras.pos_y + 0.9, 'titulo', 'Confirmacao', 'preto')
+
+texto_central_aviso_1 = Escrever(janela_aviso_extras.pos_x + 27.9, janela_aviso_extras.pos_y + 3.7, 'corpo', 'Confirme a senha:', 'preto', 'centro')
+campo_confirmacao_senha_aviso = ExibirImagem('modulos/setores/a_pagina_inicial/extras_ext/campo_senha.png', 536, 50, janela_aviso_extras.pos_x + 3.2, janela_aviso_extras.pos_y + 6.9)
+texto_campo_confirmacao_senha_aviso = Escrever(campo_confirmacao_senha_aviso.pos_x + 1, campo_confirmacao_senha_aviso.pos_y + 0.4, 'titulo', '', 'preto')
+texto_campo_confirmacao_senha_aviso_real = Escrever(campo_confirmacao_senha_aviso.pos_x + 1, campo_confirmacao_senha_aviso.pos_y + 0.4, 'titulo', '', 'preto')
+texto_campo_confirmacao_senha_aviso_escrevendo = False
+texto_campo_confirmacao_senha_aviso_entrada = ''
+
+botao_nao_aviso_extras = ExibirImagem('modulos/setores/a_pagina_inicial/extras_ext/botao_ok.png', 106, 69, janela_aviso_extras.pos_x + 12.9, janela_aviso_extras.pos_y + 11.9)
+texto_nao_aviso_extras = Escrever(botao_nao_aviso_extras.pos_x + 5, botao_nao_aviso_extras.pos_y + 0.9, 'corpo', 'Nao', 'preto', 'centro')
+
+botao_ok_aviso_extras = ExibirImagem('modulos/setores/a_pagina_inicial/extras_ext/botao_ok.png', 106, 69, janela_aviso_extras.pos_x + 32.9, janela_aviso_extras.pos_y + 11.9)
+texto_ok_aviso_extras = Escrever(botao_ok_aviso_extras.pos_x + 5, botao_ok_aviso_extras.pos_y + 0.9, 'corpo', 'OK', 'preto', 'centro')
+
+texto_aviso_login_extras = Escrever(janela_aviso_extras.pos_x + 2, janela_aviso_extras.pos_y + 0.9, 'titulo', 'Aviso', 'preto')
+texto_central_aviso_login_1 = Escrever(janela_aviso_extras.pos_x + 27.9, janela_aviso_extras.pos_y + 4.7, 'corpo', 'Este login ja', 'preto', 'centro')
+texto_central_aviso_email_1 = Escrever(janela_aviso_extras.pos_x + 27.9, janela_aviso_extras.pos_y + 4.7, 'corpo', 'Este email ja', 'preto', 'centro')
+texto_central_aviso_2 = Escrever(janela_aviso_extras.pos_x + 27.9, janela_aviso_extras.pos_y + 6.7, 'corpo', 'existe.', 'preto', 'centro')
+botao_ok_aviso_login_extras = ExibirImagem('modulos/setores/a_pagina_inicial/extras_ext/botao_ok.png', 106, 69, janela_aviso_extras.pos_x + 23.2, janela_aviso_extras.pos_y + 11.9)
+texto_ok_aviso_login_extras = Escrever(botao_ok_aviso_login_extras.pos_x + 5, botao_ok_aviso_login_extras.pos_y + 0.9, 'corpo', 'OK', 'preto', 'centro')
+
+texto_central_aviso_conf_1 = Escrever(janela_aviso_extras.pos_x + 27.9, janela_aviso_extras.pos_y + 4.7, 'corpo', 'Cadastro concluido', 'preto', 'centro')
+texto_central_aviso_conf_2 = Escrever(janela_aviso_extras.pos_x + 27.9, janela_aviso_extras.pos_y + 6.7, 'corpo', 'com sucesso.', 'preto', 'centro')
 
 # funcoes:
 def desenho_pagina_extras():
@@ -59,7 +89,9 @@ def desenho_pagina_extras():
     texto_ok_extras.desenho()
 
     versao_aplicativo.desenho()
-    
+
+
+
 def desenho_pagina_criar_conta():
     janela_extras.desenho()
     texto_criar_conta_titulo.desenho()
@@ -100,6 +132,7 @@ def escrever_login_email_senha_extras(event):
                         texto_campo_login_extras_escrevendo = True
                         if texto_campo_login_extras_escrevendo == texto_campo_email_extras_escrevendo:
                             texto_campo_email_extras_escrevendo = False
+
                         if texto_campo_login_extras_escrevendo == texto_campo_senha_extras_escrevendo:
                             texto_campo_senha_extras_escrevendo = False
 
@@ -110,6 +143,7 @@ def escrever_login_email_senha_extras(event):
                         texto_campo_email_extras_escrevendo = True
                         if texto_campo_email_extras_escrevendo == texto_campo_login_extras_escrevendo:
                             texto_campo_login_extras_escrevendo = False
+
                         if texto_campo_email_extras_escrevendo == texto_campo_senha_extras_escrevendo:
                             texto_campo_senha_extras_escrevendo = False
 
@@ -120,6 +154,7 @@ def escrever_login_email_senha_extras(event):
                         texto_campo_senha_extras_escrevendo = True
                         if texto_campo_senha_extras_escrevendo == texto_campo_login_extras_escrevendo:
                             texto_campo_login_extras_escrevendo = False
+
                         if texto_campo_senha_extras_escrevendo == texto_campo_email_extras_escrevendo:
                             texto_campo_email_extras_escrevendo = False
         else:
@@ -131,54 +166,182 @@ def escrever_login_email_senha_extras(event):
         if event.key == pygame.K_RETURN:
             if texto_campo_login_extras_escrevendo:
                 texto_campo_login_extras_escrevendo = False
+
             if texto_campo_email_extras_escrevendo:
                 texto_campo_email_extras_escrevendo = False
+
             if texto_campo_senha_extras_escrevendo:
                 texto_campo_senha_extras_escrevendo = False
 
         elif event.key == pygame.K_BACKSPACE:
             if texto_campo_login_extras_escrevendo:
                 texto_campo_login_extras.frase = texto_campo_login_extras.frase[:-1]
+
             if texto_campo_email_extras_escrevendo:
-                texto_campo_email_extras.frase = texto_campo_login_extras.frase[:-1]
+                texto_campo_email_extras.frase = texto_campo_email_extras.frase[:-1]
+
             if texto_campo_senha_extras_escrevendo:
                 texto_campo_senha_extras_real.frase = texto_campo_senha_extras_real.frase[:-1]
 
         else:
             if texto_campo_login_extras_escrevendo:
                 texto_campo_login_extras.frase += event.unicode
+
             if texto_campo_email_extras_escrevendo:
                 texto_campo_email_extras.frase += event.unicode
+
             if texto_campo_senha_extras_escrevendo:
                 texto_campo_senha_extras_real.frase += event.unicode
                 
     if len(texto_campo_senha_extras.frase) > len(texto_campo_senha_extras_real.frase):
         texto_campo_senha_extras.frase = texto_campo_senha_extras.frase [:-1]
+
     elif len(texto_campo_senha_extras.frase) < len(texto_campo_senha_extras_real.frase):
         texto_campo_senha_extras.frase += '*'
 
-def interacao_confirmacao_mouse_saida(event):
-        if pygame.mouse.get_pos()[0] >= botao_ok_extras.porcentagem_pos_x:
-            if pygame.mouse.get_pos()[1] >= botao_ok_extras.porcentagem_pos_y:
-                if pygame.mouse.get_pos()[0] <= botao_ok_extras.porcentagem_pos_x + botao_ok_extras.largura_transformada:
-                    if pygame.mouse.get_pos()[1] <= botao_ok_extras.porcentagem_pos_y + botao_ok_extras.altura_transformada:
-                        som_clique.play()
-                        return 'caiu'
+def verificando_duplicidade_cadastro():
 
-def gravando_alteracoes_mysql():
-    login = conectante.connect(user='root',
-                               password='kiju1475',
-                               host='localhost',
-                               database='rdc')
+    global texto_campo_login_extras, texto_campo_email_extras
 
+    login = conector.connect(user='root', password='kiju1475', host='localhost', database='rdc')
     cursor = login.cursor()
-    comando = ('UPDATE opcoes SET bgm_caixa = %s, bgm_volume = %s, sfx_caixa = %s, sfx_volume = %s, efeitos_caixa = %s where login = %s and senha = %s')
 
-    cursor.execute(comando, (caixa_confirmadora_bgm.estado, esfera_marcadora_bgm_volume, caixa_confirmadora_sfx.estado, esfera_marcadora_sfx_volume, caixa_confirmadora_efeitos.estado, texto_campo_login.frase, texto_campo_senha_real.frase))
+    comando = ('select login from login where login = %s and login = %s')
+    cursor.execute(comando, (texto_campo_login_extras.frase, texto_campo_login_extras.frase))
+    comparador_login = cursor.fetchall()
+    comando = ('select email from login where email = %s and email = %s')
+    cursor.execute(comando, (texto_campo_email_extras.frase, texto_campo_email_extras.frase))
+    comparador_email = cursor.fetchall()
 
-    login.commit()
+    login.close()
+
+    if len(comparador_login) == 1:
+        return 'login duplicado'
+    elif len(comparador_login) == 0 and len(comparador_email) == 1:
+        return 'email duplicado'
+    else:
+        return 'ok'
+
+
+
+def desenho_pagina_aviso_extras(setor):
+    janela_aviso_extras.desenho()
+    
+    if setor == 'ok':
+        texto_aviso_extras.desenho()
+
+        texto_central_aviso_1.desenho()
+        campo_confirmacao_senha_aviso.desenho()
+        texto_campo_confirmacao_senha_aviso.desenho()
+
+        botao_nao_aviso_extras.desenho()
+        texto_nao_aviso_extras.desenho()
+
+        botao_ok_aviso_extras.desenho()
+        texto_ok_aviso_extras.desenho()
+
+    elif setor == 'login duplicado' or setor == 'email duplicado':
+
+        texto_aviso_login_extras.desenho()
+        if setor == 'login duplicado':
+            texto_central_aviso_login_1.desenho()
+        if setor == 'email duplicado':
+            texto_central_aviso_email_1.desenho()
+        texto_central_aviso_2.desenho()
+        
+        botao_ok_aviso_login_extras.desenho()
+        texto_ok_aviso_login_extras.desenho()
+
+    elif setor == 'cadastro concluido':
+
+        texto_aviso_extras.desenho()
+
+        texto_central_aviso_conf_1.desenho()
+        texto_central_aviso_conf_2.desenho()
+        
+        botao_ok_aviso_login_extras.desenho()
+        texto_ok_aviso_login_extras.desenho()
+
+
+def escrever_senha_confirmacao_extras(event):
+    
+    global texto_campo_confirmacao_senha_aviso, texto_campo_confirmacao_senha_aviso_escrevendo
+    
+    if event.type == pygame.MOUSEBUTTONDOWN:
+        if pygame.mouse.get_pos()[0] >= campo_confirmacao_senha_aviso.porcentagem_pos_x:
+            if pygame.mouse.get_pos()[1] >= campo_confirmacao_senha_aviso.porcentagem_pos_y:
+                if pygame.mouse.get_pos()[0] <= campo_confirmacao_senha_aviso.porcentagem_pos_x + campo_confirmacao_senha_aviso.largura_transformada:
+                    if pygame.mouse.get_pos()[1] <= campo_confirmacao_senha_aviso.porcentagem_pos_y + campo_confirmacao_senha_aviso.altura_transformada:
+                        texto_campo_confirmacao_senha_aviso_escrevendo = True
+
+        else:
+            texto_campo_confirmacao_senha_aviso_escrevendo = False
+
+    if event.type == pygame.KEYDOWN:
+        if texto_campo_confirmacao_senha_aviso_escrevendo:
+            if event.key == pygame.K_RETURN:
+                texto_campo_confirmacao_senha_aviso_escrevendo = False
+
+            elif event.key == pygame.K_BACKSPACE:
+                texto_campo_confirmacao_senha_aviso_real.frase = texto_campo_confirmacao_senha_aviso_real.frase[:-1]
+
+            else:
+                texto_campo_confirmacao_senha_aviso_real.frase += event.unicode
+                
+    if len(texto_campo_confirmacao_senha_aviso.frase) > len(texto_campo_confirmacao_senha_aviso_real.frase):
+        texto_campo_confirmacao_senha_aviso.frase = texto_campo_confirmacao_senha_aviso.frase [:-1]
+    elif len(texto_campo_confirmacao_senha_aviso.frase) < len(texto_campo_confirmacao_senha_aviso_real.frase):
+        texto_campo_confirmacao_senha_aviso.frase += '*'
+
+def adicionando_cadastro():
+
+    global texto_campo_login_extras, texto_campo_email_extras, texto_campo_senha_extras_real
+
+    login = conector.connect(user='root', password='kiju1475', host='localhost', database='rdc')
+    cursor = login.cursor()
+
+    comando = ('select * from login')
+    cursor.execute(comando)
+    variavel = cursor.fetchall()
+    index_a_ser_adicionado = len(variavel) + 1
+
+    comando = ("insert into login values (default, %s, %s, %s, %s)")
+    cursor.execute(comando, (texto_campo_login_extras.frase, texto_campo_senha_extras_real.frase, texto_campo_email_extras.frase, index_a_ser_adicionado))
+    comando = ("insert into informacoes_da_conta values (default, '0', '0', '0', %s, %s, %s, %s)")
+    cursor.execute(comando, (index_a_ser_adicionado, index_a_ser_adicionado, index_a_ser_adicionado, index_a_ser_adicionado))
+    comando = ("insert into opcoes values (default, '1', '20', '1', '20', '1')")
+    cursor.execute(comando)
+
     login.close()
 
 if __name__ == '__main__':
 
-    pass
+    from modulos.segmentacao import tela_largura, tela_altura, tela_resolucao, tela, game_rodando
+    relogio_de_atualizacao = pygame.time.Clock()
+    ponteiro = 30
+
+    while game_rodando:
+
+        while subsetor:
+
+            definindo_setor_aviso_extras('login duplicado')
+
+            # definindo evento de saida
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    game_rodando = False
+                    subsetor = False
+
+                # interacao com o mouse
+
+
+            # desenhando elementos na tela
+            desenho_pagina_inicial()
+            desenho_pagina_criar_conta()
+            desenho_pagina_aviso_extras('login duplicado')
+
+            # atualizacao da tela
+            pygame.display.update()
+            relogio_de_atualizacao.tick(ponteiro)
+
+            tela_tamanho = pygame.display.get_window_size()

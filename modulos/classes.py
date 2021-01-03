@@ -5,6 +5,8 @@ sys.path.append(caminho_raiz_pc)
 
 tela_tamanho = pygame.display.get_window_size()
 
+som_clique = pygame.mixer.Sound('modulos/som/sfx/mouse/click.ogg')
+
 #Esqueletos
 
 class ExibirImagem():
@@ -28,12 +30,8 @@ class ExibirImagem():
 		self.porcentagem_pos_y = tela_tamanho[1] / 100 * self.pos_y
 
 	def transformando_resolucao(self):
-		if tela_cheia:
-			self.largura_transformada = round(self.largura * (tela_tamanho[1] / 1080))
-			self.altura_transformada = round(self.altura * ((tela_tamanho[1] / 1080) * 1.87))
-		if not tela_cheia:
-			self.largura_transformada = round(self.largura * (tela_tamanho[0] / 1080))
-			self.altura_transformada = round(self.altura * (tela_tamanho[1] / 2020))
+		self.largura_transformada = round(self.largura * (tela_tamanho[0] / 1080))
+		self.altura_transformada = round(self.altura * (tela_tamanho[1] / 2020))
 
 	def transformando_imagem(self):
 		self.transformado = pygame.transform.smoothscale(self.imagem.convert_alpha(), (self.largura_transformada, self.altura_transformada))
@@ -203,6 +201,14 @@ class Loading(ExibirImagem):
 		self.texto_carregando.desenho()
 		self.texto_carregamento = Escrever(self.pos_x + 22.3, self.pos_y + 8.1, 'titulo', self.porcentagem_de_carregamento + '%', 'preto', 'centro')
 		self.texto_carregamento.desenho()
+
+def pressionar_botao(botao):
+	if pygame.mouse.get_pos()[0] >= botao.porcentagem_pos_x and pygame.mouse.get_pos()[1] >= botao.porcentagem_pos_y and pygame.mouse.get_pos()[0] <= botao.porcentagem_pos_x + botao.largura_transformada and pygame.mouse.get_pos()[1] <= botao.porcentagem_pos_y + botao.altura_transformada:
+		som_clique.play()
+		return True
+	else:
+		return False
+
 
 def capturar_posicao_mouse():
     largura = tela_largura[tela_resolucao]

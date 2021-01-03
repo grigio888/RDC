@@ -28,36 +28,23 @@ while game_rodando:
 
                 # interacao com o mouse
                 if event.type == pygame.MOUSEBUTTONDOWN:
-                    if pygame.mouse.get_pos()[0] >= botao_entrar.porcentagem_pos_x:
-                        if pygame.mouse.get_pos()[1] >= botao_entrar.porcentagem_pos_y:
-                            if pygame.mouse.get_pos()[0] <= botao_entrar.porcentagem_pos_x + botao_entrar.largura_transformada:
-                                if pygame.mouse.get_pos()[1] <= botao_entrar.porcentagem_pos_y + botao_entrar.altura_transformada:
-                                    autenticacao = lendo_login()
-                                    if autenticacao:
-                                        from modulos.setores.b_inicio.landing_page import *
-                                        setor = 'landing'
-                                        subsetor = 'caiu'
-                                        som_clique.play()
-                                    if not autenticacao:
-                                        subsetor = 'autenticacao falha'
-                                        som_clique.play()
+                    if pressionar_botao(botao_entrar):
+                        autenticacao = lendo_login()
+                        if autenticacao:
+                            from modulos.setores.b_inicio.landing_page import *
+                            setor = 'landing'
+                            subsetor = 'caiu'
+                        if not autenticacao:
+                            subsetor = 'autenticacao falha'
 
-                    if pygame.mouse.get_pos()[0] >= botao_sair.porcentagem_pos_x:
-                        if pygame.mouse.get_pos()[1] >= botao_sair.porcentagem_pos_y:
-                            if pygame.mouse.get_pos()[0] <= botao_sair.porcentagem_pos_x + botao_sair.largura_transformada:
-                                if pygame.mouse.get_pos()[1] <= botao_sair.porcentagem_pos_y + botao_sair.altura_transformada:
-                                    game_rodando = False
-                                    setor = 'saida'
-                                    subsetor = 'saida'
-                                    som_clique.play()
+                    if pressionar_botao(botao_sair):
+                        game_rodando = False
+                        setor = 'saida'
+                        subsetor = 'saida'
 
-                    if pygame.mouse.get_pos()[0] >= botao_extras.porcentagem_pos_x:
-                        if pygame.mouse.get_pos()[1] >= botao_extras.porcentagem_pos_y:
-                            if pygame.mouse.get_pos()[0] <= botao_extras.porcentagem_pos_x + botao_extras.largura_transformada:
-                                if pygame.mouse.get_pos()[1] <= botao_extras.porcentagem_pos_y + botao_extras.altura_transformada:
-                                    from modulos.setores.a_pagina_inicial.extras import *
-                                    subsetor = 'extras'
-                                    som_clique.play()
+                    if pressionar_botao(botao_extras):
+                        from modulos.setores.a_pagina_inicial.extras import *
+                        subsetor = 'extras'
 
             # desenhando elementos na tela
             desenho_pagina_inicial()
@@ -67,6 +54,29 @@ while game_rodando:
             relogio_de_atualizacao.tick(ponteiro)
             tela_tamanho = pygame.display.get_window_size()
     
+        while subsetor == 'autenticacao falha':
+
+            # definindo evento de saida
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    game_rodando = False
+                    setor = 'saida'
+                    subsetor = 'saida'
+
+                # interacao com o mouse
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    if pressionar_botao(botao_ok_aviso):
+                        subsetor = 'inicio'
+
+            # desenhando elementos na tela
+            desenho_pagina_inicial()
+            desenho_pagina_aviso()
+
+            # atualizacao da tela
+            pygame.display.update()
+            relogio_de_atualizacao.tick(ponteiro)
+            tela_tamanho = pygame.display.get_window_size()
+
         while subsetor == 'extras':
 
             # definindo evento de saida
@@ -78,20 +88,12 @@ while game_rodando:
 
                 # interacao com o mouse
                 if event.type == pygame.MOUSEBUTTONDOWN:
-                    if pygame.mouse.get_pos()[0] >= botao_criar_conta.porcentagem_pos_x:
-                        if pygame.mouse.get_pos()[1] >= botao_criar_conta.porcentagem_pos_y:
-                            if pygame.mouse.get_pos()[0] <= botao_criar_conta.porcentagem_pos_x + botao_criar_conta.largura_transformada:
-                                if pygame.mouse.get_pos()[1] <= botao_criar_conta.porcentagem_pos_y + botao_criar_conta.altura_transformada:
-                                    som_clique.play()
-                                    entrando_criar_conta()
-                                    subsetor = 'criar conta'
+                    if pressionar_botao(botao_criar_conta):
+                        entrando_criar_conta()
+                        subsetor = 'criar conta'
 
-                    if pygame.mouse.get_pos()[0] >= botao_ok_extras.porcentagem_pos_x:
-                        if pygame.mouse.get_pos()[1] >= botao_ok_extras.porcentagem_pos_y:
-                            if pygame.mouse.get_pos()[0] <= botao_ok_extras.porcentagem_pos_x + botao_ok_extras.largura_transformada:
-                                if pygame.mouse.get_pos()[1] <= botao_ok_extras.porcentagem_pos_y + botao_ok_extras.altura_transformada:
-                                    som_clique.play()
-                                    subsetor = 'caiu'
+                    if pressionar_botao(botao_ok_extras):
+                        subsetor = 'caiu'
 
             # desenhando elementos na tela
             desenho_pagina_inicial()
@@ -115,19 +117,12 @@ while game_rodando:
 
                 # interacao com o mouse
                 if event.type == pygame.MOUSEBUTTONDOWN:
-                    if pygame.mouse.get_pos()[0] >= botao_cancelar_extras.porcentagem_pos_x:
-                        if pygame.mouse.get_pos()[1] >= botao_cancelar_extras.porcentagem_pos_y:
-                            if pygame.mouse.get_pos()[0] <= botao_cancelar_extras.porcentagem_pos_x + botao_cancelar_extras.largura_transformada:
-                                if pygame.mouse.get_pos()[1] <= botao_cancelar_extras.porcentagem_pos_y + botao_cancelar_extras.altura_transformada:
-                                    som_clique.play()
-                                    subsetor = 'extras'
+                    if pressionar_botao(botao_cancelar_extras):
+                        subsetor = 'extras'
 
-                    if pygame.mouse.get_pos()[0] >= botao_confirmar_extras.porcentagem_pos_x:
-                        if pygame.mouse.get_pos()[1] >= botao_confirmar_extras.porcentagem_pos_y:
-                            if pygame.mouse.get_pos()[0] <= botao_confirmar_extras.porcentagem_pos_x + botao_confirmar_extras.largura_transformada:
-                                if pygame.mouse.get_pos()[1] <= botao_confirmar_extras.porcentagem_pos_y + botao_confirmar_extras.altura_transformada:
-                                    som_clique.play()
-                                    subsetor = 'extras'
+                    if pressionar_botao(botao_confirmar_extras):
+                        verificador = verificando_duplicidade_cadastro()
+                        subsetor = 'confirmacao'
 
             # desenhando elementos na tela
             desenho_pagina_inicial()
@@ -138,7 +133,7 @@ while game_rodando:
             relogio_de_atualizacao.tick(ponteiro)
             tela_tamanho = pygame.display.get_window_size()
 
-        while subsetor == 'autenticacao falha':
+        while subsetor == 'confirmacao':
 
             # definindo evento de saida
             for event in pygame.event.get():
@@ -146,21 +141,33 @@ while game_rodando:
                     game_rodando = False
                     setor = 'saida'
                     subsetor = 'saida'
-                
-                escrever_login_senha(event)
+
+                if verificador == 'ok':
+                    escrever_senha_confirmacao_extras(event)
 
                 # interacao com o mouse
                 if event.type == pygame.MOUSEBUTTONDOWN:
-                    if pygame.mouse.get_pos()[0] >= botao_ok_aviso.porcentagem_pos_x:
-                        if pygame.mouse.get_pos()[1] >= botao_ok_aviso.porcentagem_pos_y:
-                            if pygame.mouse.get_pos()[0] <= botao_ok_aviso.porcentagem_pos_x + botao_ok_aviso.largura_transformada:
-                                if pygame.mouse.get_pos()[1] <= botao_ok_aviso.porcentagem_pos_y + botao_ok_aviso.altura_transformada:
-                                    subsetor = 'inicio'
-                                    som_clique.play()
+                    if verificador == 'ok':
+                        if pressionar_botao(botao_nao_aviso_extras):
+                            subsetor = 'criar conta'
+
+                        if pressionar_botao(botao_ok_aviso_extras):
+                            if texto_campo_senha_extras_real.frase == texto_campo_confirmacao_senha_aviso_real.frase:
+                                adicionando_cadastro()
+                                verificador = 'cadastro concluido'
+                    
+                    if verificador == 'login duplicado' or verificador == 'email duplicado':
+                        if pressionar_botao(botao_ok_aviso_login_extras):
+                            subsetor = 'criar conta'
+
+                    if verificador == 'cadastro concluido':
+                        if pressionar_botao(botao_ok_aviso_login_extras):
+                            subsetor == 'inicio'
 
             # desenhando elementos na tela
             desenho_pagina_inicial()
-            desenho_pagina_aviso()
+            desenho_pagina_criar_conta()
+            desenho_pagina_aviso_extras(verificador)
 
             # atualizacao da tela
             pygame.display.update()

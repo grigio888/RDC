@@ -6,6 +6,11 @@ Segundo projeto que estou usando para escalabilidade de codigos em um programa d
 
 Change Logs:
 
+03/01/21:
+- Terminando a implementação de criação de contas.
+
+
+
 26/12/20:
 - Adicionado janela Extras.
 - Adicionado esqueleto para a função de registro de contas.
