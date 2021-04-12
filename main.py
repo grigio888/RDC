@@ -218,6 +218,7 @@ while game_rodando:
                 interacao_opcoes_mouse_evento(event)
                 interacao_opcoes_mouse_saida(event)
                 if interacao_opcoes_mouse_saida(event) == 'caiu':
+                    gravando_alteracoes_db()
                     subsetor = 'caiu'
 
             interacao_opcoes_mouse()

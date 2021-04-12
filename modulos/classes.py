@@ -1,4 +1,5 @@
 import pygame, sys
+import sqlite3
 from modulos.segmentacao import *
 
 sys.path.append(caminho_raiz_pc)
@@ -46,10 +47,19 @@ class ExibirImagem():
 
 class ExibirImagemInterativa(ExibirImagem):
 
-	def __init__(self, caminho, caminho2, largura, altura, pos_x, pos_y):
+	def __init__(self, caminho, caminho2, estado, largura, altura, pos_x, pos_y):
 		super().__init__(caminho, largura, altura, pos_x, pos_y)
 		self.caminho2 = caminho2
-		self.estado = True
+		self.estado = estado
+		self.verificando_estado()
+
+	def verificando_estado(self):
+		if self.estado:
+			self.imagem = pygame.image.load(self.caminho)
+			self.desenho()
+		else:
+			self.imagem = pygame.image.load(self.caminho2)
+			self.desenho()
 
 	def mudanca_de_estado(self):
 		if self.estado:
@@ -176,6 +186,29 @@ class Escrever():
 		if self.alinhamento == 'direita':
 			espaco_do_texto.topright = (self.porcentagem_pos_x, self.porcentagem_pos_y)
 		tela.blit(self.texto, espaco_do_texto)
+
+class FerramentaBancoDeDados():
+	
+	def __init__(self, database):
+		self.database = database
+		self.resultado = 0
+
+	def executar(self, comando):
+		login = sqlite3.connect(self.database) #Loga
+		cursor = login.cursor() #Aponta
+		executar = (comando) #Recebe comando
+		cursor.execute(executar) #Executa comando
+		login.commit() #Commit
+		login.close() #Encerra conexão
+
+	def ler(self, comando):
+		login = sqlite3.connect(self.database) #Loga
+		cursor = login.cursor() #Aponta
+		executar = (comando) #Recebe comando
+		cursor.execute(executar) #Executa comando
+		self.resultado = cursor.fetchall() #Lê o cursor
+		login.close() #Encerra conexão
+
 
 class Loading(ExibirImagem):
 

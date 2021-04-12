@@ -1,25 +1,18 @@
 import pygame, sys
-import mysql.connector as conectante
+import sqlite3
+
+sys.path.append('C:/Users/Grigio/Desktop/GitHub/RDC')
+
 from modulos.segmentacao import *
 from modulos.setores.b_inicio.opcoes import *
-
-sys.path.append(caminho_raiz_pc)
+from modulos.setores.a_pagina_inicial.inicio import texto_campo_login, texto_campo_senha_real
 
 pygame.init()
 
 # conectando ao banco de dados:
-login = conectante.connect(user='root', password='kiju1475',
-                         host='localhost',
-                         database='rdc')
-
-cursor = login.cursor()
-
-comando = ('select noChar, score, zeny from login join informacoes_da_conta on infos_FK where login = %s and senha = %s')
-cursor.execute(comando, (texto_campo_login.frase, texto_campo_senha_real.frase))
-
-dados_landing_page = cursor.fetchall()
-
-login.close()
+comando = ('select no_char, score, zeny from info_conta where login_FK = "'+texto_campo_login.frase+'"')
+db_login.ler(comando)
+dados_landing_page = db_login.resultado
 
 # variaveis:
 
@@ -50,24 +43,6 @@ personagem_0_adicionar = ExibirImagem('modulos/setores/b_inicio/landing_page/adi
 personagem_0_sombra = ExibirImagem('modulos/setores/b_inicio/landing_page/frame_sombra.png', 165, 94, janela_personagem.pos_x + 16.8, janela_personagem.pos_y + 24.3)
 personagem_0_nome = Escrever(janela_personagem.pos_x + 24.4, janela_personagem.pos_y + 31.1, 'item', 'Nome_Char', 'preto', 'centro')
 
-personagem_1_frame = ExibirImagem('modulos/setores/b_inicio/landing_page/frame_personagem.png', 404, 517, janela_personagem.pos_x + 46.7, janela_personagem.pos_y + 4.7)
-personagem_1 = None
-personagem_1_adicionar = ExibirImagem('modulos/setores/b_inicio/landing_page/adicionar.png', 60, 60, janela_personagem.pos_x + 62.7, janela_personagem.pos_y + 16)
-personagem_1_sombra = ExibirImagem('modulos/setores/b_inicio/landing_page/frame_sombra.png', 165, 94, janela_personagem.pos_x + 57.8, janela_personagem.pos_y + 24.3)
-personagem_1_nome = Escrever(janela_personagem.pos_x + 65.5, janela_personagem.pos_y + 31.1, 'item', 'Nome_Char', 'preto', 'centro')
-
-personagem_2_frame = ExibirImagem('modulos/setores/b_inicio/landing_page/frame_personagem.png', 404, 517, janela_personagem.pos_x + 5.6, janela_personagem.pos_y + 33)
-personagem_2 = None
-personagem_2_adicionar = ExibirImagem('modulos/setores/b_inicio/landing_page/adicionar.png', 60, 60, janela_personagem.pos_x + 21.6, janela_personagem.pos_y + 44.4)
-personagem_2_sombra = ExibirImagem('modulos/setores/b_inicio/landing_page/frame_sombra.png', 165, 94, janela_personagem.pos_x + 16.8, janela_personagem.pos_y + 52.6)
-personagem_2_nome = Escrever(janela_personagem.pos_x + 24.4, janela_personagem.pos_y + 59.4, 'item', 'Nome_Char', 'preto', 'centro')
-
-personagem_3_frame = ExibirImagem('modulos/setores/b_inicio/landing_page/frame_personagem.png', 404, 517, janela_personagem.pos_x + 46.7, janela_personagem.pos_y + 33)
-personagem_3 = None
-personagem_3_adicionar = ExibirImagem('modulos/setores/b_inicio/landing_page/adicionar.png', 60, 60, janela_personagem.pos_x + 62.7, janela_personagem.pos_y + 44.4)
-personagem_3_sombra = ExibirImagem('modulos/setores/b_inicio/landing_page/frame_sombra.png', 165, 94, janela_personagem.pos_x + 57.8, janela_personagem.pos_y + 52.6)
-personagem_3_nome = Escrever(janela_personagem.pos_x + 65.5, janela_personagem.pos_y + 59.4, 'item', 'Nome_Char', 'preto', 'centro')
-
 #Diversos
 janela_diversos = ExibirImagem('modulos/setores/b_inicio/landing_page/janela_baixo.png', 972, 333, 5, 81.5)
 texto_diversos = Escrever(janela_diversos.pos_x + 2, janela_diversos.pos_y + 0.9, 'titulo', 'Diversos', 'preto')
@@ -94,21 +69,6 @@ def interacao_landingpage_mouse_colisao():
             if pygame.mouse.get_pos()[0] <= personagem_0_frame.porcentagem_pos_x + personagem_0_frame.largura_transformada:
                 if pygame.mouse.get_pos()[1] <= personagem_0_frame.porcentagem_pos_y + personagem_0_frame.altura_transformada:
                     personagem_0_adicionar.desenho()
-    if pygame.mouse.get_pos()[0] >= personagem_1_frame.porcentagem_pos_x:
-        if pygame.mouse.get_pos()[1] >= personagem_1_frame.porcentagem_pos_y:
-            if pygame.mouse.get_pos()[0] <= personagem_1_frame.porcentagem_pos_x + personagem_1_frame.largura_transformada:
-                if pygame.mouse.get_pos()[1] <= personagem_1_frame.porcentagem_pos_y + personagem_1_frame.altura_transformada:
-                    personagem_1_adicionar.desenho()
-    if pygame.mouse.get_pos()[0] >= personagem_2_frame.porcentagem_pos_x:
-        if pygame.mouse.get_pos()[1] >= personagem_2_frame.porcentagem_pos_y:
-            if pygame.mouse.get_pos()[0] <= personagem_2_frame.porcentagem_pos_x + personagem_2_frame.largura_transformada:
-                if pygame.mouse.get_pos()[1] <= personagem_2_frame.porcentagem_pos_y + personagem_2_frame.altura_transformada:
-                    personagem_2_adicionar.desenho()
-    if pygame.mouse.get_pos()[0] >= personagem_3_frame.porcentagem_pos_x:
-        if pygame.mouse.get_pos()[1] >= personagem_3_frame.porcentagem_pos_y:
-            if pygame.mouse.get_pos()[0] <= personagem_3_frame.porcentagem_pos_x + personagem_3_frame.largura_transformada:
-                if pygame.mouse.get_pos()[1] <= personagem_3_frame.porcentagem_pos_y + personagem_3_frame.altura_transformada:
-                    personagem_3_adicionar.desenho()
 
 def desenho_landing_page():
     fundo_inicio.desenho()
@@ -132,21 +92,6 @@ def desenho_landing_page():
     #aqui entra o personagem#
     personagem_0_sombra.desenho()
     personagem_0_nome.desenho()
-
-    personagem_1_frame.desenho()
-    #aqui entra o personagem#
-    personagem_1_sombra.desenho()
-    personagem_1_nome.desenho()
-
-    personagem_2_frame.desenho()
-    #aqui entra o personagem#
-    personagem_2_sombra.desenho()
-    personagem_2_nome.desenho()
-
-    personagem_3_frame.desenho()
-    #aqui entra o personagem#
-    personagem_3_sombra.desenho()
-    personagem_3_nome.desenho()
 
 
 

@@ -1,12 +1,13 @@
 import pygame, sys
 from time import gmtime, strftime
 
-sys.path.append('D:/Vini/Projetos/004 - RDC')
+sys.path.append('C:/Users/Grigio/Desktop/GitHub/RDC')
+
+pygame.init()
+pygame.mixer.init()
 
 from modulos.segmentacao import *
 from modulos.setores.b_inicio.landing_page import *
-
-pygame.init()
 
 janela_personagem = ExibirImagem('modulos/setores/b_inicio/criar_personagem/janela_personagem.png', 972, 1663, 5, 8.8)
 texto_personagem = Escrever(7, 9.5, 'titulo', 'Personagem', 'preto')

@@ -7,6 +7,11 @@ Segundo projeto que estou usando para escalabilidade de codigos em um programa d
 Change Logs:
 
 03/01/21:
+- Trocado o sistema de banco de dados (De MySQL para SQLite3).
+
+
+
+03/01/21:
 - Implementado o sistema de criação de contas.
 
 

@@ -1,7 +1,7 @@
 import pygame, sys
-import mysql.connector as conector
+import sqlite3
 
-sys.path.append('D:/Vini/Projetos/004 - RDC')
+sys.path.append('C:/Users/Grigio/Desktop/GitHub/RDC')
 
 from modulos.segmentacao import *
 from modulos.classes import *
@@ -203,14 +203,12 @@ def verificando_duplicidade_cadastro():
 
     global texto_campo_login_extras, texto_campo_email_extras
 
-    login = conector.connect(user='root', password='kiju1475', host='localhost', database='rdc')
+    login = sqlite3.connect('modulos/databases/local_conta.db')
     cursor = login.cursor()
 
-    comando = ('select login from login where login = %s and login = %s')
-    cursor.execute(comando, (texto_campo_login_extras.frase, texto_campo_login_extras.frase))
+    cursor.execute(('select login from login where login = "'+texto_campo_login_extras.frase+'" and login = "'+texto_campo_login_extras.frase+'"'))
     comparador_login = cursor.fetchall()
-    comando = ('select email from login where email = %s and email = %s')
-    cursor.execute(comando, (texto_campo_email_extras.frase, texto_campo_email_extras.frase))
+    cursor.execute(('select email from login where email = "'+texto_campo_email_extras.frase+'" and email = "'+texto_campo_email_extras.frase+'"'))
     comparador_email = cursor.fetchall()
 
     login.close()
@@ -297,20 +295,12 @@ def adicionando_cadastro():
 
     global texto_campo_login_extras, texto_campo_email_extras, texto_campo_senha_extras_real
 
-    login = conector.connect(user='root', password='kiju1475', host='localhost', database='rdc')
+    login = sqlite3.connect('modulos/databases/local_conta.db')
     cursor = login.cursor()
 
-    comando = ('select * from login')
-    cursor.execute(comando)
-    variavel = cursor.fetchall()
-    index_a_ser_adicionado = variavel[len(variavel) - 1][0] + 1
-
-    comando = ("insert into opcoes values ('" + str(index_a_ser_adicionado) + "', '1', '20', '1', '20', '1')")
-    cursor.execute(comando)
-    comando = ("insert into informacoes_da_conta values (%s, '0', '0', '0', %s, %s, %s, %s)")
-    cursor.execute(comando, (index_a_ser_adicionado, index_a_ser_adicionado, index_a_ser_adicionado, index_a_ser_adicionado, index_a_ser_adicionado))
-    comando = ("insert into login values (default, %s, %s, %s, %s)")
-    cursor.execute(comando, (texto_campo_login_extras.frase, texto_campo_senha_extras_real.frase, texto_campo_email_extras.frase, index_a_ser_adicionado))
+    cursor.execute(("insert into login values ('"+texto_campo_login_extras.frase+"', '"+texto_campo_senha_extras_real.frase+"', '"+texto_campo_email_extras.frase+"')"))
+    cursor.execute(("insert into opcoes values ('"+texto_campo_login_extras.frase+"', '1', '20', '1', '20', '1')"))
+    cursor.execute(("insert into info_conta values ('"+texto_campo_login_extras.frase+"', '0', '0', '1000')"))
     
     
     login.commit()

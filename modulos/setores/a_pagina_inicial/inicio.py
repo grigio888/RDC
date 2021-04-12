@@ -1,7 +1,7 @@
 import pygame, sys
-import mysql.connector as conector
+import sqlite3
 
-sys.path.append('D:/Vini/Projetos/004 - RDC')
+sys.path.append('C:/Users/Grigio/Desktop/GitHub/RDC')
 
 from modulos.segmentacao import *
 from modulos.classes import *
@@ -48,6 +48,7 @@ texto_do_aviso_2 = Escrever(janela_aviso.pos_x + 22.3, janela_aviso.pos_y + 6.5,
 botao_ok_aviso = ExibirImagem('modulos/setores/a_pagina_inicial/inicio_ext/botao_curto.png', 106, 69, janela_aviso.pos_x + 17.5, janela_aviso.pos_y + 9.5)
 texto_ok_aviso = Escrever(botao_ok_aviso.pos_x + 5, botao_ok_aviso.pos_y + 0.9, 'corpo', 'OK', 'preto', 'centro')
 
+db_login = FerramentaBancoDeDados('modulos/databases/local_conta.db')
 
 # funcoes:
 def musica_menu_inicio():
@@ -154,23 +155,15 @@ def lendo_login():
 
     global texto_campo_login, texto_campo_senha_real
 
-    conectante = conector.connect(user='root', password='kiju1475',
-                                host='localhost',
-                                database='rdc')
+    comando = ('select login, senha from login where login = "'+texto_campo_login.frase+'" and senha = "'+texto_campo_senha_real.frase+'"')
+    db_login.ler(comando)
 
-    cursor = conectante.cursor()
-
-    comando = ('select login, senha from login where login = %s and senha = %s')
-    cursor.execute(comando, (texto_campo_login.frase, texto_campo_senha_real.frase))
-
-    dados = cursor.fetchall()
+    dados = db_login.resultado
 
     if len(dados) == 1:
         autenticador = True
     else:
         autenticador = False
-
-    conectante.close()
 
     return autenticador
 
