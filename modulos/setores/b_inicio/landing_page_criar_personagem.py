@@ -29,14 +29,6 @@ texto_introducao = Escrever(50, 63.3, 'corpo', 'Aprendiz, Level Base: ' + str(le
 
 texto_atributos = Escrever(50, 68, 'corpo', 'Atributos', 'preto', 'centro')
 
-#caixa_manual = ExibirImagemInterativa('modulos/setores/a_pagina_inicial/opcoes_ext/caixa_marcada.png', 'modulos/setores/a_pagina_inicial/opcoes_ext/caixa_nao_marcada.png', 35, 35, 18.5, 66.8)
-#texto_manual = Escrever(23.2, 66.8, 'corpo', 'Manual', 'preto')
-
-#caixa_automatico = ExibirImagemInterativa('modulos/setores/a_pagina_inicial/opcoes_ext/caixa_marcada.png', 'modulos/setores/a_pagina_inicial/opcoes_ext/caixa_nao_marcada.png', 35, 35, 60, 66.8)
-#caixa_automatico.mudanca_de_estado()
-#caixa_automatico.automatico()
-#texto_automatico = Escrever(64.6, 66.8, 'corpo', 'Automatico', 'preto')
-
 atributo_passivo_for = 1
 atributo_custo_for = 2
 texto_for = Escrever(11.5, 71, 'corpo', 'Str', 'azul')
@@ -158,11 +150,6 @@ def desenho_landing_page_criar_personagem():
 
     texto_atributos.desenho()
 
-    #caixa_manual.desenho()
-    #texto_manual.desenho()
-
-    #caixa_automatico.desenho()
-    #texto_automatico.desenho()
 
     texto_for.desenho()
     caixa_for.desenho()
@@ -239,26 +226,6 @@ def desenho_landing_page_criar_personagem():
     botao_ok_janela_personagem.desenho()
     texto_ok_janela_personagem.desenho()
 
-#def interacao_criar_personagem_caixas_confirm(evento):
-#    if evento.type == pygame.MOUSEBUTTONDOWN:
-#        if pygame.mouse.get_pos()[0] >= caixa_manual.porcentagem_pos_x:
-#            if pygame.mouse.get_pos()[1] >= caixa_manual.porcentagem_pos_y:
-#                if pygame.mouse.get_pos()[0] <= caixa_manual.porcentagem_pos_x + caixa_manual.largura_transformada:
-#                    if pygame.mouse.get_pos()[1] <= caixa_manual.porcentagem_pos_y + caixa_manual.altura_transformada:
-#                        caixa_manual.mudanca_de_estado()
-#                        caixa_manual.automatico()
-#                        caixa_automatico.mudanca_de_estado()
-#                        caixa_automatico.automatico()
-#                        print('funcionou 1')
-#        if pygame.mouse.get_pos()[0] >= caixa_automatico.porcentagem_pos_x:
-#            if pygame.mouse.get_pos()[1] >= caixa_automatico.porcentagem_pos_y:
-#                if pygame.mouse.get_pos()[0] <= caixa_automatico.porcentagem_pos_x + caixa_automatico.largura_transformada:
-#                    if pygame.mouse.get_pos()[1] <= caixa_automatico.porcentagem_pos_y + caixa_automatico.altura_transformada:
-#                        caixa_automatico.mudanca_de_estado()
-#                        caixa_automatico.automatico()
-#                        caixa_manual.mudanca_de_estado()
-#                        caixa_manual.automatico()
-#                        print('funcionou 2')
 
 def interacao_opcoes_mouse_saida(evento):
     if evento.type == pygame.MOUSEBUTTONDOWN:
@@ -278,14 +245,6 @@ def escrever_nome(event):
                         
         else:
             texto_nome_escrevendo = False
-
-    #if texto_nome_escrevendo == True:
-    #    if tempo % 2 == 0:
-    #        if texto_nome.frase[:-1] != 'I':
-    #            texto_nome.frase += 'I'
-    #    else:
-    #        if texto_nome.frase[:-1] == 'I':
-    #            texto_nome.frase = texto_nome.frase[:-1]
             
 
     if event.type == pygame.KEYDOWN:
@@ -369,6 +328,22 @@ def calculos():
     critico_passivo = ((atributo_passivo_sor // 3) + critico_item)
     texto_critico_calculo.frase = str(critico_passivo)
     
+#####################################################################
+# Eventos
+
+def entrando_criar_personagem():
+
+    global atributo_passivo
+
+    for index in range(0, 6):
+        atributo_passivo[index] = 1
+        atributo[index].frase = str(atributo_passivo[index])
+
+    pontos_de_atributos = 48
+    texto_pts_atributos_calculo.frase = str(pontos_de_atributos)
+
+
+
 if __name__ == '__main__':
 
     game_rodando = True

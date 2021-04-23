@@ -38,7 +38,7 @@ janela_personagem = ExibirImagem('modulos/setores/b_inicio/landing_page/janela_m
 texto_personagem = Escrever(janela_personagem.pos_x + 2, janela_personagem.pos_y + 0.9, 'titulo', 'Personagem', 'preto')
 
 personagem_0_frame = ExibirImagem('modulos/setores/b_inicio/landing_page/frame_personagem.png', 404, 517, janela_personagem.pos_x + 5.6, janela_personagem.pos_y + 4.7)
-personagem_0 = None
+personagem_0 = False
 personagem_0_adicionar = ExibirImagem('modulos/setores/b_inicio/landing_page/adicionar.png', 60, 60, janela_personagem.pos_x + 21.6, janela_personagem.pos_y + 16)
 personagem_0_sombra = ExibirImagem('modulos/setores/b_inicio/landing_page/frame_sombra.png', 165, 94, janela_personagem.pos_x + 16.8, janela_personagem.pos_y + 24.3)
 personagem_0_nome = Escrever(janela_personagem.pos_x + 24.4, janela_personagem.pos_y + 31.1, 'item', 'Nome_Char', 'preto', 'centro')
@@ -63,12 +63,38 @@ frame_opcoes = ExibirImagem('modulos/setores/b_inicio/landing_page/frame_item.pn
 opcao_opcoes = ExibirItem(janela_diversos.pos_x + 70.5, janela_diversos.pos_y + 3.5, 7703, 1, 2.1)
 texto_opcoes = Escrever(janela_diversos.pos_x + 77.35, janela_diversos.pos_y + 14, 'item', 'Opcoes', 'preto', 'centro')
 
+
+
+def verificando_personagem():
+
+    global personagem_0
+
+    comando = ('select criado from login inner join personagens on login.login = personagens.login_FK where login = "'+texto_campo_login.frase+'"')
+    db_login.ler(comando)
+    dados_personagens = db_login.resultado
+
+    if dados_personagens[0][0] == 0:
+        personagem_0 = False
+    elif dados_personagens[0][0] == 1:
+        personagem_0 = True
+
+def desenhando_personagem():
+    if personagem_0 == 0:
+        personagem_0_frame.desenho()
+        personagem_0_sombra.desenho()
+        personagem_0_nome.desenho()
+
 def interacao_landingpage_mouse_colisao():
-    if pygame.mouse.get_pos()[0] >= personagem_0_frame.porcentagem_pos_x:
-        if pygame.mouse.get_pos()[1] >= personagem_0_frame.porcentagem_pos_y:
-            if pygame.mouse.get_pos()[0] <= personagem_0_frame.porcentagem_pos_x + personagem_0_frame.largura_transformada:
-                if pygame.mouse.get_pos()[1] <= personagem_0_frame.porcentagem_pos_y + personagem_0_frame.altura_transformada:
-                    personagem_0_adicionar.desenho()
+    if personagem_0 == 0:
+        if mouse_colidindo(personagem_0_frame):
+            personagem_0_adicionar.desenho()
+
+def teste_personagem():
+    verificando_personagem()
+    interacao_landingpage_mouse_colisao()
+    desenhando_personagem()
+
+#######################################################################################
 
 def desenho_landing_page():
     fundo_inicio.desenho()
@@ -83,17 +109,8 @@ def desenho_landing_page():
     dinheiro_0.desenho()
     dinheiro_1.desenho()
 
-
-
     janela_personagem.desenho()
     texto_personagem.desenho()
-
-    personagem_0_frame.desenho()
-    #aqui entra o personagem#
-    personagem_0_sombra.desenho()
-    personagem_0_nome.desenho()
-
-
 
     janela_diversos.desenho()
     texto_diversos.desenho()
@@ -113,7 +130,6 @@ def desenho_landing_page():
     frame_opcoes.desenho()
     opcao_opcoes.desenho()
     texto_opcoes.desenho()
-
 
 if __name__ == "__main__":
     from modulos.segmentacao import tela_largura, tela_altura, tela_resolucao, tela, game_rodando

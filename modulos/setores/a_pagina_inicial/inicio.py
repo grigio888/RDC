@@ -92,64 +92,62 @@ def desenho_pagina_aviso():
     botao_ok_aviso.desenho()
     texto_ok_aviso.desenho()
 
-def escrever_login_senha(event):
-    
-    global texto_campo_login_escrevendo, texto_campo_login_entrada, texto_campo_senha_escrevendo, texto_campo_senha_entrada
-    
-    if event.type == pygame.MOUSEBUTTONDOWN:
-        if pygame.mouse.get_pos()[0] >= campo_login.porcentagem_pos_x:
-            if pygame.mouse.get_pos()[1] >= campo_login.porcentagem_pos_y:
-                if pygame.mouse.get_pos()[0] <= campo_login.porcentagem_pos_x + campo_login.largura_transformada:
-                    if pygame.mouse.get_pos()[1] <= campo_login.porcentagem_pos_y + campo_login.altura_transformada:
-                        texto_campo_login_escrevendo = True
-                        if texto_campo_login_escrevendo == texto_campo_senha_escrevendo:
-                            texto_campo_senha_escrevendo = False
+def escrever_login(event):
+ 
+    #incorporando os dados
+    global texto_campo_login_escrevendo, texto_campo_login_entrada, texto_campo_senha_escrevendo, texto_campo_login
 
-        if pygame.mouse.get_pos()[0] >= campo_senha.porcentagem_pos_x:
-            if pygame.mouse.get_pos()[1] >= campo_senha.porcentagem_pos_y:
-                if pygame.mouse.get_pos()[0] <= campo_senha.porcentagem_pos_x + campo_senha.largura_transformada:
-                    if pygame.mouse.get_pos()[1] <= campo_senha.porcentagem_pos_y + campo_senha.altura_transformada:
-                        texto_campo_senha_escrevendo = True
-                        if texto_campo_senha_escrevendo == texto_campo_login_escrevendo:
-                            texto_campo_login_escrevendo = False
-        else:
-            texto_campo_login_escrevendo = False
-            texto_campo_senha_escrevendo = False
+    if pygame.Rect.colliderect(mouse.retangulo, campo_login.retangulo):
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            texto_campo_login_escrevendo = True
+            if texto_campo_login_escrevendo == texto_campo_senha_escrevendo: texto_campo_senha_escrevendo = False
+
+    else:
+        if event.type == pygame.MOUSEBUTTONDOWN: texto_campo_login_escrevendo = False
 
     if event.type == pygame.KEYDOWN:
-        if event.key == pygame.K_RETURN:
-            if texto_campo_login_escrevendo:
-                texto_campo_login_escrevendo = False
-            if texto_campo_senha_escrevendo:
-                texto_campo_senha_escrevendo = False
+        if event.key == pygame.K_RETURN and texto_campo_login_escrevendo: texto_campo_login_escrevendo = False
 
-        elif event.key == pygame.K_BACKSPACE:
-            if texto_campo_login_escrevendo:
-                texto_campo_login.frase = texto_campo_login.frase[:-1]
-            if texto_campo_senha_escrevendo:
-                texto_campo_senha_real.frase = texto_campo_senha_real.frase[:-1]
-                print(texto_campo_senha_real.frase)
-        
-        elif event.key == pygame.K_TAB:
-            if texto_campo_login_escrevendo:
-                texto_campo_login_escrevendo = False
-                texto_campo_senha_escrevendo = True
-                print('foi 1')
-            if texto_campo_senha_escrevendo:
-                texto_campo_login_escrevendo = True
-                texto_campo_senha_escrevendo = False
-                print('foi 2')
+        elif event.key == pygame.K_BACKSPACE and texto_campo_login_escrevendo: texto_campo_login.frase = texto_campo_login.frase[:-1]
+
+        elif event.key == pygame.K_TAB and texto_campo_login_escrevendo:
+            texto_campo_login_escrevendo = False
+            texto_campo_senha_escrevendo = True
 
         else:
-            if texto_campo_login_escrevendo:
-                texto_campo_login.frase += event.unicode
-            if texto_campo_senha_escrevendo:
-                texto_campo_senha_real.frase += event.unicode
+            if texto_campo_login_escrevendo: texto_campo_login.frase += event.unicode
+
+def escrever_senha(event):
+    
+    global texto_campo_login_escrevendo, texto_campo_senha_escrevendo, texto_campo_senha_entrada
+
+    if pygame.Rect.colliderect(mouse.retangulo, campo_senha.retangulo):
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            texto_campo_senha_escrevendo = True
+            if texto_campo_senha_escrevendo == texto_campo_login_escrevendo:
+                texto_campo_login_escrevendo = False
+
+    else:
+        if event.type == pygame.MOUSEBUTTONDOWN: texto_campo_senha_escrevendo = False
+
+    if event.type == pygame.KEYDOWN:
+        if event.key == pygame.K_RETURN and texto_campo_senha_escrevendo: texto_campo_senha_escrevendo = False
+
+        elif event.key == pygame.K_BACKSPACE and texto_campo_senha_escrevendo: texto_campo_senha_real.frase = texto_campo_senha_real.frase[:-1]
+        
+        elif event.key == pygame.K_TAB and texto_campo_senha_escrevendo:
+            texto_campo_login_escrevendo = True
+            texto_campo_senha_escrevendo = False
+
+        else:
+            if texto_campo_senha_escrevendo: texto_campo_senha_real.frase += event.unicode
                 
-    if len(texto_campo_senha.frase) > len(texto_campo_senha_real.frase):
-        texto_campo_senha.frase = texto_campo_senha.frase [:-1]
-    elif len(texto_campo_senha.frase) < len(texto_campo_senha_real.frase):
-        texto_campo_senha.frase += '*'
+    if len(texto_campo_senha.frase) > len(texto_campo_senha_real.frase): texto_campo_senha.frase = texto_campo_senha.frase [:-1]
+    elif len(texto_campo_senha.frase) < len(texto_campo_senha_real.frase): texto_campo_senha.frase += '*'
+
+def escrever_login_senha(event):
+    escrever_login(event)
+    escrever_senha(event)
 
 def lendo_login():
 

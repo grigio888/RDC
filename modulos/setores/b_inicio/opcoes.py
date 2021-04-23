@@ -10,14 +10,13 @@ from modulos.setores.a_pagina_inicial.inicio import texto_campo_login, db_login
 # conectando ao banco de dados:
 comando = ('select * from opcoes where login_FK = "'+texto_campo_login.frase+'"')
 db_login.ler(comando)
-
 dados_do_banco_opcoes = db_login.resultado
 
 # variaveis:
 janela_opcoes = ExibirImagem('modulos/setores/b_inicio/opcoes_ext/janela_opcoes.png', 920, 539, 7.4, 66.6)
 texto_opcoes = Escrever(janela_opcoes.pos_x + 2, janela_opcoes.pos_y + 0.9, 'titulo', 'Opcoes', 'preto')
 
-caixa_confirmadora_bgm = ExibirImagemInterativa('modulos/setores/b_inicio/opcoes_ext/caixa_marcada.png', 'modulos/setores/b_inicio/opcoes_ext/caixa_nao_marcada.png', bool(dados_do_banco_opcoes[0][1]), 35, 35, 11.3, 71.6)#, )
+caixa_confirmadora_bgm = ExibirImagemInterativa('modulos/setores/b_inicio/opcoes_ext/caixa_marcada.png', 'modulos/setores/b_inicio/opcoes_ext/caixa_nao_marcada.png', dados_do_banco_opcoes[0][1], 35, 35, 11.3, 71.6)#, )
 texto_bgm = Escrever(20, 71.6, 'corpo', 'BGM', 'preto')
 barra_intensidade_seta_menor_bgm = ExibirImagem('modulos/setores/b_inicio/opcoes_ext/barra_intensidade_menor.png', 35, 46, 32.1, 71.2)
 barra_intensidade_esteira_bgm = ExibirImagem('modulos/setores/b_inicio/opcoes_ext/barra_intensidade_esteira.png', 542, 32, 35.3, 71.6)
@@ -25,7 +24,7 @@ barra_intensidade_seta_maior_bgm = ExibirImagem('modulos/setores/b_inicio/opcoes
 esfera_marcadora_bgm = ExibirImagem('modulos/setores/b_inicio/opcoes_ext/esfera_marcadora.png', 27, 32, 50, 71.6)
 esfera_marcadora_bgm_volume = 20
 
-caixa_confirmadora_sfx = ExibirImagemInterativa('modulos/setores/b_inicio/opcoes_ext/caixa_marcada.png', 'modulos/setores/b_inicio/opcoes_ext/caixa_nao_marcada.png', bool(dados_do_banco_opcoes[0][3]), 35, 35, 11.3, 75.9)#, dados_do_banco_opcoes[0][3])
+caixa_confirmadora_sfx = ExibirImagemInterativa('modulos/setores/b_inicio/opcoes_ext/caixa_marcada.png', 'modulos/setores/b_inicio/opcoes_ext/caixa_nao_marcada.png', dados_do_banco_opcoes[0][3], 35, 35, 11.3, 75.9)#, dados_do_banco_opcoes[0][3])
 texto_sfx = Escrever(20, 75.9, 'corpo', 'SFX', 'preto')
 barra_intensidade_seta_menor_sfx = ExibirImagem('modulos/setores/b_inicio/opcoes_ext/barra_intensidade_menor.png', 35, 46, 32.1, 75.5)
 barra_intensidade_esteira_sfx = ExibirImagem('modulos/setores/b_inicio/opcoes_ext/barra_intensidade_esteira.png', 542, 32, 35.3, 75.9)
@@ -33,7 +32,7 @@ barra_intensidade_seta_maior_sfx = ExibirImagem('modulos/setores/b_inicio/opcoes
 esfera_marcadora_sfx = ExibirImagem('modulos/setores/b_inicio/opcoes_ext/esfera_marcadora.png', 27, 32, 50, 75.9)
 esfera_marcadora_sfx_volume = 20
 
-caixa_confirmadora_efeitos = ExibirImagemInterativa('modulos/setores/b_inicio/opcoes_ext/caixa_marcada.png', 'modulos/setores/b_inicio/opcoes_ext/caixa_nao_marcada.png', bool(dados_do_banco_opcoes[0][5]), 35, 35, 11.3, 81.8)#, dados_do_banco_opcoes[0][5])
+caixa_confirmadora_efeitos = ExibirImagemInterativa('modulos/setores/b_inicio/opcoes_ext/caixa_marcada.png', 'modulos/setores/b_inicio/opcoes_ext/caixa_nao_marcada.png', dados_do_banco_opcoes[0][5], 35, 35, 11.3, 81.8)#, dados_do_banco_opcoes[0][5])
 texto_efeitos = Escrever(20, 81.8, 'corpo', 'Efeitos', 'preto')
 
 botao_ok = ExibirImagem('modulos/setores/b_inicio/opcoes_ext/botao_curto.png', 106, 69, 80.5, 88.6)
@@ -189,22 +188,36 @@ def interacao_confirmacao_mouse_saida(event):
 def gravando_alteracoes_db():
     login = sqlite3.connect('modulos/databases/local_conta.db') #Loga
     cursor = login.cursor() #Aponta
-    comando = ('update opcoes set bgm_cx = %s where login_FK = %s') #, bgm_vol = %s, sfx_cx = %s, sfx_vol = %s, fx_cx = %s
-    cursor.execute(comando, (int(caixa_confirmadora_bgm.estado), texto_campo_login.frase)) #esfera_marcadora_bgm_volume, int(caixa_confirmadora_sfx.estado), esfera_marcadora_sfx_volume, int(caixa_confirmadora_sfx.estado)
+    comando = ('update opcoes set bgm_cx = %d where login_FK = "'+texto_campo_login.frase+'"') #, bgm_vol = %s, sfx_cx = %s, sfx_vol = %s, fx_cx = %s
+    cursor.execute(comando, caixa_confirmadora_bgm.estado)
+    #esfera_marcadora_bgm_volume, int(caixa_confirmadora_sfx.estado), esfera_marcadora_sfx_volume, int(caixa_confirmadora_sfx.estado)
     login.commit() #Commit
     login.close()
 
 if __name__ == '__main__':
 
-    while True:
-        for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    game_rodando = False
-                    setor = 'saida'
-                    subsetor = 'saida'
+    pygame.init()
+    pygame.mixer.init()
 
-        desenho_pagina_inicial()
+    rodando = True
+    while rodando:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                rodando = False
+
+            # interacao com o mouse
+            interacao_opcoes_mouse_evento(event)
+            interacao_opcoes_mouse_saida(event)
+            if interacao_opcoes_mouse_saida(event) == 'caiu':
+                gravando_alteracoes_db()
+                rodando = False
+
+        interacao_opcoes_mouse()
+
+        # desenhando elementos na tela
+        desenho_landing_page()
         desenho_pagina_opcoes()
 
+        # atualizacao da tela
         pygame.display.update()
         relogio_de_atualizacao.tick(ponteiro)

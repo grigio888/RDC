@@ -301,6 +301,7 @@ def adicionando_cadastro():
     cursor.execute(("insert into login values ('"+texto_campo_login_extras.frase+"', '"+texto_campo_senha_extras_real.frase+"', '"+texto_campo_email_extras.frase+"')"))
     cursor.execute(("insert into opcoes values ('"+texto_campo_login_extras.frase+"', '1', '20', '1', '20', '1')"))
     cursor.execute(("insert into info_conta values ('"+texto_campo_login_extras.frase+"', '0', '0', '1000')"))
+    cursor.execute(("insert into personagens values ('"+texto_campo_login_extras.frase+"', 0, 'padrao', 0, 0, 0, 0, 0, 0, 0, 0)"))
     
     
     login.commit()

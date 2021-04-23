@@ -1,11 +1,11 @@
 import pygame, sys
 import sqlite3
+
+sys.path.append('C:/Users/Grigio/Desktop/GitHub/RDC')
+
 from modulos.segmentacao import *
 
-sys.path.append(caminho_raiz_pc)
-
 tela_tamanho = pygame.display.get_window_size()
-
 som_clique = pygame.mixer.Sound('modulos/som/sfx/mouse/click.ogg')
 
 #Esqueletos
@@ -25,6 +25,8 @@ class ExibirImagem():
 		self.altura_transformada = 0
 		self.transformado = 0
 		self.automatico()
+		self.retangulo = 0
+		self.criando_retangulo()
 
 	def porcentagem_pos(self):
 		self.porcentagem_pos_x = tela_tamanho[0] / 100 * self.pos_x
@@ -41,6 +43,9 @@ class ExibirImagem():
 		self.porcentagem_pos()
 		self.transformando_resolucao()
 		self.transformando_imagem()
+
+	def criando_retangulo(self):
+		self.retangulo = pygame.Rect(self.porcentagem_pos_x, self.porcentagem_pos_y, self.largura_transformada, self.altura_transformada)
 
 	def desenho(self):
 		tela.blit(self.transformado, (self.porcentagem_pos_x, self.porcentagem_pos_y))
@@ -210,6 +215,73 @@ class FerramentaBancoDeDados():
 		login.close() #Encerra conexão
 
 
+class Mouse():
+
+	def __init__(self):
+		self.caminho = 'modulos/pack_img/mouse/mouse_stb_1.png'
+		self.imagem = pygame.image.load(self.caminho)
+		self.pos_x = 0
+		self.pos_y = 0
+		self.largura = 26
+		self.altura = 31
+		self.dimensao_mult = 2
+		self.largura_transformada = 0
+		self.altura_transformada = 0
+		self.transformado = 0
+
+		self.relogio = 0
+		self.animacao_frame = 0
+		self.estado_mouse = 'standby'
+		self.imagens_cursor_standby = ['modulos/pack_img/mouse/mouse_stb_1.png', 'modulos/pack_img/mouse/mouse_stb_2.png', 'modulos/pack_img/mouse/mouse_stb_3.png', 'modulos/pack_img/mouse/mouse_stb_4.png', 'modulos/pack_img/mouse/mouse_stb_5.png', 'modulos/pack_img/mouse/mouse_stb_6.png', ]
+		self.imagens_cursor_apontador = ['modulos/pack_img/mouse/mouse_apt_1.png', 'modulos/pack_img/mouse/mouse_apt_2.png']
+
+		self.automatico()
+		self.retangulo = pygame.Rect(self.pos_x, self.pos_y, 1, 1)
+
+	def posicao(self):
+		self.pos_x = pygame.mouse.get_pos()[0]
+		self.pos_y = pygame.mouse.get_pos()[1]
+		self.retangulo = pygame.Rect(self.pos_x, self.pos_y, 1, 1)
+
+	def transformando_resolucao(self):
+		self.largura_transformada = round(self.largura * (tela_tamanho[0] / 1080))
+		self.altura_transformada = round(self.altura * (tela_tamanho[1] / 2020))
+
+	def transformando_imagem(self):
+		self.transformado = pygame.transform.smoothscale(self.imagem.convert_alpha(), (round((self.largura_transformada * self.dimensao_mult)), round((self.altura_transformada* self.dimensao_mult))))
+
+	def automatico(self):
+		self.posicao()
+		self.transformando_resolucao()
+		self.transformando_imagem()
+
+	def animacao(self):
+		self.relogio += 1
+		if self.estado_mouse == 'apontador':
+			self.dimensao_mult = 2.5
+			if not pygame.mouse.get_pressed()[0]:
+				self.imagem = pygame.image.load(self.imagens_cursor_apontador[0])
+				self.transformando_imagem()
+			if pygame.mouse.get_pressed()[0]:
+				self.imagem = pygame.image.load(self.imagens_cursor_apontador[1])
+				self.transformando_imagem()
+		else:
+			self.dimensao_mult = 2
+			if self.relogio > 49 and self.relogio % 2 == 0: self.animacao_frame += 1
+			if self.relogio >= 60:
+				self.relogio = 0
+				self.animacao_frame = 0
+			if self.animacao_frame >= len(self.imagens_cursor_standby): self.animacao_frame = 0
+			self.imagem = pygame.image.load(self.imagens_cursor_standby[self.animacao_frame])
+			self.transformando_imagem()
+
+
+	def desenho(self):
+		self.posicao()
+		self.animacao()
+		tela.blit(self.transformado, (self.pos_x, self.pos_y))
+
+
 class Loading(ExibirImagem):
 
 	def __init__(self, pos_x, pos_y, porcentagem_de_carregamento):
@@ -235,13 +307,22 @@ class Loading(ExibirImagem):
 		self.texto_carregamento = Escrever(self.pos_x + 22.3, self.pos_y + 8.1, 'titulo', self.porcentagem_de_carregamento + '%', 'preto', 'centro')
 		self.texto_carregamento.desenho()
 
+
+def atualizacao_da_tela():
+	pygame.display.update()
+	relogio_de_atualizacao.tick(ponteiro)
+	tela_tamanho = pygame.display.get_window_size()
+
+
+############################################################################################################
+
+
 def pressionar_botao(botao):
 	if pygame.mouse.get_pos()[0] >= botao.porcentagem_pos_x and pygame.mouse.get_pos()[1] >= botao.porcentagem_pos_y and pygame.mouse.get_pos()[0] <= botao.porcentagem_pos_x + botao.largura_transformada and pygame.mouse.get_pos()[1] <= botao.porcentagem_pos_y + botao.altura_transformada:
 		som_clique.play()
 		return True
 	else:
 		return False
-
 
 def capturar_posicao_mouse():
     largura = tela_largura[tela_resolucao]

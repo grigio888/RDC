@@ -6,7 +6,18 @@ Segundo projeto que estou usando para escalabilidade de codigos em um programa d
 
 Change Logs:
 
-03/01/21:
+23/04/21:
+- Melhorado o sistema de colisão de objetos (Para otimização do código).
+- Criado cursor personalizado, para participar das colisões.
+- Criado animações do cursor (Dois estados).
+
+- Por algum motivo:
+-- Apesar de estarem dentro da mesma função, alguns objetos não reagem devidamente à colisão.
+-- Apesar de estarem dentro da mesma função, alguns objetos não emitem som ao serem clicados.
+
+
+
+12/04/21:
 - Trocado o sistema de banco de dados (De MySQL para SQLite3).
 
 
