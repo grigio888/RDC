@@ -10,9 +10,8 @@ from modulos.setores.a_pagina_inicial.inicio import texto_campo_login, texto_cam
 pygame.init()
 
 # conectando ao banco de dados:
-comando = ('select no_char, score, zeny from info_conta where login_FK = "'+texto_campo_login.frase+'"')
-db_login.ler(comando)
-dados_landing_page = db_login.resultado
+comando = (f'select no_char, score, zeny from info_conta where login_FK = "{texto_campo_login.frase}"')
+dados_landing_page = db_login.ler(comando)
 
 # variaveis:
 
@@ -70,13 +69,10 @@ def verificando_personagem():
     global personagem_0
 
     comando = ('select criado from login inner join personagens on login.login = personagens.login_FK where login = "'+texto_campo_login.frase+'"')
-    db_login.ler(comando)
-    dados_personagens = db_login.resultado
+    dados_personagens = db_login.ler(comando)
 
-    if dados_personagens[0][0] == 0:
-        personagem_0 = False
-    elif dados_personagens[0][0] == 1:
-        personagem_0 = True
+    if dados_personagens[0][0] == 0: personagem_0 = False
+    elif dados_personagens[0][0] == 1: personagem_0 = True
 
 def desenhando_personagem():
     if personagem_0 == 0:

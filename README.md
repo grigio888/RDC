@@ -4,7 +4,21 @@ Segundo projeto que estou usando para escalabilidade de codigos em um programa d
 
 ----------------------------------------------------------------------------------------------
 
+
 Change Logs:
+
+24/04/21:
+- Otimizado a classe para manipulação do banco de dados.
+- Otimizado a classe de escrita para consumir menos tempo de execução.
+- Corrigido problema de crash ao enviar dados das opções para o banco de dados (erro na query).
+- Corrigido problema de alguns objetos não reagirem devidamente à colisão.
+- Corrigido problema de alguns objetos não emitirem som ao serem clicados.
+
+- O botão de 'OK' e 'Criar Conta' no menu Extras não estão mudando a animação do mouse.
+- As opções não estão sendo lidas corretamente no menu Opções, apesar de estarem sendo executadas.
+- Retirado o código para função Full-Screen (Será estudado uma implementação eficaz).
+
+
 
 23/04/21:
 - Melhorado o sistema de colisão de objetos (Para otimização do código).
@@ -69,7 +83,7 @@ Obs.: A demora entre o commit anterior e esse é por estar aprendendo sql.
 - Corrigido transição da tela inicial para à Landing Page (loading 0.3s)
 - Varias outras otimizações menores e gerenciamento de dados.
 
-Me deparei com diversos problemas de otimização de código, com esperas de até 10s nos smarphones.
+Me deparei com diversos problemas de otimização de código, com esperas de até 10s nos smartphones.
 Corrigido o problema, loadings praticamente instataneos agora.
 
 

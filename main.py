@@ -28,7 +28,7 @@ while game_rodando:
                 # interacao com o mouse
                 
                 if mouse_colidindo(botao_entrar):
-                    if event.type == pygame.MOUSEBUTTONDOWN:
+                    if mouse_clicando():
                         autenticacao = lendo_login()
                         if autenticacao:
                             from modulos.setores.b_inicio.landing_page import *
@@ -38,11 +38,11 @@ while game_rodando:
                             subsetor = 'autenticacao falha'
 
                 elif mouse_colidindo(botao_sair):
-                    if event.type == pygame.MOUSEBUTTONDOWN:
+                    if mouse_clicando():
                         pygame.QUIT()
 
                 elif mouse_colidindo(botao_extras):
-                    if event.type == pygame.MOUSEBUTTONDOWN:
+                    if mouse_clicando():
                         from modulos.setores.a_pagina_inicial.extras import *
                         subsetor = 'extras'
 
@@ -62,7 +62,7 @@ while game_rodando:
 
                 # interacao com o mouse
                 if mouse_colidindo(botao_ok_aviso):
-                    if event.type == pygame.MOUSEBUTTONDOWN:
+                    if mouse_clicando():
                         subsetor = 'inicio'
 
 
@@ -83,12 +83,12 @@ while game_rodando:
 
                 # interacao com o mouse
                 if mouse_colidindo(botao_criar_conta):
-                    if event.type == pygame.MOUSEBUTTONDOWN:
+                    if mouse_clicando():
                         entrando_criar_conta()
                         subsetor = 'criar conta'
 
                 if mouse_colidindo(botao_ok_extras):
-                    if event.type == pygame.MOUSEBUTTONDOWN:
+                    if mouse_clicando():
                         subsetor = 'caiu'
 
             # desenhando elementos na tela
@@ -110,11 +110,11 @@ while game_rodando:
 
                 # interacao com o mouse
                 if mouse_colidindo(botao_cancelar_extras):
-                    if event.type == pygame.MOUSEBUTTONDOWN:
+                    if mouse_clicando():
                         subsetor = 'extras'
 
                 if mouse_colidindo(botao_confirmar_extras):
-                    if event.type == pygame.MOUSEBUTTONDOWN:
+                    if mouse_clicando():
                         verificador = verificando_duplicidade_cadastro()
                         subsetor = 'confirmacao'
 
@@ -139,23 +139,23 @@ while game_rodando:
                 # interacao com o mouse
                 if verificador == 'ok':
                     if mouse_colidindo(botao_nao_aviso_extras):
-                        if event.type == pygame.MOUSEBUTTONDOWN:
+                        if mouse_clicando():
                             subsetor = 'criar conta'
 
                     if mouse_colidindo(botao_ok_aviso_extras):
-                        if event.type == pygame.MOUSEBUTTONDOWN:
+                        if mouse_clicando():
                             if texto_campo_senha_extras_real.frase == texto_campo_confirmacao_senha_aviso_real.frase:
                                 adicionando_cadastro()
                                 verificador = 'cadastro concluido'
                 
                 if verificador == 'login duplicado' or verificador == 'email duplicado':
                     if mouse_colidindo(botao_ok_aviso_login_extras):
-                        if event.type == pygame.MOUSEBUTTONDOWN:
+                        if mouse_clicando():
                             subsetor = 'criar conta'
 
                 if verificador == 'cadastro concluido':
                     if mouse_colidindo(botao_ok_aviso_login_extras):
-                        if event.type == pygame.MOUSEBUTTONDOWN:
+                        if mouse_clicando():
                             subsetor = 'caiu'
 
             # desenhando elementos na tela
@@ -180,7 +180,7 @@ while game_rodando:
                 if event.type == pygame.QUIT:
                     pygame.QUIT()
 
-                if event.type == pygame.MOUSEBUTTONDOWN:
+                if mouse_clicando():
                     if mouse_colidindo(frame_opcoes):
                         subsetor = 'opcoes'
 
@@ -206,11 +206,31 @@ while game_rodando:
                     subsetor = 'caiu'
 
                 # interacao com o mouse
-                interacao_opcoes_mouse_evento(event)
-                interacao_opcoes_mouse_saida(event)
-                if interacao_opcoes_mouse_saida(event) == 'caiu':
-                    gravando_alteracoes_db()
-                    subsetor = 'caiu'
+                if mouse_colidindo(caixa_confirmadora_bgm):
+                    if mouse_clicando():
+                        caixa_confirmadora_bgm.mudanca_de_estado()
+                        caixa_confirmadora_bgm.automatico()
+                if mouse_colidindo(caixa_confirmadora_sfx):
+                    if mouse_clicando():
+                        caixa_confirmadora_sfx.mudanca_de_estado()
+                        caixa_confirmadora_sfx.automatico()
+                if mouse_colidindo(caixa_confirmadora_efeitos):
+                    if mouse_clicando():
+                        caixa_confirmadora_efeitos.mudanca_de_estado()
+                        caixa_confirmadora_efeitos.automatico()
+
+                if mouse_colidindo(botao_ok):
+                    if mouse_clicando():
+                        gravando_alteracoes_db()
+                        subsetor = 'caiu'
+
+                if mouse_colidindo(botao_nao_confirmacao):
+                    if mouse_clicando():
+                        subsetor = 'caiu'
+                if mouse_colidindo(botao_ok_confirmacao):
+                    if mouse_clicando():
+                        gravando_alteracoes_db()
+                        subsetor = 'caiu'
 
             interacao_opcoes_mouse()
 

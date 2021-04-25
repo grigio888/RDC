@@ -29,15 +29,21 @@ mouse = Mouse()
 for event in pygame.event.get():
     pass
 
+#########################################################################
+
 def mouse_colidindo(objeto):
     variavel = pygame.Rect.colliderect(mouse.retangulo, objeto.retangulo)
     if variavel:
         mouse.estado_mouse = 'apontador'
-        if event.type == pygame.MOUSEBUTTONDOWN:
-            som_clique.play()
         return variavel
     if not variavel:
         mouse.estado_mouse = 'standby'
+
+def mouse_clicando():
+    variavel = pygame.mouse.get_pressed()[0]
+    if variavel:
+        som_clique.play()
         return variavel
+
 
 from modulos.setores.a_pagina_inicial.inicio import *

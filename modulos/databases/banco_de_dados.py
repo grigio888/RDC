@@ -21,6 +21,7 @@ class FerramentaBancoDeDados():
 		cursor.execute(executar) #Executa comando
 		self.resultado = cursor.fetchall() #Lê o cursor
 		login.close() #Encerra conexão
+		return self.resultado
 
 
 if __name__ == "__main__":
@@ -34,22 +35,15 @@ if __name__ == "__main__":
     comando_5 = ('select criado from login inner join personagens on login.login = personagens.login_FK where login = "grigio888"')
     
     comando = ('update opcoes set bgm_cx = %s where login_FK = "grigio888"')
-    try:
-        db_login.executar(comando, '1')
-        print('deu')
-    except Exception as e:
-        print('nao deu')
-        print(e)
-    finally:
-        print('continuou')
+
+
     
-    #db_login.ler(comando_5)
-    #print(db_login.resultado[0][0])
+    print(db_login.ler(comando_5))
 
 
-    #db_login.ler('SELECT rowid, name FROM sqlite_master WHERE type="table"')
-    #for item in db_login.resultado:
-    #    print(item)
-    #    db_login.ler('select rowid, * from "'+str(item[1])+'"')
-    #    for item in db_login.resultado:
-    #        print(item)
+    comando_loop = ('SELECT rowid, name FROM sqlite_master WHERE type="table"')
+    for item in db_login.ler(comando_loop):
+        print(item)
+        comando_loop2 = (f'select rowid, * from "{item[1]}"')
+        for item in db_login.ler(comando_loop2):
+            print(item)

@@ -203,22 +203,14 @@ def verificando_duplicidade_cadastro():
 
     global texto_campo_login_extras, texto_campo_email_extras
 
-    login = sqlite3.connect('modulos/databases/local_conta.db')
-    cursor = login.cursor()
+    comando = (f'select login from login where login = "{texto_campo_login_extras.frase}"')
+    comparador_login = db_login.ler(comando)
+    comando = (f'select email from login where email = "{texto_campo_email_extras.frase}"'))
+    comparador_email = db_login.ler(comando)
 
-    cursor.execute(('select login from login where login = "'+texto_campo_login_extras.frase+'" and login = "'+texto_campo_login_extras.frase+'"'))
-    comparador_login = cursor.fetchall()
-    cursor.execute(('select email from login where email = "'+texto_campo_email_extras.frase+'" and email = "'+texto_campo_email_extras.frase+'"'))
-    comparador_email = cursor.fetchall()
-
-    login.close()
-
-    if len(comparador_login) == 1:
-        return 'login duplicado'
-    elif len(comparador_login) == 0 and len(comparador_email) == 1:
-        return 'email duplicado'
-    else:
-        return 'ok'
+    if len(comparador_login) == 1: return 'login duplicado'
+    elif len(comparador_login) == 0 and len(comparador_email) == 1: return 'email duplicado'
+    else: return 'ok'
 
 
 
@@ -295,17 +287,10 @@ def adicionando_cadastro():
 
     global texto_campo_login_extras, texto_campo_email_extras, texto_campo_senha_extras_real
 
-    login = sqlite3.connect('modulos/databases/local_conta.db')
-    cursor = login.cursor()
-
-    cursor.execute(("insert into login values ('"+texto_campo_login_extras.frase+"', '"+texto_campo_senha_extras_real.frase+"', '"+texto_campo_email_extras.frase+"')"))
-    cursor.execute(("insert into opcoes values ('"+texto_campo_login_extras.frase+"', '1', '20', '1', '20', '1')"))
-    cursor.execute(("insert into info_conta values ('"+texto_campo_login_extras.frase+"', '0', '0', '1000')"))
-    cursor.execute(("insert into personagens values ('"+texto_campo_login_extras.frase+"', 0, 'padrao', 0, 0, 0, 0, 0, 0, 0, 0)"))
-    
-    
-    login.commit()
-    login.close()
+    db_login.executar(f'insert into login values ("{texto_campo_login_extras.frase}", "{texto_campo_senha_extras_real.frase}", "{texto_campo_email_extras.frase}")')
+    db_login.executar(f'insert into opcoes values ("{texto_campo_login_extras.frase}", '1', '20', '1', '20', '1')"))
+    db_login.executar(f'insert into info_conta values ("{texto_campo_login_extras.frase}", '0', '0', '1000')"))
+    db_login.executar(f'insert into personagens values ("{texto_campo_login_extras.frase}", 0, "padrao", 0, 0, 0, 0, 0, 0, 0, 0)"))
 
 if __name__ == '__main__':
 

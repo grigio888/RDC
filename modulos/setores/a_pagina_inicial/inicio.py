@@ -98,9 +98,7 @@ def escrever_login(event):
     global texto_campo_login_escrevendo, texto_campo_login_entrada, texto_campo_senha_escrevendo, texto_campo_login
 
     if pygame.Rect.colliderect(mouse.retangulo, campo_login.retangulo):
-        if event.type == pygame.MOUSEBUTTONDOWN:
-            texto_campo_login_escrevendo = True
-            if texto_campo_login_escrevendo == texto_campo_senha_escrevendo: texto_campo_senha_escrevendo = False
+        if event.type == pygame.MOUSEBUTTONDOWN: texto_campo_login_escrevendo = True
 
     else:
         if event.type == pygame.MOUSEBUTTONDOWN: texto_campo_login_escrevendo = False
@@ -153,16 +151,11 @@ def lendo_login():
 
     global texto_campo_login, texto_campo_senha_real
 
-    comando = ('select login, senha from login where login = "'+texto_campo_login.frase+'" and senha = "'+texto_campo_senha_real.frase+'"')
-    db_login.ler(comando)
+    comando = (f'select login, senha from login where login = "{texto_campo_login.frase}" and senha = "{texto_campo_senha_real.frase}"')
+    dados = db_login.ler(comando)
 
-    dados = db_login.resultado
-
-    if len(dados) == 1:
-        autenticador = True
-    else:
-        autenticador = False
-
+    if len(dados) == 1: autenticador = True
+    else: autenticador = False
     return autenticador
 
 if __name__ == '__main__':

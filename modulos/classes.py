@@ -56,25 +56,26 @@ class ExibirImagemInterativa(ExibirImagem):
 		super().__init__(caminho, largura, altura, pos_x, pos_y)
 		self.caminho2 = caminho2
 		self.estado = estado
+		self.estado_int = int(self.estado)
 		self.verificando_estado()
 
 	def verificando_estado(self):
 		if self.estado:
 			self.imagem = pygame.image.load(self.caminho)
-			self.desenho()
-		else:
+		if not self.estado:
 			self.imagem = pygame.image.load(self.caminho2)
-			self.desenho()
 
 	def mudanca_de_estado(self):
 		if self.estado:
 			self.imagem = pygame.image.load(self.caminho2)
 			self.estado = not self.estado
-			self.desenho()
 		else:
 			self.imagem = pygame.image.load(self.caminho)
 			self.estado = not self.estado
-			self.desenho()
+
+	def desenho(self):
+		self.verificando_estado()
+		tela.blit(self.transformado, (self.porcentagem_pos_x, self.porcentagem_pos_y))
 
 class ExibirItem(ExibirImagem):
 
@@ -120,13 +121,14 @@ class ExibirItem(ExibirImagem):
 
 class Escrever():
 
-	def __init__(self, pos_x, pos_y, tipo, frase, cor, alinhamento = 'esquerda'):
+	def __init__(self, pos_x, pos_y, tipo, frase, cor_escolhida, alinhamento = 'esquerda'):
 		self.pos_x = pos_x
 		self.pos_y = pos_y
 		
 		self.tipo = tipo
 		self.frase = frase
-		self.cor = cor
+		self.cor_escolhida = cor_escolhida
+		self.cor = 0
 		self.alinhamento = alinhamento
 		self.tamanho = 1
 
@@ -141,56 +143,37 @@ class Escrever():
 		self.mudando_cor()
 
 		self.fonte = pygame.font.Font('modulos/pixelmix.ttf', self.tamanho)
+		self.espaco_do_texto = 0
 	
 	def porcentagem_pos(self):
 		self.porcentagem_pos_x = tela_tamanho[0] / 100 * self.pos_x
 		self.porcentagem_pos_y = tela_tamanho[1] / 100 * self.pos_y
 	
 	def mudando_tamanho(self):
-		if self.tipo == 'titulo':
-			tamanho_padrao = 27
-			self.tamanho = round((tamanho_padrao * tela_tamanho[0]) / 1080)
-
-		if self.tipo == 'botao':
-			tamanho_padrao = 36
-			self.tamanho = round((tamanho_padrao * tela_tamanho[0]) / 1080)
-
-		if self.tipo == 'corpo':
-			tamanho_padrao = 32
-			self.tamanho = round((tamanho_padrao * tela_tamanho[0]) / 1080)
-		
-		if self.tipo == 'item':
-			tamanho_padrao = 22
-			self.tamanho = round((tamanho_padrao * tela_tamanho[0]) / 1080)
-
-		if self.tipo == 'atributo':
-			tamanho_padrao = 30
-			self.tamanho = round((tamanho_padrao * tela_tamanho[0]) / 1080)
+		tamanhos = {'titulo': 27, 'botao': 36, 'corpo': 32, 'item': 22, 'atributo': 30}
+		for item in tamanhos:
+			if item == self.tipo: tamanho_padrao = tamanhos[item]
+		self.tamanho = round((tamanho_padrao * tela_tamanho[0]) / 1080)
 		
 	def mudando_cor(self):
-		if self.cor == 'preto':
-			self.cor = (0, 0, 0)
-		elif self.cor == 'vermelho':
-			self.cor = (150, 0, 0)
-		elif self.cor == 'verde':
-			self.cor = (0, 150, 0)
-		elif self.cor == 'azul':
-			self.cor = (54, 69, 111)
-		elif self.cor == 'cinza':
-			self.cor = (178, 178, 178)
-		else:
-			pass
-			
-	def desenho(self):
+		cores = {'preto': (0, 0, 0), 'vermelho': (150, 0, 0), 'verde': (0, 150, 0), 'azul': (54, 69, 111), 'cinza': (178, 178, 178)}
+		self.cor = cores['preto']
+		for item in cores:
+			if item == self.cor_escolhida: self.cor = cores[item]
+
+	def definindo_local_escrita(self):
 		self.texto = self.fonte.render(self.frase, True, self.cor)
-		espaco_do_texto = self.texto.get_rect()
+		self.espaco_do_texto = self.texto.get_rect()
+
+	def desenho(self):
+		self.definindo_local_escrita()
 		if self.alinhamento == 'esquerda':
-			espaco_do_texto.topleft = (self.porcentagem_pos_x, self.porcentagem_pos_y)
+			self.espaco_do_texto.topleft = (self.porcentagem_pos_x, self.porcentagem_pos_y)
 		if self.alinhamento == 'centro':
-			espaco_do_texto.midtop = (self.porcentagem_pos_x, self.porcentagem_pos_y)
+			self.espaco_do_texto.midtop = (self.porcentagem_pos_x, self.porcentagem_pos_y)
 		if self.alinhamento == 'direita':
-			espaco_do_texto.topright = (self.porcentagem_pos_x, self.porcentagem_pos_y)
-		tela.blit(self.texto, espaco_do_texto)
+			self.espaco_do_texto.topright = (self.porcentagem_pos_x, self.porcentagem_pos_y)
+		tela.blit(self.texto, self.espaco_do_texto)
 
 class FerramentaBancoDeDados():
 	
@@ -213,6 +196,7 @@ class FerramentaBancoDeDados():
 		cursor.execute(executar) #Executa comando
 		self.resultado = cursor.fetchall() #Lê o cursor
 		login.close() #Encerra conexão
+		return self.resultado
 
 
 class Mouse():
@@ -323,20 +307,3 @@ def pressionar_botao(botao):
 		return True
 	else:
 		return False
-
-def capturar_posicao_mouse():
-    largura = tela_largura[tela_resolucao]
-    altura = tela_altura[tela_resolucao]
-    porcentagem_pos_x = pygame.mouse.get_pos()[0] / largura * 100
-    porcentagem_pos_y = pygame.mouse.get_pos()[1] / altura * 100
-    return [porcentagem_pos_x, porcentagem_pos_y]
-
-def transicao(tela_largura, tela_altura, velocidade): 
-    transicao = pygame.Surface((tela_largura, tela_altura))
-    transicao.fill((0,0,0))
-    for alpha in range(0, 300):
-        transicao.set_alpha(alpha)
-        #redesenho_fundo()
-        tela.blit(transicao, (0,0))
-        pygame.display.update()
-        pygame.time.delay(velocidade)
