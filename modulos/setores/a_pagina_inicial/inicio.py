@@ -103,17 +103,16 @@ def escrever_login(event):
     else:
         if event.type == pygame.MOUSEBUTTONDOWN: texto_campo_login_escrevendo = False
 
-    if event.type == pygame.KEYDOWN:
-        if event.key == pygame.K_RETURN and texto_campo_login_escrevendo: texto_campo_login_escrevendo = False
+    if event.type == pygame.KEYDOWN and texto_campo_login_escrevendo:
+        if event.key == pygame.K_RETURN: texto_campo_login_escrevendo = False
 
-        elif event.key == pygame.K_BACKSPACE and texto_campo_login_escrevendo: texto_campo_login.frase = texto_campo_login.frase[:-1]
+        elif event.key == pygame.K_BACKSPACE: texto_campo_login.frase = texto_campo_login.frase[:-1]
 
-        elif event.key == pygame.K_TAB and texto_campo_login_escrevendo:
+        elif event.key == pygame.K_TAB:
             texto_campo_login_escrevendo = False
             texto_campo_senha_escrevendo = True
 
-        else:
-            if texto_campo_login_escrevendo: texto_campo_login.frase += event.unicode
+        else: texto_campo_login.frase += event.unicode
 
 def escrever_senha(event):
     

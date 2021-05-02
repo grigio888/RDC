@@ -300,6 +300,33 @@ def atualizacao_da_tela():
 
 ############################################################################################################
 
+class Personagem():
+	def __init__(self, nome, cabelo, classe, atributos, pos_x, pos_y):
+		self.nome = nome
+		self.cabelo = cabelo
+		self.classe = classe
+
+		self.atributos = atributos
+
+		self.acao = 'parado'
+
+		self.pos_x = pos_x
+		self.pos_y = pos_y
+		self.porcentagem_pos_x = 0
+		self.porcentagem_pos_y = 0
+		self.largura = 0
+		self.altura = 0
+		self.largura_transformada = 0
+		self.altura_transformada = 0
+		self.transformado = 0
+
+	def mudando_cabelo(self, comando):
+		
+		if comando == 'anterior':
+			pass
+
+
+############################################################################################################
 
 def pressionar_botao(botao):
 	if pygame.mouse.get_pos()[0] >= botao.porcentagem_pos_x and pygame.mouse.get_pos()[1] >= botao.porcentagem_pos_y and pygame.mouse.get_pos()[0] <= botao.porcentagem_pos_x + botao.largura_transformada and pygame.mouse.get_pos()[1] <= botao.porcentagem_pos_y + botao.altura_transformada:

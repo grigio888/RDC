@@ -29,6 +29,8 @@ while game_rodando:
                 
                 if mouse_colidindo(botao_entrar):
                     if mouse_clicando():
+                        pygame.key.start_text_input()
+                        pygame.key.set_text_input_rect(campo_login.retangulo)
                         autenticacao = lendo_login()
                         if autenticacao:
                             from modulos.setores.b_inicio.landing_page import *
@@ -180,11 +182,12 @@ while game_rodando:
                 if event.type == pygame.QUIT:
                     pygame.QUIT()
 
-                if mouse_clicando():
-                    if mouse_colidindo(frame_opcoes):
+                if mouse_colidindo(frame_opcoes):
+                    if mouse_clicando():
                         subsetor = 'opcoes'
 
-                    if mouse_colidindo(personagem_0_frame):
+                elif mouse_colidindo(personagem_0_frame):
+                    if mouse_clicando():
                         from modulos.setores.b_inicio.landing_page_criar_personagem import *
                         entrando_criar_personagem()
                         subsetor = 'criacao'
@@ -210,24 +213,24 @@ while game_rodando:
                     if mouse_clicando():
                         caixa_confirmadora_bgm.mudanca_de_estado()
                         caixa_confirmadora_bgm.automatico()
-                if mouse_colidindo(caixa_confirmadora_sfx):
+                elif mouse_colidindo(caixa_confirmadora_sfx):
                     if mouse_clicando():
                         caixa_confirmadora_sfx.mudanca_de_estado()
                         caixa_confirmadora_sfx.automatico()
-                if mouse_colidindo(caixa_confirmadora_efeitos):
+                elif mouse_colidindo(caixa_confirmadora_efeitos):
                     if mouse_clicando():
                         caixa_confirmadora_efeitos.mudanca_de_estado()
                         caixa_confirmadora_efeitos.automatico()
 
-                if mouse_colidindo(botao_ok):
+                elif mouse_colidindo(botao_ok):
                     if mouse_clicando():
                         gravando_alteracoes_db()
                         subsetor = 'caiu'
 
-                if mouse_colidindo(botao_nao_confirmacao):
+                elif mouse_colidindo(botao_nao_confirmacao):
                     if mouse_clicando():
                         subsetor = 'caiu'
-                if mouse_colidindo(botao_ok_confirmacao):
+                elif mouse_colidindo(botao_ok_confirmacao):
                     if mouse_clicando():
                         gravando_alteracoes_db()
                         subsetor = 'caiu'
@@ -262,10 +265,10 @@ while game_rodando:
             # desenhando elementos na tela
             desenho_landing_page()
             desenho_landing_page_criar_personagem()
-            mouse.desenho()
             
             desenho_aumento_de_atributo()
             calculos()
+            mouse.desenho()
 
             # atualizacao da tela
             atualizacao_da_tela()

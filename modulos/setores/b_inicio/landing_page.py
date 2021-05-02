@@ -37,7 +37,8 @@ janela_personagem = ExibirImagem('modulos/setores/b_inicio/landing_page/janela_m
 texto_personagem = Escrever(janela_personagem.pos_x + 2, janela_personagem.pos_y + 0.9, 'titulo', 'Personagem', 'preto')
 
 personagem_0_frame = ExibirImagem('modulos/setores/b_inicio/landing_page/frame_personagem.png', 404, 517, janela_personagem.pos_x + 5.6, janela_personagem.pos_y + 4.7)
-personagem_0 = False
+if dados_landing_page[0][0] == False: personagem_0 = False
+if dados_landing_page[0][0] == True: pass
 personagem_0_adicionar = ExibirImagem('modulos/setores/b_inicio/landing_page/adicionar.png', 60, 60, janela_personagem.pos_x + 21.6, janela_personagem.pos_y + 16)
 personagem_0_sombra = ExibirImagem('modulos/setores/b_inicio/landing_page/frame_sombra.png', 165, 94, janela_personagem.pos_x + 16.8, janela_personagem.pos_y + 24.3)
 personagem_0_nome = Escrever(janela_personagem.pos_x + 24.4, janela_personagem.pos_y + 31.1, 'item', 'Nome_Char', 'preto', 'centro')

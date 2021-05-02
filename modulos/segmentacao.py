@@ -39,11 +39,18 @@ def mouse_colidindo(objeto):
     if not variavel:
         mouse.estado_mouse = 'standby'
 
+clique = []
 def mouse_clicando():
-    variavel = pygame.mouse.get_pressed()[0]
-    if variavel:
-        som_clique.play()
-        return variavel
+	global clique
+	if pygame.mouse.get_pressed()[0]:
+		clique.append(pygame.mouse.get_pressed()[0])
+		if len(clique) == 1:
+			som_clique.play()
+			variavel = pygame.mouse.get_pressed()[0]
+			return variavel
+	else:
+		if len(clique) > 0:
+			clique = []
 
 
 from modulos.setores.a_pagina_inicial.inicio import *

@@ -236,15 +236,13 @@ def escrever_nome(event):
     
     global texto_nome_escrevendo, texto_nome_entrada, tempo
     
-    if event.type == pygame.MOUSEBUTTONDOWN:
-        if pygame.mouse.get_pos()[0] >= frame_nome.porcentagem_pos_x:
-            if pygame.mouse.get_pos()[1] >= frame_nome.porcentagem_pos_y:
-                if pygame.mouse.get_pos()[0] <= frame_nome.porcentagem_pos_x + frame_nome.largura_transformada:
-                    if pygame.mouse.get_pos()[1] <= frame_nome.porcentagem_pos_y + frame_nome.altura_transformada:
-                        texto_nome_escrevendo = True
-                        
-        else:
-            texto_nome_escrevendo = False
+    if mouse_colidindo(frame_nome):
+        if mouse_clicando():
+            if mouse_colidindo(frame_nome):
+                texto_nome_escrevendo = True
+                
+            else:
+                texto_nome_escrevendo = False
             
 
     if event.type == pygame.KEYDOWN:
@@ -267,41 +265,13 @@ def aumento_de_atributo(event):
     
     for index in range(0, 6):
         if pontos_de_atributos >= atributo_custo[index]:
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                if pygame.mouse.get_pos()[0] >= aumentar_atributo[index].porcentagem_pos_x:
-                    if pygame.mouse.get_pos()[1] >= aumentar_atributo[index].porcentagem_pos_y:
-                        if pygame.mouse.get_pos()[0] <= aumentar_atributo[index].porcentagem_pos_x + aumentar_atributo[index].largura_transformada:
-                            if pygame.mouse.get_pos()[1] <= aumentar_atributo[index].porcentagem_pos_y + aumentar_atributo[index].altura_transformada:
-                                if index == 0:
-                                    atributo_passivo_for += 1
-                                    pontos_de_atributos -= atributo_custo[index]
-                                    atributo_for.frase = str(atributo_passivo_for)
-                                    texto_pts_atributos_calculo.frase = str(pontos_de_atributos)
-                                if index == 1:
-                                    atributo_passivo_agi += 1
-                                    pontos_de_atributos -= atributo_custo[index]
-                                    atributo_agi.frase = str(atributo_passivo_agi)
-                                    texto_pts_atributos_calculo.frase = str(pontos_de_atributos)
-                                if index == 2:
-                                    atributo_passivo_vit += 1
-                                    pontos_de_atributos -= atributo_custo[index]
-                                    atributo_vit.frase = str(atributo_passivo_vit)
-                                    texto_pts_atributos_calculo.frase = str(pontos_de_atributos)
-                                if index == 3:
-                                    atributo_passivo_int += 1
-                                    pontos_de_atributos -= atributo_custo[index]
-                                    atributo_int.frase = str(atributo_passivo_int)
-                                    texto_pts_atributos_calculo.frase = str(pontos_de_atributos)
-                                if index == 4:
-                                    atributo_passivo_des += 1
-                                    pontos_de_atributos -= atributo_custo[index]
-                                    atributo_des.frase = str(atributo_passivo_des)
-                                    texto_pts_atributos_calculo.frase = str(pontos_de_atributos)
-                                if index == 5:
-                                    atributo_passivo_sor += 1
-                                    pontos_de_atributos -= atributo_custo[index]
-                                    atributo_sor.frase = str(atributo_passivo_sor)
-                                    texto_pts_atributos_calculo.frase = str(pontos_de_atributos)
+            if mouse_colidindo(aumentar_atributo[index]):
+                if mouse_clicando():
+                    atributo_passivo[index] += 1
+                    pontos_de_atributos -= atributo_custo[index]
+                    atributo[index] = str(atributo_passivo)
+                    texto_pts_atributos_calculo.frase = str(pontos_de_atributos)
+                    
                                 
 def desenho_aumento_de_atributo():
     

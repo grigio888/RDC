@@ -205,7 +205,7 @@ def verificando_duplicidade_cadastro():
 
     comando = (f'select login from login where login = "{texto_campo_login_extras.frase}"')
     comparador_login = db_login.ler(comando)
-    comando = (f'select email from login where email = "{texto_campo_email_extras.frase}"'))
+    comando = (f'select email from login where email = "{texto_campo_email_extras.frase}"')
     comparador_email = db_login.ler(comando)
 
     if len(comparador_login) == 1: return 'login duplicado'
@@ -288,9 +288,9 @@ def adicionando_cadastro():
     global texto_campo_login_extras, texto_campo_email_extras, texto_campo_senha_extras_real
 
     db_login.executar(f'insert into login values ("{texto_campo_login_extras.frase}", "{texto_campo_senha_extras_real.frase}", "{texto_campo_email_extras.frase}")')
-    db_login.executar(f'insert into opcoes values ("{texto_campo_login_extras.frase}", '1', '20', '1', '20', '1')"))
-    db_login.executar(f'insert into info_conta values ("{texto_campo_login_extras.frase}", '0', '0', '1000')"))
-    db_login.executar(f'insert into personagens values ("{texto_campo_login_extras.frase}", 0, "padrao", 0, 0, 0, 0, 0, 0, 0, 0)"))
+    db_login.executar(f'insert into opcoes values ("{texto_campo_login_extras.frase}", 1, 20, 1, 20, 1)"')
+    db_login.executar(f'insert into info_conta values ("{texto_campo_login_extras.frase}", 0, 0, 1000)"')
+    db_login.executar(f'insert into personagens values ("{texto_campo_login_extras.frase}", 0, "padrao", 0, 0, 0, 0, 0, 0, 0, 0)')
 
 if __name__ == '__main__':
 
